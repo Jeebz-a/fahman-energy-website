@@ -267,17 +267,26 @@ p{color:var(--ink-700);font-size:16px}
 }
 
 /* ============================================================ */
-/*  MOBILE / OVERFLOW SAFETY NET (loaded last — wins specificity) */
+/*  MOBILE / OVERFLOW SAFETY NET v2 (loaded last — wins specificity) */
 /* ============================================================ */
 html, body { overflow-x: hidden !important; max-width: 100%; width: 100%; }
 html, body { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 img, svg, video, iframe, canvas { max-width: 100%; height: auto; }
-/* Long URLs / emails should wrap, not push the layout */
 a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anywhere; word-break: break-word; }
 
+/* Pills, tags and CTA labels must never wrap mid-word */
+.pill, .badge, .tag, .hero-tag .pill, .nav-cta .btn,
+.newsletter button, .btn, .map-stop .ms-year { white-space: nowrap; }
+.hero-tag .pill, .pill, .newsletter button { flex-shrink: 0 !important; }
+
+/* Header: always-on solid background once scrolled, regardless of viewport */
+.header.scrolled { background: rgba(250, 248, 242, .96) !important; }
+
 @media (max-width: 980px) {
-  /* Hide decorative cursor glow on touch / smaller screens before JS runs */
   .cursor-glow { display: none !important; }
+  /* On mobile, header should be solid even before scroll so it never bleeds */
+  .header { background: rgba(250, 248, 242, .94) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border-bottom: 1px solid var(--line); }
+  .header.scrolled { background: rgba(250, 248, 242, .98) !important; box-shadow: 0 2px 14px rgba(11,61,46,.06) !important; }
 }
 
 @media (max-width: 880px) {
@@ -288,17 +297,19 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   .features::before, .features::after,
   .solution-section::before, .solution-section::after { display: none !important; }
 
-  /* Container padding tightens on small screens */
   .container { padding-left: 16px !important; padding-right: 16px !important; }
 
-  /* Side-margined cards must collapse to flush */
   .problem, .funds, .projection, .map-block, .journey-wrap,
   .roadmap, .invest-cta, .cta-card, .feature-split, .response-strip {
     margin-left: 0 !important; margin-right: 0 !important;
   }
 
-  /* Section padding becomes mobile-friendly */
+  /* Section padding — but hero needs MORE top padding to clear the fixed header */
   section { padding-top: clamp(56px, 9vw, 96px) !important; padding-bottom: clamp(56px, 9vw, 96px) !important; }
+  .hero, section.hero, .page-hero, section.page-hero {
+    padding-top: 110px !important;
+    padding-bottom: clamp(48px, 8vw, 80px) !important;
+  }
 
   /* Type scales down */
   h1 { font-size: clamp(1.9rem, 8vw, 2.6rem) !important; line-height: 1.12 !important; }
@@ -311,22 +322,61 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   .nav, nav { padding: 12px 0; }
   .nav-cta { gap: 8px !important; }
 
+  /* Hero illustration badges — shrink so they don't cover the LPG tank */
+  .hero-illu .badge { padding: 8px 12px !important; gap: 8px !important; font-size: .82rem; border-radius: 12px !important; }
+  .hero-illu .badge .ico { width: 28px !important; height: 28px !important; border-radius: 8px !important; }
+  .hero-illu .badge .ico svg { width: 16px !important; height: 16px !important; }
+  .hero-illu .badge .label { font-size: .58rem !important; letter-spacing: .08em !important; }
+  .hero-illu .badge .value { font-size: .78rem !important; }
+  .hero-illu .badge.b1 { top: 14px !important; left: 14px !important; }
+  .hero-illu .badge.b2 { bottom: 14px !important; right: 14px !important; max-width: 56% !important; }
+
   /* Footer */
   .footer { padding: 64px 0 32px !important; overflow: hidden; }
   .footer-grid { gap: 28px !important; }
   .footer-bottom { flex-wrap: wrap !important; row-gap: 12px !important; text-align: left !important; }
   .footer-col, .footer-brand { min-width: 0 !important; }
 
+  /* Newsletter subscribe — input + button stay side-by-side at this width */
+  .newsletter { gap: 8px !important; flex-wrap: nowrap !important; }
+  .newsletter input { min-width: 0 !important; }
+  .newsletter button { padding: 12px 16px !important; }
+
   /* Flex children must be allowed to shrink */
   .hero-stat, .invest-cta-text, .footer-brand p,
   .response-item, .legal-card, .badge, .map-stop { min-width: 0 !important; }
 
-  /* Wrap any horizontally-overflowing flex rows */
   .response-strip, .invest-cta-row, .legal-card,
   .footer-bottom, .nav-cta, .hero-cta { flex-wrap: wrap !important; }
 
-  /* Tables and pre — allow horizontal scroll inside their parent only */
   pre, table { max-width: 100%; overflow-x: auto; }
+}
+
+/* About-page journey illustration: horizontal-scroll on mobile so the
+   detailed rural-community scene stays large and readable. */
+@media (max-width: 760px) {
+  .journey-wrap {
+    aspect-ratio: auto !important;
+    height: 380px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .journey-wrap svg {
+    width: 900px !important;
+    min-width: 900px !important;
+    height: 380px !important;
+    max-width: none !important;
+  }
+  .journey-wrap::after {
+    content: '↔  swipe to explore';
+    position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+    background: rgba(11,61,46,.78); color: #FAF8F2;
+    padding: 4px 10px; border-radius: 999px;
+    font: 600 .68rem/1 'Inter', sans-serif; letter-spacing: .06em;
+    pointer-events: none; z-index: 5;
+  }
 }
 
 @media (max-width: 600px) {
@@ -335,10 +385,17 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   .invest-cta { padding: 24px !important; }
   .invest-cta-cta, .invest-cta-row { flex-direction: column !important; align-items: stretch !important; }
   .invest-cta .btn, .hero-cta .btn { width: 100% !important; justify-content: center !important; }
-  /* Footer single column already handled per-page; just keep gap sane */
   .footer-grid { gap: 24px !important; }
-  /* Logo / wordmark scaling */
   .nav-brand { font-size: 1.05rem !important; }
+}
+
+@media (max-width: 480px) {
+  /* Newsletter stacks on tiny screens so Subscribe stays readable */
+  .newsletter { flex-direction: column !important; }
+  .newsletter input, .newsletter button { width: 100% !important; }
+  .newsletter button { padding: 14px 18px !important; }
+  /* Hero-illu badges hidden on the smallest screens to avoid covering art */
+  .hero-illu .badge.b2 { display: none !important; }
 }
 
 @media (max-width: 380px) {
@@ -347,7 +404,6 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   .btn { padding: 10px 16px !important; font-size: .85rem !important; }
 }
 
-/* Respect users who prefer no animation */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
