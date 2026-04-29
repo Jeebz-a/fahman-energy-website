@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solar · Coming 2028 — FahmanEnergy</title>
+<meta name="description" content="Solar electricity for the rural homes FahmanEnergy already serves. Coming 2028 — solar home systems, productive-use energy, and community mini-grids anchored to our LPG network." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600;700;800&display=swap" />
+<style>
+:root{
+  --mint-900:#0B3D2E; --mint-800:#0F4C3A; --mint-700:#14624A; --mint-600:#1B7A5C;
+  --mint-500:#2A9D74; --mint-400:#6FCF97; --mint-300:#A8E0BD; --mint-100:#E8F5EE; --mint-50:#F2F9F5;
+  --cream:#FAF8F2; --ink-900:#0A1F18; --ink-700:#2C3E36; --ink-500:#5A6B62; --ink-300:#98A39C;
+  --line:#E4ECE6; --white:#FFFFFF; --gold:#D9A55B; --warm:#FCEAB6;
+  --shadow-sm:0 1px 2px rgba(11,61,46,.06),0 2px 8px rgba(11,61,46,.04);
+  --shadow-md:0 8px 24px rgba(11,61,46,.08),0 2px 8px rgba(11,61,46,.04);
+  --shadow-lg:0 24px 60px rgba(11,61,46,.14);
+  --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
+  --max:1240px;
+  --t-fast:180ms cubic-bezier(.2,.8,.2,1); --t:320ms cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;color:var(--ink-900);background:var(--cream);line-height:1.6;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block} a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::selection{background:var(--mint-700);color:#fff}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--mint-500),var(--mint-700));width:0%;z-index:200;transition:width 80ms linear}
+
+h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:500;line-height:1.08;letter-spacing:-.02em;color:var(--ink-900)}
+h1{font-size:clamp(2.6rem,6vw,4.6rem)} h2{font-size:clamp(2rem,4vw,3.2rem)} h3{font-size:clamp(1.4rem,2.2vw,1.9rem)} h4{font-size:1.2rem;line-height:1.3}
+.eyebrow{font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-700);font-weight:600;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--mint-700)}
+.lead{font-size:1.1rem;color:var(--ink-700);max-width:60ch}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px;position:relative;z-index:2}
+section{padding:clamp(64px,9vw,130px) 0;position:relative}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:500;font-size:.95rem;transition:var(--t);position:relative;overflow:hidden;white-space:nowrap}
+.btn-primary{background:var(--mint-800);color:#fff}
+.btn-primary:hover{background:var(--mint-900);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-gold{background:var(--gold);color:var(--ink-900)}
+.btn-gold:hover{background:#C99348;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-ghost{background:transparent;color:var(--ink-900);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--mint-700);color:var(--mint-800);transform:translateY(-2px)}
+.btn-large{padding:18px 32px;font-size:1rem}
+.btn .arrow{transition:var(--t)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* LOGO — FahmanEnergy */
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink-900);transition:var(--t-fast)}
+.logo-mark{width:40px;height:40px;flex:none}
+.logo-text{display:inline-flex;align-items:baseline;letter-spacing:-.02em}
+.logo-fahman{font-family:'Inter',sans-serif;font-weight:700;font-size:1.18rem;color:var(--ink-900);letter-spacing:-.02em}
+.logo-energy{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.18rem;color:var(--ink-300);letter-spacing:-.02em}
+.footer .logo-fahman{color:#fff}
+.footer .logo-energy{color:rgba(255,255,255,.45)}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:var(--t)}
+.header.scrolled{background:rgba(250,248,242,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:12px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:10px 18px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--ink-700);transition:var(--t-fast);position:relative}
+.nav-links a:hover{color:var(--mint-800)}
+.nav-links a.active{background:var(--mint-100);color:var(--mint-800)}
+.nav-links a .soon{position:absolute;top:0;right:6px;font-size:.55rem;background:var(--gold);color:var(--ink-900);padding:1px 5px;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.menu-toggle{display:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);align-items:center;justify-content:center;background:#fff}
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{display:block;width:18px;height:1.5px;background:var(--ink-900)}
+.menu-toggle span{position:relative}
+.menu-toggle span::before{content:'';position:absolute;left:0;top:-6px}
+.menu-toggle span::after{content:'';position:absolute;left:0;top:6px}
+@media(max-width:980px){.nav-links{display:none}.menu-toggle{display:flex}.nav-cta .btn-primary,.nav-cta .btn-gold{display:none}.nav-links.open{display:flex;flex-direction:column;align-items:stretch;position:fixed;top:70px;left:16px;right:16px;background:#fff;padding:16px;border-radius:var(--r-md);box-shadow:var(--shadow-lg);gap:4px}}
+
+/* HERO */
+.hero{padding:140px 0 80px;position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+.hero-decor{position:absolute;pointer-events:none;z-index:0}
+.hero-decor.d1{top:5%;right:-180px;width:560px;height:560px;background:radial-gradient(circle,var(--warm),transparent 70%);opacity:.55;filter:blur(40px);animation:floatBlob 20s ease-in-out infinite}
+.hero-decor.d2{bottom:-120px;left:-100px;width:440px;height:440px;background:radial-gradient(circle,var(--mint-300),transparent 70%);opacity:.45;filter:blur(40px);animation:floatBlob 22s ease-in-out infinite reverse}
+@keyframes floatBlob{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+.cs-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;background:rgba(217,165,91,.14);border:1px solid rgba(217,165,91,.4);border-radius:999px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#A87822;margin-bottom:28px}
+.cs-pill .pulse{width:8px;height:8px;border-radius:50%;background:var(--gold);position:relative}
+.cs-pill .pulse::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:var(--gold);opacity:.4;animation:dotPulse 2s infinite}
+@keyframes dotPulse{0%{transform:scale(1);opacity:.5}100%{transform:scale(2.4);opacity:0}}
+.hero h1{margin-bottom:22px}
+.hero h1 .accent{font-style:italic;color:var(--mint-700);position:relative;display:inline-block}
+.hero h1 .accent::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:10px;background:var(--warm);z-index:-1;opacity:.7;border-radius:4px}
+.hero p.lead{margin-bottom:36px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--line);padding-top:28px}
+.hero-stat .num{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:500;color:var(--mint-800);letter-spacing:-.02em;line-height:1;margin-bottom:6px}
+.hero-stat .lab{font-size:.78rem;color:var(--ink-500)}
+.hero-illu{position:relative;aspect-ratio:1/1.05;border-radius:var(--r-xl);background:linear-gradient(160deg,#0F4C3A 0%,#0B3D2E 100%);overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero-illu svg{width:100%;height:100%;display:block}
+.hero-illu .badge{position:absolute;background:#fff;border-radius:var(--r-md);padding:14px 18px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:12px;z-index:3}
+.hero-illu .badge.b1{top:24px;left:24px;animation:floatY 5s ease-in-out infinite}
+.hero-illu .badge.b2{bottom:24px;right:24px;flex-direction:column;align-items:flex-start;gap:4px;animation:floatY 5s ease-in-out infinite reverse}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-illu .badge .ico{width:38px;height:38px;border-radius:10px;background:var(--warm);display:grid;place-items:center;color:#A87822;flex:none}
+.hero-illu .badge .label{font-size:.7rem;color:var(--ink-500);text-transform:uppercase;letter-spacing:.1em}
+.hero-illu .badge .value{font-size:.95rem;font-weight:600;color:var(--ink-900)}
+@media(max-width:880px){.hero{min-height:auto}.hero-grid{grid-template-columns:1fr;gap:40px}.hero-stats{grid-template-columns:repeat(2,1fr);gap:16px}.hero-stat .num{font-size:1.5rem}}
+
+/* SECTION HEAD */
+.section-head{text-align:center;max-width:760px;margin:0 auto 60px}
+.section-head h2{margin-top:14px}
+.section-head .lead{margin:18px auto 0}
+
+/* PROBLEM */
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+.prob-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;transition:var(--t)}
+.prob-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--mint-300)}
+.prob-card .pic{width:48px;height:48px;border-radius:12px;background:var(--warm);display:grid;place-items:center;margin-bottom:18px;color:#A87822}
+.prob-card .stat{font-family:'Fraunces',serif;font-size:2.2rem;color:#A87822;font-weight:500;margin-bottom:6px;line-height:1}
+.prob-card h3{font-size:1.3rem;margin-bottom:10px}
+.prob-card p{font-size:.94rem;color:var(--ink-500);line-height:1.6}
+
+/* SOLUTION */
+.sol-section{background:linear-gradient(180deg,#fff 0%, var(--cream) 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:30px}
+.sol-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:34px;position:relative;overflow:hidden;transition:var(--t)}
+.sol-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.sol-card .num{position:absolute;top:24px;right:28px;font-family:'Fraunces',serif;font-size:3.6rem;color:rgba(20,98,74,.08);line-height:1;font-weight:500}
+.sol-card .pic{width:56px;height:56px;border-radius:14px;background:var(--mint-100);display:grid;place-items:center;margin-bottom:20px;color:var(--mint-800)}
+.sol-card h3{margin-bottom:12px}
+.sol-card p{font-size:.96rem;color:var(--ink-500);margin-bottom:18px}
+.sol-card .feats{display:flex;flex-direction:column;gap:9px}
+.sol-card .feats div{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:var(--ink-700)}
+.sol-card .feats div::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--mint-500);margin-top:7px;flex-shrink:0}
+
+/* IMPACT */
+.impact{background:linear-gradient(180deg,var(--ink-900) 0%,#091A11 100%);color:#fff;position:relative;overflow:hidden}
+.impact::before{content:'';position:absolute;inset:0;background:radial-gradient(800px 400px at 80% 20%, rgba(217,165,91,.15), transparent 60%),radial-gradient(600px 400px at 10% 80%, rgba(111,207,151,.18), transparent 60%);pointer-events:none}
+.impact .container{position:relative;z-index:2}
+.impact .section-head h2{color:#fff}
+.impact .section-head .eyebrow{color:var(--gold)}
+.impact .section-head .eyebrow::before{background:var(--gold)}
+.impact .section-head .lead{color:rgba(255,255,255,.72)}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.impact-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:30px 24px;position:relative;overflow:hidden;transition:var(--t)}
+.impact-box:hover{border-color:rgba(217,165,91,.4);transform:translateY(-4px)}
+.impact-box::before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--t)}
+.impact-box:hover::before{opacity:1}
+.impact-box .num{font-family:'Fraunces',serif;font-size:2.6rem;color:var(--mint-300);font-weight:500;line-height:1;margin-bottom:8px}
+.impact-box .lab{font-size:.86rem;font-weight:600;margin-bottom:6px}
+.impact-box .desc{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.5}
+
+/* TIMELINE */
+.tl{position:relative;max-width:880px;margin:50px auto 0;padding:0 20px}
+.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--mint-300),var(--gold));transform:translateX(-50%);border-radius:2px}
+.tl-row{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;margin-bottom:38px;align-items:center}
+.tl-row .dot{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--mint-500);justify-self:center;position:relative;z-index:2}
+.tl-row.now .dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 6px rgba(217,165,91,.2),0 0 0 14px rgba(217,165,91,.08);animation:nowPulse 2s infinite}
+@keyframes nowPulse{0%,100%{box-shadow:0 0 0 6px rgba(217,165,91,.2),0 0 0 14px rgba(217,165,91,.08)}50%{box-shadow:0 0 0 9px rgba(217,165,91,.3),0 0 0 18px rgba(217,165,91,.12)}}
+.tl-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px;transition:var(--t)}
+.tl-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.tl-card .yr{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--mint-800);font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.tl-row.now .tl-card .yr{color:#A87822}
+.tl-row.now .tl-card .yr::after{content:'NOW';font-family:'Inter',sans-serif;font-size:.6rem;letter-spacing:.14em;background:var(--gold);color:var(--ink-900);padding:3px 8px;border-radius:99px;font-weight:700}
+.tl-card .ttl{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-bottom:6px}
+.tl-card p{font-size:.9rem;color:var(--ink-500)}
+.tl-row:nth-child(odd) .tl-card{grid-column:1}
+.tl-row:nth-child(odd) .tl-spacer{grid-column:3}
+.tl-row:nth-child(even) .tl-card{grid-column:3}
+.tl-row:nth-child(even) .tl-spacer{grid-column:1}
+.tl-spacer{display:block}
+
+/* WAITLIST */
+.waitlist{background:linear-gradient(135deg,var(--mint-700) 0%,var(--mint-800) 100%);color:#fff;position:relative;overflow:hidden}
+.waitlist::before{content:'';position:absolute;top:-100px;right:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(217,165,91,.3),transparent 70%);pointer-events:none}
+.waitlist::after{content:'';position:absolute;bottom:-100px;left:-100px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(111,207,151,.25),transparent 70%);pointer-events:none}
+.wl-inner{position:relative;z-index:2;text-align:center;max-width:740px;margin:0 auto}
+.wl-inner .eyebrow{color:var(--gold)}
+.wl-inner .eyebrow::before{background:var(--gold)}
+.wl-inner h2{color:#fff;margin:18px 0}
+.wl-inner h2 em{font-style:italic;color:var(--mint-300)}
+.wl-inner .sub{font-size:1.05rem;color:rgba(255,255,255,.85);margin-bottom:34px}
+.wl-actions{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.wl-actions .btn-ghost{color:#fff;border-color:rgba(255,255,255,.3)}
+.wl-actions .btn-ghost:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5)}
+
+/* SVG anim helpers */
+@keyframes sunRot{to{transform:rotate(360deg)}}
+.sun-rays{transform-origin:300px 130px;animation:sunRot 60s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-100}}
+.flow-line{stroke-dasharray:6 8;animation:flow 3s linear infinite}
+@keyframes lights{0%,100%{opacity:1}50%{opacity:.55}}
+.window-light{animation:lights 2.6s ease-in-out infinite}
+.window-light.w2{animation-delay:.7s}
+.window-light.w3{animation-delay:1.4s}
+
+/* FOOTER */
+.footer{background:var(--ink-900);color:rgba(255,255,255,.7);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer h4{color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.footer .logo{margin-bottom:20px}
+.footer p{font-size:.92rem;max-width:36ch;margin-bottom:24px}
+.footer ul{list-style:none;display:grid;gap:12px}
+.footer ul a, .footer ul li{font-size:.92rem;color:rgba(255,255,255,.7);transition:var(--t-fast);line-height:1.5}
+.footer ul a:hover{color:var(--mint-400)}
+.footer .addr{font-size:.86rem;color:rgba(255,255,255,.7);line-height:1.6}
+.footer .addr strong{color:#fff;font-weight:600;display:block;margin-bottom:2px;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+.newsletter{display:flex;gap:8px;margin-top:12px}
+.newsletter input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#fff;font-family:inherit;font-size:.9rem;outline:none}
+.newsletter input::placeholder{color:rgba(255,255,255,.45)}
+.newsletter input:focus{border-color:var(--mint-400);background:rgba(255,255,255,.08)}
+.newsletter button{padding:12px 18px;border-radius:999px;background:var(--mint-500);color:var(--ink-900);font-weight:600;font-size:.9rem}
+.newsletter button:hover{background:var(--mint-400)}
+.footer-bottom{padding-top:32px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:.85rem}
+.footer-socials{display:flex;gap:10px}
+.footer-socials a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;transition:var(--t)}
+.footer-socials a:hover{background:var(--mint-500);color:var(--ink-900);border-color:var(--mint-500)}
+@media(max-width:880px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}.prob-grid{grid-template-columns:1fr}.sol-grid{grid-template-columns:1fr}.impact-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.impact-grid{grid-template-columns:1fr}.tl::before{left:18px}.tl-row{grid-template-columns:36px 1fr;gap:14px}.tl-row .dot{justify-self:start;margin-left:9px}.tl-row:nth-child(odd) .tl-card,.tl-row:nth-child(even) .tl-card{grid-column:2}.tl-row:nth-child(odd) .tl-spacer,.tl-row:nth-child(even) .tl-spacer{display:none}.tl-row .dot{grid-column:1}}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.delay-1{transition-delay:.1s}.reveal.delay-2{transition-delay:.2s}.reveal.delay-3{transition-delay:.3s}.reveal.delay-4{transition-delay:.4s}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress"></div>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="11" fill="#0F4C3A"/>
+        <path d="M20 9 C 23.5 14, 26.5 17.5, 24.5 23 C 23.5 27, 20.5 28.5, 20 28.5 C 20 28.5, 16.5 27, 15.5 23 C 13.5 17.5, 16.5 14, 20 9 Z" fill="#A8E0BD"/>
+        <path d="M20 13 C 22 17, 24 19.5, 22.5 23 C 22 25, 20.5 26, 20 26 C 19.5 26, 18 25, 17.5 23 C 16 19.5, 18 17, 20 13 Z" fill="#6FCF97"/>
+        <circle cx="26" cy="12" r="2.2" fill="#FCEAB6"/>
+      </svg>
+      <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="solar.html" class="active">Solar <span class="soon">Soon</span></a>
+      <a href="investors.html">Investors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-gold">
+        Join the waitlist
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-decor d1"></div>
+  <div class="hero-decor d2"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="cs-pill reveal in"><span class="pulse"></span> Coming soon · 2028</div>
+        <h1 class="reveal in delay-1">Solar electricity for the homes <span class="accent">LPG already lit</span>.</h1>
+        <p class="lead reveal in delay-2">From 2028, FahmanEnergy extends beyond the kitchen. We're bringing reliable solar electricity to the same rural communities our LPG plants already serve — so a single household powers cooking, lighting, study, business and refrigeration without diesel, kerosene or smoke.</p>
+        <div class="hero-actions reveal in delay-3">
+          <a href="contact.html" class="btn btn-gold btn-large">Join the waitlist <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="#solution" class="btn btn-ghost btn-large">See the plan</a>
+        </div>
+        <div class="hero-stats reveal in delay-4">
+          <div class="hero-stat"><div class="num">2028</div><div class="lab">Pilot launch</div></div>
+          <div class="hero-stat"><div class="num">100%</div><div class="lab">Solar powered</div></div>
+          <div class="hero-stat"><div class="num">0</div><div class="lab">Diesel · kerosene</div></div>
+          <div class="hero-stat"><div class="num">SDG&nbsp;7</div><div class="lab">Clean energy</div></div>
+        </div>
+      </div>
+      <div class="hero-illu reveal in delay-2" aria-hidden="true">
+        <div class="badge b1">
+          <div class="ico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+          </div>
+          <div><div class="label">Pilot</div><div class="value">Baruten LGA · 2028</div></div>
+        </div>
+        <div class="badge b2">
+          <div class="label">Households on the waitlist</div>
+          <div class="value">25,000+ target</div>
+        </div>
+        <svg viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="sunG" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FCEAB6"/><stop offset="55%" stop-color="#F4C95A"/><stop offset="100%" stop-color="#D9A55B"/>
+            </radialGradient>
+            <linearGradient id="panelG" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#1B3A4A"/><stop offset="100%" stop-color="#0E2230"/>
+            </linearGradient>
+            <linearGradient id="houseG" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FAF8F2"/><stop offset="100%" stop-color="#E9E0C8"/>
+            </linearGradient>
+            <linearGradient id="roofG" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#7A3A1C"/><stop offset="100%" stop-color="#5A2A14"/>
+            </linearGradient>
+            <linearGradient id="grdG" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stop-color="#0F5E41" stop-opacity=".2"/>
+              <stop offset="50%" stop-color="#0F5E41" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#0F5E41" stop-opacity=".2"/>
+            </linearGradient>
+          </defs>
+          <!-- ground -->
+          <ellipse cx="300" cy="540" rx="320" ry="22" fill="url(#grdG)"/>
+          <!-- SUN -->
+          <circle cx="120" cy="130" r="58" fill="url(#sunG)" opacity=".55"/>
+          <circle cx="120" cy="130" r="42" fill="url(#sunG)"/>
+          <g class="sun-rays" stroke="#FCEAB6" stroke-width="2.5" stroke-linecap="round" opacity=".7" transform="translate(-180 0)">
+            <line x1="300" y1="55" x2="300" y2="70"/><line x1="300" y1="190" x2="300" y2="205"/>
+            <line x1="225" y1="130" x2="240" y2="130"/><line x1="360" y1="130" x2="375" y2="130"/>
+            <line x1="248" y1="78" x2="259" y2="89"/><line x1="341" y1="171" x2="352" y2="182"/>
+            <line x1="352" y1="78" x2="341" y2="89"/><line x1="259" y1="171" x2="248" y2="182"/>
+          </g>
+          <!-- SOLAR PANELS -->
+          <g transform="translate(220 230)">
+            <rect x="58" y="92" width="6" height="60" fill="#5A2A14"/>
+            <g transform="rotate(-14 60 50)">
+              <rect x="0" y="0" width="120" height="80" rx="3" fill="url(#panelG)" stroke="#0A1822" stroke-width="2"/>
+              <g stroke="#6FCF97" stroke-width=".8" opacity=".8">
+                <line x1="0" y1="20" x2="120" y2="20"/><line x1="0" y1="40" x2="120" y2="40"/><line x1="0" y1="60" x2="120" y2="60"/>
+                <line x1="30" y1="0" x2="30" y2="80"/><line x1="60" y1="0" x2="60" y2="80"/><line x1="90" y1="0" x2="90" y2="80"/>
+              </g>
+              <path d="M5 5 L25 5 L15 75 L5 75 Z" fill="#fff" opacity=".07"/>
+            </g>
+          </g>
+          <!-- ENERGY: sun → panel -->
+          <path class="flow-line" d="M155 160 Q200 195 250 230" stroke="#FCEAB6" stroke-width="2.5" fill="none" opacity=".75"/>
+          <!-- BATTERY -->
+          <g transform="translate(360 360)">
+            <rect x="0" y="0" width="68" height="46" rx="6" fill="#13241C" stroke="#0B1A14" stroke-width="2"/>
+            <rect x="6" y="6" width="56" height="34" rx="3" fill="#0B1A14"/>
+            <rect x="10" y="10" width="14" height="26" rx="2" fill="#6FCF97">
+              <animate attributeName="height" values="6;26;6" dur="3.6s" repeatCount="indefinite"/>
+              <animate attributeName="y" values="30;10;30" dur="3.6s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="27" y="10" width="14" height="26" rx="2" fill="#A8E0BD" opacity=".6"/>
+            <rect x="44" y="10" width="14" height="26" rx="2" fill="#2A9D74" opacity=".4"/>
+            <text x="34" y="60" text-anchor="middle" font-family="Inter" font-size="9" fill="#A8E0BD" opacity=".65" font-weight="700">BATTERY</text>
+          </g>
+          <!-- ENERGY: panel → battery -->
+          <path class="flow-line" d="M285 326 Q325 350 360 376" stroke="#6FCF97" stroke-width="2.5" fill="none" opacity=".8"/>
+          <!-- ENERGY: battery → house -->
+          <path class="flow-line" d="M428 383 Q462 388 482 396" stroke="#2A9D74" stroke-width="2.5" fill="none" opacity=".8"/>
+          <!-- HOUSE -->
+          <g transform="translate(440 330)">
+            <path d="M0 60 L60 10 L120 60 Z" fill="url(#roofG)" stroke="#3A1A0A" stroke-width="1.5"/>
+            <path d="M0 60 L60 10 L120 60 Z" fill="none" stroke="#fff" stroke-width=".6" opacity=".15"/>
+            <rect x="6" y="58" width="108" height="80" fill="url(#houseG)" stroke="#B8A684" stroke-width="1.5"/>
+            <rect x="50" y="92" width="20" height="46" fill="#5A3A1A" rx="2"/>
+            <circle cx="65" cy="116" r="1.5" fill="#D9A55B"/>
+            <rect class="window-light" x="18" y="74" width="22" height="18" fill="#F4C95A" rx="2"/>
+            <rect class="window-light w2" x="80" y="74" width="22" height="18" fill="#F4C95A" rx="2"/>
+            <rect class="window-light w3" x="49" y="68" width="22" height="14" fill="#F4C95A" rx="2"/>
+            <g stroke="#5A3A1A" stroke-width="1" opacity=".7">
+              <line x1="29" y1="74" x2="29" y2="92"/><line x1="18" y1="83" x2="40" y2="83"/>
+              <line x1="91" y1="74" x2="91" y2="92"/><line x1="80" y1="83" x2="102" y2="83"/>
+            </g>
+            <line x1="-8" y1="138" x2="128" y2="138" stroke="#8A6A3A" stroke-width="1.5" opacity=".5"/>
+          </g>
+          <!-- LIGHTBULB above house -->
+          <g transform="translate(498 286)">
+            <circle cx="0" cy="0" r="14" fill="#FCEAB6" opacity=".9">
+              <animate attributeName="opacity" values=".4;1;.4" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="0" r="22" fill="#F4C95A" opacity=".2">
+              <animate attributeName="r" values="14;28;14" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".05;.25;.05" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <path d="M-6 -2 L-2 -6 M6 -2 L2 -6 M0 -8 L0 -14 M-7 4 L-12 6 M7 4 L12 6" stroke="#D9A55B" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+          <!-- Stars -->
+          <g fill="#6FCF97" opacity=".7">
+            <circle cx="380" cy="200" r="2"><animate attributeName="opacity" values=".2;1;.2" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="540" cy="220" r="2.5"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" begin="1s" repeatCount="indefinite"/></circle>
+            <circle cx="200" cy="100" r="2"><animate attributeName="opacity" values=".2;1;.2" dur="2.8s" begin=".5s" repeatCount="indefinite"/></circle>
+            <circle cx="80" cy="260" r="2"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" begin="1.4s" repeatCount="indefinite"/></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The problem</div>
+      <h2>Cooking is half the story.<br/>The other half is electricity.</h2>
+      <p class="lead">A clean stove is a beautiful thing — but in the same homes, kerosene lamps still burn after sunset and small businesses shut at 6pm. We can't claim energy access until both kitchen and household are lit.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card reveal delay-1">
+        <div class="pic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3v18M5.6 5.6l12.8 12.8M5.6 18.4 18.4 5.6"/></svg></div>
+        <div class="stat">85M+</div>
+        <h3>Nigerians without reliable power</h3>
+        <p>Roughly four in ten Nigerians have no access to grid electricity, and millions more sit on a grid that fails for hours every day. Rural Kwara is among the worst hit.</p>
+      </div>
+      <div class="prob-card reveal delay-2">
+        <div class="pic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div class="stat">6 PM</div>
+        <h3>The day ends when the sun does</h3>
+        <p>Children study by torchlight. Tailors, salons and barbers close before evening rush. Mothers trade-off between charging a phone and lighting a room.</p>
+      </div>
+      <div class="prob-card reveal delay-3">
+        <div class="pic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg></div>
+        <div class="stat">₦000s</div>
+        <h3>Spent on dirty backups</h3>
+        <p>Kerosene, candles, dry-cell batteries and small petrol gensets cost rural households a punishing share of monthly income — and damage health and air quality every night.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="sol-section" id="solution">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our 2028 solution</div>
+      <h2>Three products. One <em style="font-style:italic;color:var(--mint-700);">electrified</em> community.</h2>
+      <p class="lead">We launch where we already operate. Every solar offer is anchored to an existing FahmanEnergy LPG plant — same agents, same trust, same last-mile network. Lower acquisition cost. Faster impact.</p>
+    </div>
+    <div class="sol-grid">
+      <div class="sol-card reveal delay-1">
+        <div class="num">01</div>
+        <div class="pic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="4" x2="9" y2="18"/><line x1="15" y1="4" x2="15" y2="18"/><line x1="6" y1="18" x2="9" y2="22"/><line x1="18" y1="18" x2="15" y2="22"/></svg></div>
+        <h3>Solar Home Systems</h3>
+        <p>Pay-as-you-go solar kits sized for one rural household — lights for every room, phone charging, a small fan, a radio, and a TV. Affordable monthly payments, paid through the same agent who refills the LPG cylinder.</p>
+        <div class="feats">
+          <div>30W – 200W PAYG kits, scaled to household need</div>
+          <div>Lithium battery, 5-year warranty</div>
+          <div>Locked / unlocked remotely as payment progresses</div>
+          <div>Installed and serviced by trained Fahman technicians</div>
+        </div>
+      </div>
+      <div class="sol-card reveal delay-2">
+        <div class="num">02</div>
+        <div class="pic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M5 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M3 12h2M19 12h2M12 9v3"/></svg></div>
+        <h3>Productive-use energy</h3>
+        <p>The electric tools rural businesses actually need — solar fridges for traders, sewing machines, water pumps, milling, hair-clippers, welding kits, ICT hubs. Sold as a package with finance, not as bare hardware.</p>
+        <div class="feats">
+          <div>Bundled with training and after-sales support</div>
+          <div>Income-linked repayment plans</div>
+          <div>Targeted at women cooperatives and youth</div>
+          <div>Tracked impact: revenue uplift, hours productive</div>
+        </div>
+      </div>
+      <div class="sol-card reveal delay-3">
+        <div class="num">03</div>
+        <div class="pic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20 L12 4 L22 20 Z"/><path d="M6 20l3-5 3 3 3-4 3 6"/></svg></div>
+        <h3>Community mini-grids</h3>
+        <p>Where settlements are dense enough, we deploy a containerised solar + battery mini-grid that anchors the LPG plant itself, the local school, the health centre and a cluster of homes and businesses on a metered network.</p>
+        <div class="feats">
+          <div>20kW – 200kW solar + storage</div>
+          <div>Smart meters, mobile-money payment</div>
+          <div>Co-developed with traditional rulers and LGA</div>
+          <div>NERC mini-grid permit pathway</div>
+        </div>
+      </div>
+      <div class="sol-card reveal delay-4">
+        <div class="num">04</div>
+        <div class="pic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-9 6 18 3-9h3"/></svg></div>
+        <h3>Anchored to LPG, not greenfield</h3>
+        <p>Every other off-grid solar company starts cold. We don't. Each FahmanEnergy LPG plant already has agents, a customer database, payment behaviour data and trust in the chief's palace. Solar plugs in on top of that.</p>
+        <div class="feats">
+          <div>~70% lower customer-acquisition cost</div>
+          <div>Cross-sell to verified LPG customers</div>
+          <div>Shared logistics, warehousing, and servicing</div>
+          <div>One brand, one agent, two clean energies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Targets · 2028 – 2033</div>
+      <h2>Lighting <em style="font-style:italic;color:var(--mint-300);">and</em> livelihoods, measured.</h2>
+      <p class="lead">Solar electricity is a means, not an end. We track the human and economic outcomes — and report them transparently to investors, grantors and the communities themselves.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-box reveal delay-1"><div class="num">25k+</div><div class="lab">Households electrified</div><div class="desc">By end of 2030, across Kwara and nearby states</div></div>
+      <div class="impact-box reveal delay-2"><div class="num">4hr+</div><div class="lab">Extra productive hours</div><div class="desc">Per household per evening — study, trade, family time</div></div>
+      <div class="impact-box reveal delay-3"><div class="num">2,500</div><div class="lab">Businesses powered</div><div class="desc">Tailors, traders, barbers, ICT hubs, food vendors</div></div>
+      <div class="impact-box reveal delay-4"><div class="num">0</div><div class="lab">Diesel · kerosene</div><div class="desc">Every kWh we sell is solar — no fossil backup</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">The path to 2028</div>
+      <h2>What we're doing right now.</h2>
+      <p class="lead">Solar isn't a press release — it's a sequence of decisions, partners and permits we're working through today, while LPG plant 1 goes live.</p>
+    </div>
+    <div class="tl">
+      <div class="tl-row now">
+        <div class="tl-card reveal">
+          <div class="yr">2026 — Today</div>
+          <div class="ttl">Foundations</div>
+          <p>LPG plant in Ilesha Baruba operational. Agent network being built. Customer data, payment behaviour and demand signals being gathered to size the solar pilot.</p>
+        </div>
+        <div class="dot"></div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-spacer"></div>
+        <div class="dot"></div>
+        <div class="tl-card reveal">
+          <div class="yr">2027</div>
+          <div class="ttl">Partner &amp; permit</div>
+          <p>Lock in solar OEMs, PAYG software, financing partners and grant facilities. NERC mini-grid permits filed for first 2 sites. Last-mile reach across Baruten LGA, Kaiama and other rural Kwara LGAs.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-card reveal">
+          <div class="yr">2028 — Solar pilot</div>
+          <div class="ttl">First lights on</div>
+          <p>Pilot 500 solar home systems + 1 community mini-grid in Baruten. Productive-use bundles to women cooperatives and youth. Real metering, real impact data, real customer stories.</p>
+        </div>
+        <div class="dot"></div>
+        <div class="tl-spacer"></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-spacer"></div>
+        <div class="dot"></div>
+        <div class="tl-card reveal">
+          <div class="yr">2030</div>
+          <div class="ttl">Scale across Nigeria</div>
+          <p>Solar offer rolled out at every FahmanEnergy LPG plant — Niger, Kebbi, Kogi and beyond. 25,000+ households on the network. Mini-grids at anchor sites.</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-card reveal">
+          <div class="yr">2033</div>
+          <div class="ttl">Continental</div>
+          <p>FahmanEnergy's combined LPG + solar model exported to other West and East African markets — same dual-fuel cleanness, same community-anchored approach.</p>
+        </div>
+        <div class="dot"></div>
+        <div class="tl-spacer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="waitlist">
+  <div class="container wl-inner reveal">
+    <div class="eyebrow">Be first in line</div>
+    <h2>Light a community in <em>2028</em>. Let's build it together.</h2>
+    <p class="sub">Investors, grant-makers, OEMs, traditional rulers, cooperatives — if you want to put solar electricity in the same homes we just put clean cooking, we want to hear from you.</p>
+    <div class="wl-actions">
+      <a href="contact.html" class="btn btn-gold btn-large">Join the waitlist <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="investors.html" class="btn btn-ghost btn-large">For investors &amp; grantors</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="11" fill="#14624A"/>
+            <path d="M20 9 C 23.5 14, 26.5 17.5, 24.5 23 C 23.5 27, 20.5 28.5, 20 28.5 C 20 28.5, 16.5 27, 15.5 23 C 13.5 17.5, 16.5 14, 20 9 Z" fill="#A8E0BD"/>
+            <path d="M20 13 C 22 17, 24 19.5, 22.5 23 C 22 25, 20.5 26, 20 26 C 19.5 26, 18 25, 17.5 23 C 16 19.5, 18 17, 20 13 Z" fill="#6FCF97"/>
+            <circle cx="26" cy="12" r="2.2" fill="#FCEAB6"/>
+          </svg>
+          <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+        </a>
+        <p>Solar-powered LPG refill plants for rural Nigeria — and from 2028, solar electricity for the same homes. Building the federation's clean-energy backbone, one community at a time.</p>
+        <form class="newsletter">
+          <input type="email" placeholder="Email for impact updates" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="about.html#story">Our story</a></li>
+          <li><a href="about.html#impact">Impact</a></li>
+          <li><a href="investors.html">Investors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#lpg">LPG refill</a></li>
+          <li><a href="services.html#consultancy">Consultancy</a></li>
+          <li><a href="services.html#equipment">Equipment</a></li>
+          <li><a href="solar.html">Solar Energy <span style="color:var(--gold);font-size:.7rem;font-weight:700;letter-spacing:.05em;">SOON</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li class="addr"><strong>HQ</strong>Pipeline Area, Ilorin,<br/>Kwara State, Nigeria</li>
+          <li class="addr"><strong>Branch</strong>Ilesha Baruba,<br/>Kwara State, Nigeria</li>
+          <li><a href="mailto:Fahmanltd@gmail.com">Fahmanltd@gmail.com</a></li>
+          <li><a href="tel:+2347060868580">+234 706 086 8580</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Fahman Oil &amp; Gas Ltd. (trading as Fahman). NMDPRA Licensed · SON Approved.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 2a2 2 0 100 4 2 2 0 000-4zM10 8h4v2c.6-1.2 2.2-2.4 4.2-2.4 4.5 0 5.3 3 5.3 6.8V20h-4v-5c0-1.2 0-2.7-1.8-2.7s-2.1 1.3-2.1 2.6V20h-4V8z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1A4 4 0 0012 8.5c0 .3 0 .6.1.9A11.4 11.4 0 013 4.7a4 4 0 001.2 5.4c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.6 3.2 4-.3.1-.7.2-1.1.2h-.7a4 4 0 003.7 2.8 8 8 0 01-5.9 1.6 11.4 11.4 0 006.2 1.8c7.4 0 11.5-6.2 11.5-11.5v-.5c.8-.6 1.5-1.3 2-2.3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const header=document.querySelector('.header');
+  const onScroll=()=>{
+    if(window.scrollY>16) header?.classList.add('scrolled'); else header?.classList.remove('scrolled');
+    const h=document.documentElement;const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+    const bar=document.querySelector('.scroll-progress'); if(bar) bar.style.width=pct+'%';
+  };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+  const toggle=document.querySelector('.menu-toggle'); const links=document.querySelector('.nav-links');
+  toggle?.addEventListener('click',()=>links?.classList.toggle('open'));
+  const io=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('.newsletter').forEach((news)=>{news.addEventListener('submit',(e)=>{e.preventDefault();const btn=news.querySelector('button');if(!btn)return;const o=btn.textContent;btn.textContent='Subscribed ✓';setTimeout(()=>{btn.textContent=o;news.reset();},1800);});});
+});
+</script>
+</body>
+</html>

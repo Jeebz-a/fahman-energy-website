@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — FahmanEnergy</title>
+<meta name="description" content="The story behind Fahman — a rural-first clean energy company building solar-powered LPG plants today and rural solar electricity tomorrow." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400;9..144,1,500&family=Inter:wght@400;500;600;700;800&display=swap" />
+<style>
+:root{--mint-900:#0B3D2E;--mint-800:#0F4C3A;--mint-700:#14624A;--mint-600:#1B7A5C;--mint-500:#2A9D74;--mint-400:#6FCF97;--mint-300:#A8E0BD;--mint-100:#E8F5EE;--mint-50:#F2F9F5;--cream:#FAF8F2;--ink-900:#0A1F18;--ink-700:#2C3E36;--ink-500:#5A6B62;--ink-300:#98A39C;--line:#E4ECE6;--white:#FFFFFF;--gold:#D9A55B;--warm:#FCEAB6;--shadow-sm:0 1px 2px rgba(11,61,46,.06),0 2px 8px rgba(11,61,46,.04);--shadow-md:0 8px 24px rgba(11,61,46,.08),0 2px 8px rgba(11,61,46,.04);--shadow-lg:0 24px 60px rgba(11,61,46,.14);--r-sm:10px;--r-md:16px;--r-lg:24px;--r-xl:32px;--max:1240px;--t-fast:180ms cubic-bezier(.2,.8,.2,1);--t:320ms cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink-900);background:var(--cream);line-height:1.6;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block} a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+::selection{background:var(--mint-700);color:#fff}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.04;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--mint-500),var(--mint-700));width:0%;z-index:200;transition:width 80ms linear}
+.cursor-glow{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(111,207,151,.18),transparent 60%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+
+h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:500;line-height:1.08;letter-spacing:-.02em;color:var(--ink-900)}
+h1{font-size:clamp(2.6rem,6vw,4.6rem)} h2{font-size:clamp(2rem,4vw,3.2rem)} h3{font-size:clamp(1.4rem,2.2vw,1.9rem)} h4{font-size:1.2rem;line-height:1.3}
+.eyebrow{font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-700);font-weight:600;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--mint-700)}
+.lead{font-size:1.1rem;color:var(--ink-700);max-width:60ch}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px;position:relative;z-index:2}
+section{padding:clamp(64px,9vw,130px) 0;position:relative}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:500;font-size:.95rem;transition:var(--t);position:relative;overflow:hidden;white-space:nowrap}
+.btn-primary{background:var(--mint-800);color:#fff}
+.btn-primary:hover{background:var(--mint-900);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn .arrow{transition:var(--t)} .btn:hover .arrow{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink-900);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--mint-700);color:var(--mint-800);transform:translateY(-2px)}
+
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink-900);transition:var(--t-fast)}
+.logo-mark{width:40px;height:40px;flex:none}
+.logo-text{display:inline-flex;align-items:baseline;letter-spacing:-.02em}
+.logo-fahman{font-family:'Inter',sans-serif;font-weight:700;font-size:1.18rem;color:var(--ink-900);letter-spacing:-.02em}
+.logo-energy{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.18rem;color:var(--ink-300);letter-spacing:-.02em}
+.footer .logo-fahman{color:#fff} .footer .logo-energy{color:rgba(255,255,255,.45)}
+
+.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:var(--t)}
+.header.scrolled{background:rgba(250,248,242,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:12px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:10px 18px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--ink-700);transition:var(--t-fast);position:relative}
+.nav-links a:hover{color:var(--mint-800)}
+.nav-links a.active{background:var(--mint-100);color:var(--mint-800)}
+.nav-links a .soon{position:absolute;top:0;right:6px;font-size:.55rem;background:var(--gold);color:var(--ink-900);padding:1px 5px;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.menu-toggle{display:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);align-items:center;justify-content:center;background:#fff}
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{display:block;width:18px;height:1.5px;background:var(--ink-900)}
+.menu-toggle span{position:relative}
+.menu-toggle span::before{content:'';position:absolute;left:0;top:-6px}
+.menu-toggle span::after{content:'';position:absolute;left:0;top:6px}
+@media(max-width:980px){.nav-links{display:none}.menu-toggle{display:flex}.nav-cta .btn-primary{display:none}.nav-links.open{display:flex;flex-direction:column;align-items:stretch;position:fixed;top:70px;left:16px;right:16px;background:#fff;padding:16px;border-radius:var(--r-md);box-shadow:var(--shadow-lg);gap:4px}}
+
+.page-hero{padding:160px 0 80px;background:var(--mint-50);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;top:50%;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--mint-300),transparent 65%);opacity:.35;filter:blur(60px);transform:translateY(-50%)}
+.page-hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,#FCEAB6,transparent 65%);opacity:.3;filter:blur(60px)}
+.page-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative}
+.page-hero h1{margin:18px 0 24px}
+.breadcrumb{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--ink-500);margin-bottom:24px}
+.breadcrumb a{color:var(--mint-700)} .breadcrumb-sep{color:var(--ink-300)}
+.about-illu{position:relative;aspect-ratio:4/5;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg)}
+.about-illu svg{width:100%;height:100%}
+@media(max-width:880px){.page-hero-grid{grid-template-columns:1fr;gap:40px}.page-hero{padding:120px 0 60px}}
+
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--mint-100);color:var(--mint-800);font-size:.78rem;font-weight:500}
+
+/* Registered name disclaimer card */
+.legal-card{display:flex;gap:20px;align-items:center;padding:24px;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);margin-top:32px;box-shadow:var(--shadow-sm)}
+.legal-card .ico{flex:none;width:48px;height:48px;border-radius:12px;background:var(--mint-100);color:var(--mint-800);display:grid;place-items:center}
+.legal-card strong{display:block;font-size:.95rem;color:var(--ink-900);font-weight:600;margin-bottom:2px}
+.legal-card p{font-size:.88rem;color:var(--ink-500);line-height:1.5}
+@media(max-width:600px){.legal-card{flex-direction:column;text-align:center}}
+
+.story-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:start}
+.story-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+@media(max-width:880px){.story-intro{grid-template-columns:1fr;gap:40px}}
+
+/* ROADMAP MAP */
+.roadmap{position:relative;background:linear-gradient(180deg,#fff,var(--mint-50));border:1px solid var(--line);border-radius:var(--r-xl);padding:48px;box-shadow:var(--shadow-md);overflow:hidden}
+.roadmap::before{content:"";position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(168,224,189,.4),transparent 70%);filter:blur(40px);pointer-events:none}
+.roadmap-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:36px;flex-wrap:wrap;position:relative;z-index:2}
+.roadmap-head h3{font-family:'Fraunces',serif;font-size:clamp(1.6rem,2.6vw,2.1rem);color:var(--ink-900);margin-top:8px}
+.roadmap-head p{color:var(--ink-500);font-size:.95rem;max-width:36ch}
+.roadmap-stage{display:flex;gap:6px;background:var(--mint-100);padding:5px;border-radius:999px}
+.roadmap-stage button{padding:8px 16px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--ink-700);cursor:pointer;transition:var(--t-fast);border:none;background:transparent}
+.roadmap-stage button.active{background:var(--mint-800);color:#fff;box-shadow:var(--shadow-sm)}
+
+.map-wrap{position:relative;width:100%;aspect-ratio:5/3.4;border-radius:var(--r-lg);background:linear-gradient(180deg,#F2F9F5,#E8F5EE);overflow:hidden;border:1px solid var(--mint-300)}
+.map-svg{width:100%;height:100%;display:block}
+
+/* Pin styles */
+.pin{cursor:pointer}
+.pin-body{transition:var(--t)}
+.pin:hover .pin-body{transform:scale(1.12)}
+.pin-pulse{transform-origin:center;transform-box:fill-box}
+
+/* Year roadmap legend — keep all 5 stops on one horizontal line */
+.map-legend{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:32px;position:relative;z-index:2}
+.map-stop{position:relative;padding:16px 14px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);transition:var(--t);cursor:default;min-width:0}
+.map-stop:hover{transform:translateY(-3px);border-color:var(--mint-300);box-shadow:var(--shadow-sm)}
+.map-stop.today{background:linear-gradient(135deg,var(--mint-800),var(--mint-900));color:#fff;border-color:var(--mint-700);box-shadow:0 0 0 6px rgba(20,98,74,.12),var(--shadow-md);animation:todayPulse 2.4s ease-in-out infinite}
+.map-stop.today::before{content:"";position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;border-radius:var(--r-md);border:2px solid var(--gold);opacity:0;animation:todayRing 2.4s ease-in-out infinite}
+@keyframes todayPulse{0%,100%{box-shadow:0 0 0 6px rgba(20,98,74,.12),var(--shadow-md)}50%{box-shadow:0 0 0 12px rgba(20,98,74,.06),var(--shadow-md)}}
+@keyframes todayRing{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.7;transform:scale(1.02)}}
+.map-stop .ms-year{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-bottom:5px}
+.map-stop.today .ms-year{color:var(--mint-300)}
+.map-stop .ms-tag{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mint-700);margin-bottom:8px;padding:3px 8px;border-radius:6px;background:var(--mint-100)}
+.map-stop.today .ms-tag{background:var(--gold);color:var(--ink-900)}
+.map-stop .ms-title{font-weight:600;font-size:.84rem;margin-bottom:5px;color:var(--ink-900);line-height:1.25}
+.map-stop.today .ms-title{color:#fff}
+.map-stop .ms-desc{font-size:.74rem;color:var(--ink-500);line-height:1.45}
+.map-stop.today .ms-desc{color:rgba(255,255,255,.78)}
+@media(max-width:1100px){.map-legend{gap:8px}.map-stop{padding:14px 12px}.map-stop .ms-desc{font-size:.7rem}.map-stop .ms-year{font-size:.95rem}}
+@media(max-width:880px){.map-legend{grid-template-columns:repeat(3,1fr)}.roadmap{padding:28px}}
+@media(max-width:600px){.map-legend{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.map-legend{grid-template-columns:1fr}}
+
+/* ===== JOURNEY ILLUSTRATION (depot → station → home) ===== */
+.journey{margin:8px 0 28px;position:relative;z-index:2}
+.journey-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.journey-head .jt{font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-700);font-weight:700}
+.journey-head .jh{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink-900);font-weight:500}
+.journey-head .jp{font-size:.85rem;color:var(--ink-500);max-width:46ch}
+.journey-wrap{position:relative;width:100%;aspect-ratio:1240/500;border-radius:var(--r-lg);background:linear-gradient(180deg,#FFF8E0 0%,#F2F9F5 60%,#E8F5EE 100%);overflow:hidden;border:1px solid var(--mint-300)}
+.journey-wrap svg{width:100%;height:100%;display:block}
+
+/* truck and walker movement is driven by SVG animateTransform for unit accuracy */
+/* tiny exhaust puff */
+@keyframes puff{0%{opacity:.4;transform:translateY(0) scale(.8)}100%{opacity:0;transform:translateY(-12px) scale(1.6)}}
+.exhaust{transform-origin:center;transform-box:fill-box;animation:puff 1.6s ease-out infinite}
+@keyframes legSwing{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(0) rotate(10deg)}}
+.leg-l{animation:legSwing .5s ease-in-out infinite;transform-origin:0 0;transform-box:fill-box}
+.leg-r{animation:legSwing .5s ease-in-out infinite reverse;transform-origin:0 0;transform-box:fill-box}
+@keyframes wheelSpin{to{transform:rotate(-360deg)}}
+.wheel{animation:wheelSpin 1s linear infinite;transform-origin:center;transform-box:fill-box}
+@keyframes flameFlick{0%,100%{transform:scaleY(1) translateY(0)}50%{transform:scaleY(1.18) translateY(-1px)}}
+.flame{animation:flameFlick .7s ease-in-out infinite;transform-origin:bottom center;transform-box:fill-box}
+@keyframes smokeRise{0%{opacity:.55;transform:translateY(0) scale(.9)}100%{opacity:0;transform:translateY(-26px) scale(1.6)}}
+.smoke{animation:smokeRise 3s ease-out infinite;transform-origin:center;transform-box:fill-box}
+.smoke.s2{animation-delay:1s}
+.smoke.s3{animation-delay:2s}
+
+.journey-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.journey-step{padding:16px 18px;border-radius:var(--r-sm);background:#fff;border:1px solid var(--line);transition:var(--t)}
+.journey-step:hover{border-color:var(--mint-400);transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.journey-step .js-num{display:inline-block;font-family:'Fraunces',serif;color:#fff;background:var(--mint-700);font-weight:600;font-size:.72rem;letter-spacing:.04em;padding:3px 9px;border-radius:99px;margin-bottom:8px}
+.journey-step strong{display:block;font-size:.95rem;color:var(--ink-900);margin-bottom:4px;font-weight:600}
+.journey-step span{color:var(--ink-500);font-size:.82rem;line-height:1.5}
+@media(max-width:780px){.journey-steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.journey-steps{grid-template-columns:1fr}}
+
+/* ===== NIGERIA MAP STAGE ===== */
+.ng-section{margin-top:32px;position:relative;z-index:2}
+.ng-section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.ng-section-head .jt{font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mint-700);font-weight:700}
+.ng-section-head .jh{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--ink-900);font-weight:500}
+.ng-wrap{position:relative;width:100%;aspect-ratio:5/3.4;border-radius:var(--r-lg);background:linear-gradient(180deg,#F2F9F5,#E0EDE4);overflow:hidden;border:1px solid var(--mint-300)}
+.ng-wrap svg{width:100%;height:100%;display:block}
+
+/* Nigeria base silhouette */
+.ng-silhouette{fill:#E8F5EE;stroke:var(--mint-500);stroke-width:1.4;stroke-linejoin:round}
+/* Internal soft state grid lines (dotted) */
+.ng-grid{fill:none;stroke:var(--mint-400);stroke-width:.6;stroke-dasharray:2 4;opacity:.55}
+/* state polygons */
+.state{transition:fill .4s,opacity .4s,filter .4s;cursor:pointer}
+.state.outline{fill:#D8EDDF;stroke:#9CC8AA;stroke-width:.8;opacity:.85}
+.state.outline:hover{fill:#C2E0CC;opacity:1}
+
+/* TODAY — Kwara — strong gold blink */
+.state.kwara{fill:#D9A55B;stroke:#fff;stroke-width:2;filter:drop-shadow(0 4px 14px rgba(217,165,91,.55))}
+.state.kwara{animation:kwaraBlink 1.6s ease-in-out infinite}
+@keyframes kwaraBlink{
+  0%,100% { fill:#D9A55B; filter:drop-shadow(0 4px 14px rgba(217,165,91,.55)); }
+  50%     { fill:#F4C95A; filter:drop-shadow(0 0 26px rgba(244,201,90,.95)); }
+}
+/* extra ring around Kwara that pulses outward */
+.kwara-ring{fill:none;stroke:#D9A55B;stroke-width:2;transform-origin:center;transform-box:fill-box}
+.kwara-ring.r1{animation:kwaraRing 2.4s ease-out infinite}
+.kwara-ring.r2{animation:kwaraRing 2.4s ease-out infinite 1.2s}
+@keyframes kwaraRing{
+  0%   { opacity:.7; transform:scale(.6) }
+  100% { opacity:0;  transform:scale(1.9) }
+}
+
+/* 2027 — last mile within Kwara: small gold inner pins */
+.lga-pin{transform-origin:center;transform-box:fill-box}
+.lga-pin.dim{opacity:.35;transform:scale(.85)}
+[data-stage="2027"] .lga-pin,
+[data-stage="all"]  .lga-pin{opacity:1;transform:scale(1)}
+
+/* 2028 — neighbouring states */
+.state.s2028{fill:var(--mint-500);stroke:#fff;stroke-width:1.2;opacity:.85}
+[data-stage="today"] .state.s2028,
+[data-stage="2027"] .state.s2028 { opacity:.35; fill:#A8E0BD }
+[data-stage="2028"] .state.s2028 { opacity:1;  fill:var(--mint-500); animation:s28Glow 2s ease-in-out infinite }
+[data-stage="2030"] .state.s2028 { opacity:1;  fill:var(--mint-500) }
+[data-stage="2033"] .state.s2028 { opacity:1;  fill:var(--mint-500) }
+[data-stage="all"]  .state.s2028 { opacity:1;  fill:var(--mint-500) }
+@keyframes s28Glow{0%,100%{filter:drop-shadow(0 0 0 rgba(42,157,116,0))}50%{filter:drop-shadow(0 0 14px rgba(42,157,116,.85))}}
+
+/* 2030 — broader spread */
+.state.s2030{fill:var(--mint-300);stroke:#fff;stroke-width:1;opacity:.4}
+[data-stage="2030"] .state.s2030,
+[data-stage="2033"] .state.s2030,
+[data-stage="all"]  .state.s2030 { opacity:.95; fill:var(--mint-400) }
+
+/* plant dots (use with all stages) */
+.plant-dot{fill:var(--mint-700);opacity:0;transition:opacity .4s}
+[data-stage="2030"] .plant-dot,[data-stage="2033"] .plant-dot,[data-stage="all"] .plant-dot{opacity:1}
+
+/* 2033 — continental arrows */
+.cont-arrow{stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:5 7;fill:none;opacity:0;transition:opacity .5s}
+[data-stage="2033"] .cont-arrow,[data-stage="all"] .cont-arrow{opacity:.85}
+.cont-arrow{animation:contArrow 3s linear infinite}
+@keyframes contArrow{to{stroke-dashoffset:-48}}
+
+/* "TODAY · 2026" floating chip */
+.ng-chip{position:absolute;background:var(--ink-900);color:var(--warm);padding:8px 14px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow-md);z-index:3}
+.ng-chip::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);animation:dotBlink 1.2s ease-in-out infinite}
+@keyframes dotBlink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.ng-chip.tl{top:18px;left:18px}
+.ng-chip.tr{top:18px;right:18px;background:#fff;color:var(--mint-800);border:1px solid var(--line)}
+.ng-chip.tr::before{background:var(--mint-500)}
+.ng-arrow-from-chip{stroke:var(--gold);stroke-width:1.5;stroke-dasharray:3 4;fill:none;opacity:.7}
+
+/* Year filter pills above the map */
+.ng-filter{display:inline-flex;flex-wrap:wrap;gap:6px;background:var(--mint-100);padding:5px;border-radius:999px}
+.ng-filter button{padding:8px 16px;border-radius:999px;font-size:.8rem;font-weight:600;color:var(--ink-700);cursor:pointer;transition:var(--t-fast);border:none;background:transparent;display:inline-flex;align-items:center;gap:7px}
+.ng-filter button .pip{width:8px;height:8px;border-radius:50%;background:var(--mint-500)}
+.ng-filter button[data-y="today"] .pip{background:var(--gold)}
+.ng-filter button[data-y="2027"] .pip{background:#E0B45F}
+.ng-filter button[data-y="2028"] .pip{background:var(--mint-500)}
+.ng-filter button[data-y="2030"] .pip{background:var(--mint-400)}
+.ng-filter button[data-y="2033"] .pip{background:var(--ink-900)}
+.ng-filter button.active{background:var(--mint-800);color:#fff;box-shadow:var(--shadow-sm)}
+.ng-filter button.active .pip{box-shadow:0 0 0 2px rgba(255,255,255,.4)}
+
+/* Legend cards become clickable filter cards */
+.map-stop[data-y]{cursor:pointer}
+.map-stop[data-y].selected{transform:translateY(-3px);border-color:var(--mint-500);box-shadow:var(--shadow-md)}
+.map-stop.today.selected{box-shadow:0 0 0 8px rgba(217,165,91,.25),var(--shadow-md)}
+
+@media(max-width:880px){
+  .journey-wrap{aspect-ratio:5/2.6}
+  .ng-wrap{aspect-ratio:5/4.4}
+}
+
+.problem{background:var(--mint-900);color:#fff;border-radius:var(--r-xl);margin:0 24px;padding:clamp(56px,8vw,100px) clamp(32px,6vw,80px);position:relative;overflow:hidden}
+.problem::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,var(--mint-600),transparent 70%);opacity:.5;filter:blur(40px)}
+.problem h2,.problem .eyebrow{color:#fff} .problem .eyebrow{color:var(--mint-300)}
+.problem .eyebrow::before{background:var(--mint-300)} .problem .lead{color:var(--mint-100)}
+.problem-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(255,255,255,.12);position:relative}
+.problem-stat .num{font-family:'Fraunces',serif;font-size:clamp(2.5rem,4.5vw,3.6rem);font-weight:500;letter-spacing:-.02em;line-height:1;margin-bottom:12px;color:var(--mint-300)}
+.problem-stat .desc{color:var(--mint-100);font-size:.95rem;max-width:28ch}
+@media(max-width:880px){.problem-stats{grid-template-columns:1fr;gap:24px}.problem{margin:0 16px}}
+
+.feature-split{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.feat-visual{position:relative;aspect-ratio:5/6;border-radius:var(--r-xl);overflow:hidden}
+.feat-visual svg{width:100%;height:100%}
+.feature-split h2{margin:18px 0 22px}
+.feat-list{margin-top:28px;display:grid;gap:16px}
+.feat-item{display:flex;gap:16px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);transition:var(--t)}
+.feat-item:hover{border-color:var(--mint-400);transform:translateX(4px);box-shadow:var(--shadow-sm)}
+.feat-item .ico{flex:none;width:44px;height:44px;border-radius:12px;background:var(--mint-100);color:var(--mint-800);display:grid;place-items:center}
+.feat-item h4{margin-bottom:4px;font-family:'Inter',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0}
+.feat-item p{font-size:.9rem;color:var(--ink-500)}
+@media(max-width:900px){.feature-split{grid-template-columns:1fr;gap:40px}}
+
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.value-card{padding:32px 28px;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);transition:var(--t);position:relative;overflow:hidden}
+.value-card::after{content:'';position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--mint-500),var(--mint-700));transform:scaleX(0);transform-origin:left;transition:var(--t)}
+.value-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--mint-300)}
+.value-card:hover::after{transform:scaleX(1)}
+.value-card .ico{width:48px;height:48px;border-radius:12px;background:var(--mint-100);color:var(--mint-800);display:grid;place-items:center;margin-bottom:24px;transition:var(--t)}
+.value-card:hover .ico{background:var(--mint-800);color:#fff;transform:rotate(-6deg)}
+.value-card h4{font-family:'Inter',sans-serif;font-weight:600;font-size:1.05rem;letter-spacing:0;margin-bottom:10px}
+.value-card p{font-size:.92rem;color:var(--ink-500)}
+@media(max-width:900px){.values-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.values-grid{grid-template-columns:1fr}}
+
+.impact{background:var(--mint-50)}
+.section-head{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+.section-head h2{margin-top:18px} .section-head p{margin-top:16px}
+@media(max-width:880px){.section-head{grid-template-columns:1fr;gap:16px}}
+
+.proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+.proj-item{padding:28px 24px;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);transition:var(--t)}
+.proj-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--mint-300)}
+.proj-item .num{font-family:'Fraunces',serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:500;color:var(--mint-700);letter-spacing:-.02em;line-height:1;margin-bottom:12px}
+.proj-item .num .unit{font-size:.5em;color:var(--mint-500)}
+.proj-item .lab{font-size:.92rem;color:var(--ink-900);margin-bottom:6px;font-weight:600}
+.proj-item .desc{font-size:.82rem;color:var(--ink-500)}
+@media(max-width:880px){.proj-grid{grid-template-columns:repeat(2,1fr);gap:12px}.proj-item{padding:20px 16px}}
+
+.footer{background:var(--ink-900);color:rgba(255,255,255,.7);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer h4{color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.footer .logo{margin-bottom:20px}
+.footer p{font-size:.92rem;max-width:36ch;margin-bottom:24px}
+.footer ul{list-style:none;display:grid;gap:12px}
+.footer ul a, .footer ul li{font-size:.92rem;color:rgba(255,255,255,.7);transition:var(--t-fast);line-height:1.5}
+.footer ul a:hover{color:var(--mint-400)}
+.footer .addr{font-size:.86rem;color:rgba(255,255,255,.7);line-height:1.6}
+.footer .addr strong{color:#fff;font-weight:600;display:block;margin-bottom:2px;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+.newsletter{display:flex;gap:8px;margin-top:12px}
+.newsletter input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#fff;font-family:inherit;font-size:.9rem;outline:none}
+.newsletter input::placeholder{color:rgba(255,255,255,.45)}
+.newsletter input:focus{border-color:var(--mint-400);background:rgba(255,255,255,.08)}
+.newsletter button{padding:12px 18px;border-radius:999px;background:var(--mint-500);color:var(--ink-900);font-weight:600;font-size:.9rem}
+.newsletter button:hover{background:var(--mint-400)}
+.footer-bottom{padding-top:32px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:.85rem}
+.footer-socials{display:flex;gap:10px}
+.footer-socials a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;transition:var(--t)}
+.footer-socials a:hover{background:var(--mint-500);color:var(--ink-900);border-color:var(--mint-500)}
+@media(max-width:880px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-bottom{flex-direction:column;text-align:center}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 800ms cubic-bezier(.2,.8,.2,1),transform 800ms cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:80ms} .reveal.delay-2{transition-delay:160ms} .reveal.delay-3{transition-delay:240ms} .reveal.delay-4{transition-delay:320ms}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.logo-svg-header{}
+</style>
+</head>
+<body>
+<div class="cursor-glow"></div>
+<div class="scroll-progress"></div>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="11" fill="#0F4C3A"/>
+        <path d="M20 9 C 23.5 14, 26.5 17.5, 24.5 23 C 23.5 27, 20.5 28.5, 20 28.5 C 20 28.5, 16.5 27, 15.5 23 C 13.5 17.5, 16.5 14, 20 9 Z" fill="#A8E0BD"/>
+        <path d="M20 13 C 22 17, 24 19.5, 22.5 23 C 22 25, 20.5 26, 20 26 C 19.5 26, 18 25, 17.5 23 C 16 19.5, 18 17, 20 13 Z" fill="#6FCF97"/>
+        <circle cx="26" cy="12" r="2.2" fill="#FCEAB6"/>
+      </svg>
+      <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="services.html">Services</a>
+      <a href="solar.html">Solar <span class="soon">Soon</span></a>
+      <a href="investors.html">Investors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">Partner with us<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-grid">
+      <div class="reveal">
+        <div class="breadcrumb"><a href="index.html">Home</a><span class="breadcrumb-sep">/</span><span>About us</span></div>
+        <div class="eyebrow">Who we are</div>
+        <h1>A rural-first<br/>clean energy company.</h1>
+        <p class="lead">Fahman exists because the cleanest, safest cooking fuel in Nigeria — LPG — stops being available the moment you leave the cities. We're closing that gap, one solar-powered plant at a time, and we're laying the foundation to bring solar electricity to those same rural homes.</p>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <span class="tag">Founded in Kwara State</span>
+          <span class="tag">Rural Nigeria · 2026</span>
+          <span class="tag">Solar-powered</span>
+        </div>
+        <!-- Registered name disclaimer -->
+        <div class="legal-card">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M5 12a7 7 0 0 1 14 0v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div>
+            <strong>A note on our name</strong>
+            <p><em>Fahman Oil &amp; Gas Ltd.</em> is our registered company name. <em>Fahman</em> (and increasingly, <em>FahmanEnergy</em>) is our trading name — used everywhere we go to market, because our future stretches well beyond LPG.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- About SVG -->
+      <div class="about-illu reveal delay-2">
+        <svg viewBox="0 0 500 625" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="aSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCEAB6"/><stop offset=".5" stop-color="#A8E0BD"/><stop offset="1" stop-color="#1B7A5C"/></linearGradient>
+            <radialGradient id="aSun"><stop offset="0" stop-color="#FCEAB6"/><stop offset="1" stop-color="#D9A55B"/></radialGradient>
+            <linearGradient id="aCyl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAF8F2"/><stop offset="1" stop-color="#E4ECE6"/></linearGradient>
+          </defs>
+          <rect width="500" height="625" fill="url(#aSky)"/>
+          <circle cx="380" cy="120" r="55" fill="url(#aSun)"/>
+          <circle cx="380" cy="120" r="80" fill="#FCEAB6" opacity=".25"/>
+          <path d="M120 160 q5 -6 10 0 q5 -6 10 0" stroke="#0F4C3A" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+          <path d="M180 130 q4 -5 8 0 q4 -5 8 0" stroke="#0F4C3A" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round"/>
+          <g transform="translate(70,330)">
+            <ellipse cx="35" cy="100" rx="35" ry="14" fill="#0B3D2E" opacity=".4"/>
+            <rect x="28" y="30" width="14" height="80" fill="#2C3E36"/>
+            <ellipse cx="35" cy="30" rx="36" ry="22" fill="#14624A"/>
+            <ellipse cx="20" cy="20" rx="18" ry="14" fill="#1B7A5C"/>
+            <ellipse cx="50" cy="22" rx="20" ry="15" fill="#1B7A5C"/>
+          </g>
+          <g transform="translate(160,360)">
+            <polygon points="0,40 60,0 120,40" fill="#D9A55B"/>
+            <rect x="10" y="40" width="100" height="60" fill="#E8C99A"/>
+            <rect x="48" y="65" width="24" height="35" fill="#2C3E36"/>
+            <line x1="10" y1="100" x2="110" y2="100" stroke="#0A1F18" stroke-width="2"/>
+            <line x1="0" y1="40" x2="120" y2="40" stroke="#0A1F18" stroke-width="2"/>
+          </g>
+          <g transform="translate(280,380)">
+            <polygon points="0,30 40,0 80,30" fill="#D9A55B" opacity=".9"/>
+            <rect x="6" y="30" width="68" height="50" fill="#E8C99A" opacity=".95"/>
+            <rect x="32" y="50" width="16" height="30" fill="#2C3E36"/>
+          </g>
+          <rect x="0" y="465" width="500" height="160" fill="#0F4C3A"/>
+          <path d="M0,465 Q150,455 300,465 T500,465 L500,475 L0,475 Z" fill="#14624A" opacity=".6"/>
+          <path d="M40,580 Q200,520 280,500 T460,500" stroke="#D9A55B" stroke-width="14" fill="none" opacity=".7"/>
+          <path d="M40,580 Q200,520 280,500 T460,500" stroke="#FAF8F2" stroke-width="2" fill="none" stroke-dasharray="4 8" opacity=".4"/>
+
+          <!-- Big LPG cylinder hero -->
+          <g transform="translate(60,420)">
+            <rect x="22" y="0" width="6" height="4" fill="#0A1F18"/>
+            <ellipse cx="25" cy="2" rx="3.5" ry="2" fill="#D9A55B"/>
+            <path d="M10 6 Q10 2 16 2 H34 Q40 2 40 6 V14 H10 Z" fill="#0A1F18"/>
+            <path d="M2 22 Q2 12 25 12 Q48 12 48 22 V26 H2 Z" fill="url(#aCyl)" stroke="#0A1F18" stroke-width="2"/>
+            <rect x="2" y="24" width="46" height="100" fill="url(#aCyl)" stroke="#0A1F18" stroke-width="2"/>
+            <rect x="2" y="50" width="46" height="32" fill="#0F4C3A"/>
+            <text x="25" y="63" text-anchor="middle" font-size="7" font-weight="700" fill="#A8E0BD" font-family="Fraunces,serif" letter-spacing="1">FAHMAN</text>
+            <text x="25" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#FCEAB6" font-family="Inter,sans-serif">12.5kg</text>
+            <rect x="0" y="122" width="50" height="6" fill="#1B7A5C" stroke="#0A1F18" stroke-width="1"/>
+            <path d="M30 -8 q-4 -8 0 -14 q4 6 0 14" stroke="#A8E0BD" stroke-width="2" fill="none" opacity=".7"/>
+          </g>
+
+          <g transform="translate(360,510)" fill="#0A1F18">
+            <circle cx="10" cy="0" r="7"/>
+            <path d="M2,8 q8 -4 16 0 l-2 30 l-12 0 z"/>
+            <line x1="6" y1="38" x2="4" y2="60" stroke="#0A1F18" stroke-width="3"/>
+            <line x1="14" y1="38" x2="16" y2="60" stroke="#0A1F18" stroke-width="3"/>
+          </g>
+          <g transform="translate(395,520)" fill="#0A1F18">
+            <circle cx="6" cy="0" r="5"/>
+            <path d="M0,6 q6 -3 12 0 l-1 22 l-10 0 z"/>
+            <line x1="3" y1="28" x2="2" y2="44" stroke="#0A1F18" stroke-width="2"/>
+            <line x1="9" y1="28" x2="10" y2="44" stroke="#0A1F18" stroke-width="2"/>
+          </g>
+          <text x="32" y="56" font-family="Fraunces,serif" font-size="22" font-weight="500" fill="#0F4C3A" letter-spacing="-.5">Rural Nigeria.</text>
+          <text x="32" y="82" font-family="Inter,sans-serif" font-size="10" fill="#0F4C3A" letter-spacing="2" font-weight="600" opacity=".7">CLEAN COOKING ENERGY</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-intro">
+        <div class="reveal">
+          <div class="eyebrow">Our story</div>
+          <h2 style="margin:18px 0 24px;">From one community<br/>to a continent.</h2>
+        </div>
+        <div class="reveal delay-1">
+          <p class="lead" style="margin-bottom:18px;">Fahman started in Ilesha Baruba, Kwara State, with a simple observation: rural Nigerian households spend more time, money and health on cooking fuel than urban families pay for clean gas — and nobody is fixing it.</p>
+          <p style="color:var(--ink-700);">We set out to build the rural energy supply chain that the national grid forgot. Solar-powered. Locally staffed. Compliance-first. And — over the next seven years — that same model rolls out across Kwara, into nearby states, and onward to other African countries.</p>
+        </div>
+      </div>
+
+      <!-- ROADMAP -->
+      <div class="roadmap reveal" id="roadmap">
+        <div class="roadmap-head">
+          <div>
+            <div class="eyebrow" style="color:var(--mint-700);">Our roadmap</div>
+            <h3>From a depot in Lagos, to a stove in Baruba.<br/>Then, to every state in Nigeria.</h3>
+          </div>
+          <p>First — how a single cylinder reaches a rural kitchen today. Then — how that same model spreads, year by year, across Nigeria and beyond.</p>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- JOURNEY ILLUSTRATION : ONE SCENE — solar→station→home (rural community) -->
+        <!-- ============================================== -->
+        <div class="journey">
+          <div class="journey-head">
+            <div>
+              <div class="jt">Stage 1 · Today · Ilesha Baruba</div>
+              <div class="jh">A solar-powered Fahman station, in the heart of a rural community.</div>
+            </div>
+            <div class="jp">Sun powers the panels on the roof. Panels power the gas tank and dispenser. A truck arrives from the depot. A neighbour walks home with a cylinder. One picture, one loop.</div>
+          </div>
+
+          <div class="journey-wrap" aria-hidden="true">
+            <svg viewBox="0 0 1240 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A rural Nigerian community: a Fahman station with solar panels on its canopy roof, LPG tank and dispenser inside, a parked Fahman tanker, the sun shining onto the panels, and a customer walking home with a fresh cylinder.">
+              <defs>
+                <linearGradient id="jSky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FFEFB7"/>
+                  <stop offset=".55" stop-color="#FFF6D6"/>
+                  <stop offset="1" stop-color="#E8F5EE"/>
+                </linearGradient>
+                <radialGradient id="jSunCore" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="#FFF1B0"/>
+                  <stop offset=".5" stop-color="#FCD46A"/>
+                  <stop offset="1" stop-color="#D9A55B"/>
+                </radialGradient>
+                <linearGradient id="jGround" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#A8D9B0"/>
+                  <stop offset="1" stop-color="#7BBE85"/>
+                </linearGradient>
+                <linearGradient id="jHillFar" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#C2DFC6"/>
+                  <stop offset="1" stop-color="#A8D5B2"/>
+                </linearGradient>
+                <linearGradient id="jHill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#9CC8AA"/>
+                  <stop offset="1" stop-color="#7BBE85"/>
+                </linearGradient>
+                <linearGradient id="jStWall" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FAF6E6"/>
+                  <stop offset="1" stop-color="#E9DEC1"/>
+                </linearGradient>
+                <linearGradient id="jStCol" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#1B6A4F"/>
+                  <stop offset="1" stop-color="#0B3D2E"/>
+                </linearGradient>
+                <linearGradient id="jPanel" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#1B3A6A"/>
+                  <stop offset=".5" stop-color="#284E84"/>
+                  <stop offset="1" stop-color="#0F2240"/>
+                </linearGradient>
+                <linearGradient id="jLpg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#2A8A60"/>
+                  <stop offset="1" stop-color="#0F4C3A"/>
+                </linearGradient>
+                <linearGradient id="jTruckBody" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#1B7A5C"/>
+                  <stop offset="1" stop-color="#0F4C3A"/>
+                </linearGradient>
+                <linearGradient id="jTruckTank" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FFFFFF"/>
+                  <stop offset="1" stop-color="#D6E7DC"/>
+                </linearGradient>
+                <linearGradient id="jHutWall" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#E9DEC1"/>
+                  <stop offset="1" stop-color="#C9B98A"/>
+                </linearGradient>
+                <linearGradient id="jRoof" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#7A3A1C"/>
+                  <stop offset="1" stop-color="#5A2A14"/>
+                </linearGradient>
+                <!-- Re-usable label-pill style is via white rects below -->
+              </defs>
+
+              <!-- ========== SKY ========== -->
+              <rect width="1240" height="500" fill="url(#jSky)"/>
+
+              <!-- ========== SUN (upper-centre, well clear of station) ========== -->
+              <g transform="translate(580,80)">
+                <circle r="78" fill="#FCEAB6" opacity=".25"/>
+                <circle r="56" fill="#FCEAB6" opacity=".4"/>
+                <circle r="42" fill="url(#jSunCore)"/>
+                <g stroke="#F4C95A" stroke-width="3" stroke-linecap="round" opacity=".85">
+                  <line x1="0" y1="-58" x2="0" y2="-78"/>
+                  <line x1="42" y1="-42" x2="58" y2="-58"/>
+                  <line x1="58" y1="0" x2="78" y2="0"/>
+                  <line x1="42" y1="42" x2="58" y2="58"/>
+                  <line x1="0" y1="58" x2="0" y2="78"/>
+                  <line x1="-42" y1="42" x2="-58" y2="58"/>
+                  <line x1="-58" y1="0" x2="-78" y2="0"/>
+                  <line x1="-42" y1="-42" x2="-58" y2="-58"/>
+                  <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="60s" repeatCount="indefinite"/>
+                </g>
+              </g>
+
+              <!-- ========== DISTANT HILLS ========== -->
+              <path d="M0 295 Q 140 268 280 285 T 560 280 T 840 290 T 1120 280 L 1240 285 L 1240 320 L 0 320 Z" fill="url(#jHillFar)" opacity=".75"/>
+              <path d="M0 315 Q 160 295 320 308 T 620 305 T 940 318 T 1240 305 L 1240 342 L 0 342 Z" fill="url(#jHill)" opacity=".9"/>
+
+              <!-- ========== GROUND ========== -->
+              <rect x="0" y="335" width="1240" height="165" fill="url(#jGround)"/>
+              <g fill="#5A8F60" opacity=".5">
+                <path d="M70 405 q3 -8 6 0 q3 -6 6 0 z"/>
+                <path d="M280 425 q3 -8 6 0 q3 -6 6 0 z"/>
+                <path d="M520 410 q3 -8 6 0 q3 -6 6 0 z"/>
+                <path d="M880 432 q3 -8 6 0 q3 -6 6 0 z"/>
+                <path d="M1080 420 q3 -8 6 0 q3 -6 6 0 z"/>
+              </g>
+
+              <!-- ========== DIRT ROAD (curves from far-left depot to a parking spot beside the station) ========== -->
+              <path d="M -10 410 Q 100 392 200 388 Q 280 386 340 396 Q 400 408 470 416"
+                    stroke="#C9A56B" stroke-width="26" fill="none" stroke-linecap="round" opacity=".95"/>
+              <path d="M -10 410 Q 100 392 200 388 Q 280 386 340 396 Q 400 408 470 416"
+                    stroke="#FFF6D6" stroke-width="2" stroke-dasharray="9 16" fill="none" opacity=".9">
+                <animate attributeName="stroke-dashoffset" from="0" to="-50" dur="2.6s" repeatCount="indefinite"/>
+              </path>
+
+              <!-- ========== PARKING SPOT (where the tanker stops next to the station) ========== -->
+              <g transform="translate(420,410)">
+                <!-- bay outline -->
+                <path d="M -50 6 L 60 6 L 70 26 L -60 26 Z" fill="#0F4C3A" opacity=".15"/>
+                <path d="M -50 6 L 60 6 L 70 26 L -60 26 Z" fill="none" stroke="#FCEAB6" stroke-width="1.2" stroke-dasharray="4 4" opacity=".75"/>
+                <text x="5" y="22" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="800" fill="#FCEAB6" letter-spacing=".18em">P</text>
+              </g>
+
+              <!-- ========== DISTANT DEPOT (far-left horizon, scaled small) ========== -->
+              <g transform="translate(36,308)">
+                <ellipse cx="60" cy="48" rx="76" ry="11" fill="#9CC8AA" opacity=".5"/>
+                <rect x="14" y="22" width="92" height="32" rx="16" fill="#A8E0BD" stroke="#0F4C3A" stroke-width="1.5"/>
+                <ellipse cx="14" cy="38" rx="6" ry="16" fill="#6FCF97" stroke="#0F4C3A" stroke-width="1.5"/>
+                <ellipse cx="106" cy="38" rx="6" ry="16" fill="#6FCF97" stroke="#0F4C3A" stroke-width="1.5"/>
+                <rect x="28" y="55" width="5" height="10" fill="#0F4C3A"/>
+                <rect x="86" y="55" width="5" height="10" fill="#0F4C3A"/>
+                <rect x="28" y="32" width="64" height="14" fill="#0F4C3A" rx="2"/>
+                <text x="60" y="42" text-anchor="middle" font-family="Fraunces,serif" font-size="7" font-weight="700" fill="#FCEAB6" letter-spacing=".06em">LAGOS DEPOT</text>
+              </g>
+
+              <!-- ========== TANKER TRUCK (drives in then PARKS at the bay) ========== -->
+              <g>
+                <animateTransform attributeName="transform" type="translate"
+                                  values="-180,372; 360,372; 360,372; 360,372"
+                                  keyTimes="0; 0.45; 0.85; 1"
+                                  dur="9s" repeatCount="indefinite"/>
+                <ellipse cx="56" cy="42" rx="58" ry="3" fill="#0F4C3A" opacity=".25"/>
+                <!-- cab -->
+                <rect x="0" y="10" width="28" height="26" rx="3" fill="url(#jTruckBody)" stroke="#0B3D2E" stroke-width="1"/>
+                <rect x="3" y="14" width="20" height="12" rx="1.5" fill="#A8E0BD" opacity=".85"/>
+                <line x1="13" y1="14" x2="13" y2="26" stroke="#0F4C3A" stroke-width=".8"/>
+                <!-- tank body -->
+                <rect x="28" y="4" width="86" height="34" rx="13" fill="url(#jTruckTank)" stroke="#0F4C3A" stroke-width="1"/>
+                <ellipse cx="28" cy="21" rx="3.5" ry="17" fill="#A8E0BD" stroke="#0F4C3A" stroke-width="1"/>
+                <ellipse cx="114" cy="21" rx="3.5" ry="17" fill="#A8E0BD" stroke="#0F4C3A" stroke-width="1"/>
+                <rect x="36" y="14" width="68" height="12" fill="#0F4C3A" rx="2"/>
+                <text x="70" y="23" text-anchor="middle" font-family="Fraunces,serif" font-size="8" font-weight="700" fill="#FCEAB6" letter-spacing=".08em">FAHMAN · LPG</text>
+                <rect x="68" y="0" width="6" height="5" fill="#D9A55B"/>
+                <!-- wheels -->
+                <g class="wheel" style="transform-box:fill-box"><circle cx="12" cy="38" r="6" fill="#0B1A14"/><circle cx="12" cy="38" r="2" fill="#A8E0BD"/></g>
+                <g class="wheel" style="transform-box:fill-box"><circle cx="50" cy="38" r="6" fill="#0B1A14"/><circle cx="50" cy="38" r="2" fill="#A8E0BD"/></g>
+                <g class="wheel" style="transform-box:fill-box"><circle cx="78" cy="38" r="6" fill="#0B1A14"/><circle cx="78" cy="38" r="2" fill="#A8E0BD"/></g>
+                <g class="wheel" style="transform-box:fill-box"><circle cx="104" cy="38" r="6" fill="#0B1A14"/><circle cx="104" cy="38" r="2" fill="#A8E0BD"/></g>
+                <!-- exhaust -->
+                <circle class="exhaust" cx="-4" cy="10" r="2.4" fill="#98A39C"/>
+                <circle class="exhaust" cx="-7" cy="12" r="3" fill="#98A39C" style="animation-delay:.5s"/>
+                <!-- parking hazard light (tiny) -->
+                <circle cx="115" cy="6" r="2" fill="#D9A55B">
+                  <animate attributeName="opacity" values="1;.2;1" dur="1.2s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+
+              <!-- ========== PALMS (placed at edges, away from key labels) ========== -->
+              <g transform="translate(1200,330)" opacity=".85">
+                <rect x="-2" y="0" width="4" height="22" fill="#5A3A1A"/>
+                <path d="M0 0 Q -16 -6 -22 -16 M0 0 Q 16 -6 22 -16 M0 0 Q -10 -14 -14 -24 M0 0 Q 10 -14 14 -24 M0 0 Q 0 -18 2 -28" stroke="#1B7A5C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+
+              <!-- ========== ENERGY · SUN RAYS → ROOFTOP PANELS (animated dotted, in the empty sky between sun & station) ========== -->
+              <g stroke="#F4C95A" stroke-width="2.4" stroke-dasharray="3 7" stroke-linecap="round" fill="none" opacity=".85">
+                <path d="M580 138 Q 600 180 640 218">
+                  <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="2s" repeatCount="indefinite"/>
+                </path>
+                <path d="M610 138 Q 660 180 720 218">
+                  <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="2.4s" repeatCount="indefinite"/>
+                </path>
+                <path d="M635 138 Q 700 180 800 218">
+                  <animate attributeName="stroke-dashoffset" from="0" to="-40" dur="1.8s" repeatCount="indefinite"/>
+                </path>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- ====== FAHMAN STATION (the centrepiece) ===== -->
+              <!--   x: 590-870 footprint; canopy roof+panels above   -->
+              <!-- ============================================== -->
+              <g transform="translate(590,210)">
+                <!-- Solar panels block on top of canopy -->
+                <g>
+                  <!-- back-shadow under panel block -->
+                  <rect x="-10" y="-2" width="290" height="4" fill="#0F2240" opacity=".45"/>
+                  <!-- 3 panel modules side by side -->
+                  <g>
+                    <rect x="0" y="0" width="92" height="36" fill="url(#jPanel)" stroke="#0F2240" stroke-width="1"/>
+                    <line x1="46" y1="0" x2="46" y2="36" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="0" y1="18" x2="92" y2="18" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="23" y1="0" x2="23" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                    <line x1="69" y1="0" x2="69" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                    <path d="M2 2 L 14 2 L 8 32 L 2 32 Z" fill="#FFF1B0" opacity=".22"/>
+                  </g>
+                  <g transform="translate(94,0)">
+                    <rect x="0" y="0" width="92" height="36" fill="url(#jPanel)" stroke="#0F2240" stroke-width="1"/>
+                    <line x1="46" y1="0" x2="46" y2="36" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="0" y1="18" x2="92" y2="18" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="23" y1="0" x2="23" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                    <line x1="69" y1="0" x2="69" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                  </g>
+                  <g transform="translate(188,0)">
+                    <rect x="0" y="0" width="92" height="36" fill="url(#jPanel)" stroke="#0F2240" stroke-width="1"/>
+                    <line x1="46" y1="0" x2="46" y2="36" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="0" y1="18" x2="92" y2="18" stroke="#6FCF97" stroke-width=".6" opacity=".7"/>
+                    <line x1="23" y1="0" x2="23" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                    <line x1="69" y1="0" x2="69" y2="36" stroke="#6FCF97" stroke-width=".5" opacity=".55"/>
+                  </g>
+                </g>
+
+                <!-- Canopy roof (flat, slight rim under panels) -->
+                <rect x="-18" y="36" width="316" height="14" fill="url(#jStCol)"/>
+                <rect x="-18" y="48" width="316" height="4" fill="#0B3D2E"/>
+
+                <!-- FAHMAN ENERGY SIGN BAND (white panel, dark text, gold trim) -->
+                <rect x="-14" y="52" width="308" height="32" fill="#FAF8F2" stroke="#0F4C3A" stroke-width="1.5"/>
+                <rect x="-14" y="84" width="308" height="3" fill="#D9A55B"/>
+                <!-- mini logo drop -->
+                <g transform="translate(20,68)">
+                  <path d="M0 -10 C 5 -3, 7 1, 5 6 C 4 9, 2 10, 0 10 C -2 10, -4 9, -5 6 C -7 1, -5 -3, 0 -10 Z" fill="#0F4C3A"/>
+                  <circle cx="3" cy="-7" r="1.6" fill="#FCEAB6"/>
+                </g>
+                <text x="158" y="73" text-anchor="middle" font-family="Fraunces,serif" font-size="17" font-weight="600" fill="#0F4C3A" letter-spacing=".18em">FAHMAN ENERGY</text>
+
+                <!-- 4 columns -->
+                <rect x="-14" y="87" width="18" height="148" fill="url(#jStCol)"/>
+                <rect x="84" y="87" width="14" height="148" fill="url(#jStCol)"/>
+                <rect x="182" y="87" width="14" height="148" fill="url(#jStCol)"/>
+                <rect x="276" y="87" width="18" height="148" fill="url(#jStCol)"/>
+                <!-- column bases -->
+                <rect x="-18" y="232" width="26" height="6" fill="#FCEAB6"/>
+                <rect x="80" y="232" width="22" height="6" fill="#FCEAB6"/>
+                <rect x="178" y="232" width="22" height="6" fill="#FCEAB6"/>
+                <rect x="272" y="232" width="26" height="6" fill="#FCEAB6"/>
+
+                <!-- Back wall behind tank (light cream) -->
+                <rect x="6" y="100" width="270" height="138" fill="url(#jStWall)" stroke="#B8A684" stroke-width=".8"/>
+
+                <!-- Concrete plinth/floor -->
+                <rect x="-20" y="238" width="320" height="12" fill="#9CA59E" stroke="#5A6B62" stroke-width=".8"/>
+                <rect x="-20" y="246" width="320" height="4" fill="#7A8580"/>
+
+                <!-- Vertical pipes from back wall down (from above tank) -->
+                <line x1="46" y1="106" x2="46" y2="186" stroke="#5A6B62" stroke-width="3" stroke-linecap="round"/>
+                <line x1="62" y1="106" x2="62" y2="186" stroke="#5A6B62" stroke-width="3" stroke-linecap="round"/>
+                <!-- valve manifold (tiny gauge box on wall) -->
+                <rect x="38" y="120" width="32" height="22" rx="2" fill="#0F4C3A" stroke="#FCEAB6" stroke-width=".6"/>
+                <circle cx="46" cy="131" r="3" fill="#FCEAB6"/>
+                <circle cx="62" cy="131" r="3" fill="#D9A55B"/>
+
+                <!-- ===== LPG TANK (horizontal cylinder, on saddle plinth) ===== -->
+                <g transform="translate(20,186)">
+                  <!-- saddles -->
+                  <rect x="14" y="42" width="26" height="14" fill="#FCEAB6" stroke="#0F4C3A" stroke-width="1"/>
+                  <rect x="160" y="42" width="26" height="14" fill="#FCEAB6" stroke="#0F4C3A" stroke-width="1"/>
+                  <!-- tank body (forest green like reference) -->
+                  <rect x="0" y="6" width="200" height="42" rx="21" fill="url(#jLpg)" stroke="#0B3D2E" stroke-width="1.5"/>
+                  <!-- end caps -->
+                  <ellipse cx="0" cy="27" rx="6" ry="21" fill="#1B7A5C" stroke="#0B3D2E" stroke-width="1.5"/>
+                  <ellipse cx="200" cy="27" rx="6" ry="21" fill="#1B7A5C" stroke="#0B3D2E" stroke-width="1.5"/>
+                  <!-- top valve cluster -->
+                  <rect x="92" y="-2" width="16" height="10" fill="#0B3D2E" rx="1"/>
+                  <circle cx="100" cy="-3" r="3" fill="#D9A55B"/>
+                  <!-- "FAHMAN LPG" body text -->
+                  <text x="100" y="32" text-anchor="middle" font-family="Fraunces,serif" font-size="14" font-weight="700" fill="#FCEAB6" letter-spacing=".18em">FAHMAN LPG</text>
+                  <!-- specification dot -->
+                  <text x="100" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#A8E0BD" letter-spacing=".18em">10 METRIC TONNES</text>
+                </g>
+
+                <!-- ===== DISPENSER PUMP ===== -->
+                <g transform="translate(220,178)">
+                  <!-- base -->
+                  <rect x="-2" y="58" width="56" height="6" fill="#0F4C3A"/>
+                  <!-- body -->
+                  <rect x="4" y="0" width="46" height="60" rx="3" fill="url(#jLpg)" stroke="#0B3D2E" stroke-width="1.2"/>
+                  <!-- gold trim line -->
+                  <rect x="4" y="0" width="46" height="3" fill="#D9A55B"/>
+                  <!-- screen -->
+                  <rect x="9" y="8" width="36" height="14" fill="#0B1A14" rx="1.5"/>
+                  <text x="27" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#FCEAB6">12.5 kg</text>
+                  <!-- buttons -->
+                  <circle cx="14" cy="30" r="2" fill="#D9A55B"/>
+                  <circle cx="22" cy="30" r="2" fill="#A8E0BD"/>
+                  <circle cx="30" cy="30" r="2" fill="#FCEAB6"/>
+                  <circle cx="38" cy="30" r="2" fill="#5A6B62"/>
+                  <!-- nozzle holster -->
+                  <rect x="46" y="38" width="12" height="6" fill="#0B3D2E"/>
+                  <!-- nozzle hose curving -->
+                  <path d="M58 41 Q 70 50 64 64" stroke="#5A6B62" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  <!-- "FAHMAN" small label -->
+                  <text x="27" y="52" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#FCEAB6" letter-spacing=".15em">FAHMAN</text>
+                </g>
+              </g>
+
+              <!-- ========== INTERNAL ENERGY FLOW · panels → tank/dispenser (subtle, contained inside canopy) ========== -->
+              <g stroke="#D9A55B" stroke-width="2" stroke-dasharray="3 6" stroke-linecap="round" fill="none" opacity=".75">
+                <!-- panels (top-of-canopy back) → tank top (~ x690,y400 station-relative) -->
+                <path d="M 730 250 Q 740 320 720 396">
+                  <animate attributeName="stroke-dashoffset" from="0" to="-36" dur="1.8s" repeatCount="indefinite"/>
+                </path>
+                <!-- tank top → dispenser top -->
+                <path d="M 770 396 L 820 388">
+                  <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1.5s" repeatCount="indefinite"/>
+                </path>
+              </g>
+
+              <!-- ========== BUYER (refilled · walks back home with cylinder) ========== -->
+              <g>
+                <animateTransform attributeName="transform" type="translate"
+                                  values="900,396; 900,396; 1060,396; 1060,396"
+                                  keyTimes="0; 0.45; 0.85; 1"
+                                  dur="9s" repeatCount="indefinite"/>
+                <ellipse cx="14" cy="56" rx="20" ry="3" fill="#0F4C3A" opacity=".25"/>
+                <circle cx="14" cy="6" r="9" fill="#7A4F0F"/>
+                <path d="M 6 5 Q 14 -4 22 5" stroke="#3A1A0A" stroke-width="2" fill="none"/>
+                <rect x="6" y="13" width="16" height="22" rx="3" fill="#D9A55B"/>
+                <path d="M 4 35 L 24 35 L 28 56 L 0 56 Z" fill="#1B7A5C"/>
+                <g class="leg-l"><rect x="6" y="52" width="4" height="10" rx="1" fill="#7A4F0F"/></g>
+                <g class="leg-r"><rect x="18" y="52" width="4" height="10" rx="1" fill="#7A4F0F"/></g>
+                <!-- left arm carrying cylinder forward -->
+                <rect x="22" y="16" width="4" height="14" rx="1" fill="#D9A55B"/>
+                <g transform="translate(26,28)">
+                  <rect x="2" y="-3" width="6" height="3" fill="#0F4C3A"/>
+                  <ellipse cx="5" cy="-3" rx="3" ry="1.5" fill="#D9A55B"/>
+                  <path d="M0 1 Q0 -2 3 -2 H7 Q10 -2 10 1 V5 H0 Z" fill="#0F4C3A"/>
+                  <rect x="0" y="5" width="10" height="22" fill="#FAF8F2" stroke="#0F4C3A" stroke-width="1" rx="1.5"/>
+                  <rect x="0" y="13" width="10" height="6" fill="#0F4C3A"/>
+                  <text x="5" y="17.5" text-anchor="middle" font-family="Inter" font-size="3" font-weight="700" fill="#FCEAB6">FAHMAN</text>
+                </g>
+                <rect x="-2" y="16" width="4" height="12" rx="1" fill="#D9A55B"/>
+              </g>
+              <!-- footprints (trail behind buyer's path) -->
+              <g fill="#7A4F0F" opacity=".4">
+                <ellipse cx="900" cy="464" rx="3" ry="1.6"/>
+                <ellipse cx="920" cy="468" rx="3" ry="1.6"/>
+                <ellipse cx="942" cy="462" rx="3" ry="1.6"/>
+                <ellipse cx="965" cy="466" rx="3" ry="1.6"/>
+                <ellipse cx="988" cy="463" rx="3" ry="1.6"/>
+                <ellipse cx="1010" cy="467" rx="3" ry="1.6"/>
+                <ellipse cx="1034" cy="464" rx="3" ry="1.6"/>
+              </g>
+              <!-- direction arrow under buyer path -->
+              <path d="M 900 478 L 1058 478" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="3 4" opacity=".5"/>
+              <polygon points="1058,475 1066,478 1058,481" fill="#0F4C3A" opacity=".55"/>
+
+              <!-- ========== RURAL HOME (right) — where the buyer walks back to ========== -->
+              <g transform="translate(1085,318)">
+                <ellipse cx="38" cy="118" rx="60" ry="5" fill="#0F4C3A" opacity=".22"/>
+                <!-- thatch roof -->
+                <path d="M -8 50 L 38 4 L 84 50 Z" fill="url(#jRoof)"/>
+                <g stroke="#3A1A0A" stroke-width=".6" opacity=".5">
+                  <line x1="0" y1="42" x2="50" y2="22"/>
+                  <line x1="14" y1="36" x2="62" y2="22"/>
+                  <line x1="28" y1="30" x2="76" y2="32"/>
+                </g>
+                <!-- body -->
+                <rect x="2" y="50" width="72" height="68" fill="url(#jHutWall)" stroke="#B8A684" stroke-width="1"/>
+                <!-- door -->
+                <rect x="32" y="78" width="16" height="40" fill="#5A3A1A" rx="1"/>
+                <circle cx="44" cy="98" r="1" fill="#D9A55B"/>
+                <!-- window with warm glow -->
+                <rect x="10" y="62" width="14" height="12" fill="#FCEAB6" stroke="#0F4C3A" stroke-width=".8"/>
+                <line x1="17" y1="62" x2="17" y2="74" stroke="#0F4C3A" stroke-width=".5"/>
+                <line x1="10" y1="68" x2="24" y2="68" stroke="#0F4C3A" stroke-width=".5"/>
+                <!-- chimney + clean smoke -->
+                <rect x="56" y="14" width="8" height="14" fill="#5A2A14"/>
+                <circle class="smoke" cx="60" cy="10" r="4" fill="#E0EDE4"/>
+                <circle class="smoke s2" cx="60" cy="10" r="5" fill="#E0EDE4"/>
+                <circle class="smoke s3" cx="60" cy="10" r="4" fill="#E0EDE4"/>
+              </g>
+
+              <!-- ============================================== -->
+              <!-- ====== CALL-OUT LABELS (white pills + thin leader lines, placed in EMPTY regions) ===== -->
+              <!-- ============================================== -->
+
+              <!-- 1. Sun -->
+              <g>
+                <line x1="510" y1="80" x2="450" y2="48" stroke="#7A4F0F" stroke-width="1" stroke-dasharray="2 3" opacity=".7"/>
+                <rect x="350" y="32" width="100" height="22" rx="11" fill="#FFFFFF" stroke="#D9A55B" stroke-width="1"/>
+                <text x="400" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#7A4F0F" letter-spacing=".12em">1 · SUN</text>
+              </g>
+
+              <!-- 2. Lagos depot -->
+              <g>
+                <line x1="98" y1="370" x2="98" y2="400" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="22" y="402" width="160" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="102" y="416" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">2 · LAGOS DEPOT</text>
+              </g>
+
+              <!-- 3. Tanker · parked -->
+              <g>
+                <line x1="430" y1="365" x2="430" y2="332" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="318" y="308" width="220" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="428" y="322" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">3 · FAHMAN TANKER · PARKED</text>
+              </g>
+
+              <!-- 4. Rooftop solar panels -->
+              <g>
+                <line x1="700" y1="208" x2="780" y2="160" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="780" y="138" width="220" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="890" y="152" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">4 · ROOFTOP SOLAR PANELS</text>
+              </g>
+
+              <!-- 5. 10MT FAHMAN LPG TANK -->
+              <g>
+                <line x1="690" y1="400" x2="710" y2="486" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="600" y="486" width="220" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="710" y="500" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">5 · 10MT FAHMAN LPG TANK</text>
+              </g>
+
+              <!-- 6. Dispenser -->
+              <g>
+                <line x1="845" y1="400" x2="900" y2="488" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="836" y="488" width="130" height="20" rx="10" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="901" y="501" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">6 · DISPENSER</text>
+              </g>
+
+              <!-- 7. Customer walking home -->
+              <g>
+                <line x1="980" y1="400" x2="980" y2="312" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="828" y="288" width="304" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="980" y="302" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">7 · CUSTOMER · WALKS HOME WITH FRESH CYLINDER</text>
+              </g>
+
+              <!-- 8. Rural home -->
+              <g>
+                <line x1="1124" y1="320" x2="1180" y2="262" stroke="#0F4C3A" stroke-width="1" stroke-dasharray="2 3" opacity=".5"/>
+                <rect x="1080" y="240" width="150" height="22" rx="11" fill="#FFFFFF" stroke="#0F4C3A" stroke-width="1"/>
+                <text x="1155" y="254" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A" letter-spacing=".1em">8 · RURAL HOME</text>
+              </g>
+
+              <!-- ===== TOP-LEFT TODAY pill (anchor) ===== -->
+              <g transform="translate(22,22)">
+                <rect width="170" height="26" rx="13" fill="#0F4C3A"/>
+                <circle cx="14" cy="13" r="4" fill="#D9A55B">
+                  <animate attributeName="opacity" values="1;.4;1" dur="1.4s" repeatCount="indefinite"/>
+                </circle>
+                <text x="92" y="17" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" fill="#FCEAB6" letter-spacing=".14em">TODAY · ONE LOOP</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="journey-steps">
+            <div class="journey-step">
+              <span class="js-num">01 · Sun</span>
+              <strong>Free, on-site, every day</strong>
+              <span>Nigerian sun pours onto the panels mounted on the Fahman station roof — no diesel, no grid pull.</span>
+            </div>
+            <div class="journey-step">
+              <span class="js-num">02 · Solar</span>
+              <strong>Powers tank + dispenser</strong>
+              <span>Panels run the dispenser pump and the on-site systems. The 10MT tank sits where the people are.</span>
+            </div>
+            <div class="journey-step">
+              <span class="js-num">03 · Tanker</span>
+              <strong>LPG from the depot</strong>
+              <span>A Fahman tanker arrives from the Lagos depot — the rural last mile most distributors skip.</span>
+            </div>
+            <div class="journey-step">
+              <span class="js-num">04 · Buyer</span>
+              <strong>Refilled · clean cooking</strong>
+              <span>A neighbour walks up with a cylinder, refills, and walks home — no firewood, no smoke, no kerosene.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- NIGERIA MAP : year-by-year national rollout -->
+        <!-- ============================================== -->
+        <div class="ng-section">
+          <div class="ng-section-head">
+            <div>
+              <div class="jt">Stage 2 · Where we're going</div>
+              <div class="jh">Plant by plant, state by state, across Nigeria — and beyond.</div>
+            </div>
+            <div class="ng-filter" role="tablist" id="ngFilter">
+              <button data-y="today" class="active"><span class="pip"></span>Today · 2026</button>
+              <button data-y="2027"><span class="pip"></span>2027</button>
+              <button data-y="2028"><span class="pip"></span>2028</button>
+              <button data-y="2030"><span class="pip"></span>2030</button>
+              <button data-y="2033"><span class="pip"></span>2033</button>
+            </div>
+          </div>
+
+          <div class="ng-wrap" id="ngWrap" data-stage="today">
+            <div class="ng-chip tl">
+              <span>Today · 2026 · Ilesha Baruba live</span>
+            </div>
+            <div class="ng-chip tr">
+              <span id="ngStageLabel">Click a year to see the rollout</span>
+            </div>
+
+            <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ngBg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#F2F9F5"/><stop offset="1" stop-color="#E0EDE4"/>
+                </linearGradient>
+                <radialGradient id="ngLand" cx="50%" cy="40%" r="60%">
+                  <stop offset="0" stop-color="#EFF8F3"/><stop offset="1" stop-color="#D8EDDF"/>
+                </radialGradient>
+                <filter id="ngShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0B3D2E" flood-opacity=".18"/></filter>
+              </defs>
+
+              <!-- ocean / outer -->
+              <rect width="1000" height="600" fill="url(#ngBg)"/>
+
+              <!-- subtle lat/long grid -->
+              <g stroke="#A8E0BD" stroke-width=".5" opacity=".25">
+                <line x1="0" y1="120" x2="1000" y2="120"/>
+                <line x1="0" y1="240" x2="1000" y2="240"/>
+                <line x1="0" y1="360" x2="1000" y2="360"/>
+                <line x1="0" y1="480" x2="1000" y2="480"/>
+                <line x1="200" y1="0" x2="200" y2="600"/>
+                <line x1="400" y1="0" x2="400" y2="600"/>
+                <line x1="600" y1="0" x2="600" y2="600"/>
+                <line x1="800" y1="0" x2="800" y2="600"/>
+              </g>
+
+              <!-- Faint neighbouring African countries / context -->
+              <g fill="#E0EDE4" stroke="#9CC8AA" stroke-width=".8" opacity=".7">
+                <!-- Niger Republic (north of Nigeria) -->
+                <path d="M 50 50 L 950 50 L 950 130 Q 700 150 460 130 Q 280 120 95 175 Z"/>
+                <!-- Benin Republic (west) -->
+                <path d="M 0 175 L 95 175 Q 90 260 95 380 Q 90 480 100 540 L 0 540 Z"/>
+                <!-- Cameroon (east) -->
+                <path d="M 880 240 Q 905 295 880 345 L 845 380 L 805 415 L 765 445 L 725 480 L 685 510 L 720 565 L 1000 565 L 1000 240 Z"/>
+                <!-- Atlantic Ocean (bottom) -->
+                <path d="M 0 545 L 1000 545 L 1000 600 L 0 600 Z" fill="#D8EDDF"/>
+              </g>
+
+              <!-- ============= NIGERIA SILHOUETTE (anatomically inspired) =============
+                   Top edge slants up to a Lake Chad bump on the NE; East side indents
+                   for the Cameroon border; South coastline has the Niger Delta protrusion;
+                   West edge stays relatively straight along the Benin border. -->
+              <path class="ng-silhouette" filter="url(#ngShadow)"
+                    d="M 105 175
+                       L 165 152
+                       Q 240 132, 330 130
+                       Q 420 130, 505 134
+                       Q 590 140, 670 150
+                       Q 740 158, 800 168
+                       Q 845 175, 860 190
+                       L 880 178
+                       L 895 210
+                       L 880 245
+                       L 855 270
+                       Q 850 292, 870 310
+                       Q 875 340, 845 370
+                       Q 815 395, 805 425
+                       Q 790 450, 760 460
+                       Q 720 468, 695 478
+                       L 660 502
+                       L 630 522
+                       L 600 532
+                       L 575 524
+                       L 555 535
+                       Q 530 542, 500 540
+                       Q 460 542, 430 533
+                       Q 395 525, 360 530
+                       Q 320 533, 280 528
+                       Q 240 522, 200 510
+                       Q 160 498, 135 470
+                       Q 110 440, 100 400
+                       Q 92 350, 95 300
+                       Q 95 240, 105 175 Z"/>
+
+              <!-- Internal soft state divisions (visual reference) -->
+              <g class="ng-grid">
+                <path d="M 200 130 Q 260 230 320 360"/>
+                <path d="M 380 115 Q 410 250 440 410"/>
+                <path d="M 540 135 Q 555 280 560 440"/>
+                <path d="M 680 150 Q 700 290 720 460"/>
+                <path d="M 95 250 Q 230 275 380 270 Q 530 270 700 290"/>
+                <path d="M 95 380 Q 250 380 410 380 Q 565 380 760 410"/>
+                <path d="M 105 475 Q 250 480 410 480 Q 540 490 720 480"/>
+              </g>
+
+              <!-- ============= STATE OVERLAYS ============= -->
+
+              <!-- 2030 — broader spread (rendered first so they sit beneath highlights) -->
+              <!-- Sokoto -->
+              <path class="state s2030" d="M 180 130 Q 240 115, 320 120 Q 340 145, 330 180 Q 280 195, 220 190 Q 180 175, 175 150 Z"/>
+              <!-- Zamfara -->
+              <path class="state s2030" d="M 320 120 Q 390 118, 420 145 Q 410 180, 380 188 Q 340 188, 332 175 Q 332 145, 320 120 Z"/>
+              <!-- Kano -->
+              <path class="state s2030" d="M 430 175 Q 475 165, 530 170 Q 545 195, 535 220 Q 490 230, 445 225 Q 425 210, 430 175 Z"/>
+              <!-- Kaduna -->
+              <path class="state s2030" d="M 360 200 Q 420 195, 460 215 Q 470 250, 450 280 Q 400 290, 360 280 Q 345 245, 360 200 Z"/>
+              <!-- Plateau -->
+              <path class="state s2030" d="M 510 320 Q 565 305, 605 315 Q 615 350, 605 385 Q 565 395, 525 388 Q 505 365, 510 320 Z"/>
+              <!-- Bauchi -->
+              <path class="state s2030" d="M 575 240 Q 635 230, 680 245 Q 690 285, 675 315 Q 615 320, 580 305 Q 565 275, 575 240 Z"/>
+              <!-- FCT (small) -->
+              <path class="state s2030" d="M 432 305 Q 470 295, 482 310 Q 488 328, 478 342 Q 455 350, 440 342 Q 426 326, 432 305 Z"/>
+              <!-- Oyo -->
+              <path class="state s2030" d="M 175 425 Q 230 415, 290 420 Q 305 460, 295 488 Q 235 498, 185 492 Q 165 460, 175 425 Z"/>
+              <!-- Lagos -->
+              <path class="state s2030" d="M 145 490 Q 195 478, 230 488 Q 240 510, 225 528 Q 180 535, 152 525 Q 138 510, 145 490 Z"/>
+              <!-- Cross River + Akwa Ibom -->
+              <path class="state s2030" d="M 555 460 Q 615 450, 650 470 Q 655 500, 640 520 Q 580 530, 545 515 Q 540 485, 555 460 Z"/>
+
+              <!-- 2028 — Niger / Kebbi / Kogi (NEXT EXPANSION) -->
+              <!-- Kebbi -->
+              <path class="state s2028" id="kebbi" d="M 95 200 Q 145 178, 200 185 Q 218 215, 210 248 Q 175 268, 130 262 Q 102 248, 95 220 Z"/>
+              <!-- Niger State -->
+              <path class="state s2028" id="niger" d="M 245 270 Q 310 250, 380 255 Q 415 270, 420 305 Q 410 340, 380 350 Q 320 355, 270 348 Q 240 340, 240 305 Q 235 280, 245 270 Z"/>
+              <!-- Kogi -->
+              <path class="state s2028" id="kogi" d="M 345 370 Q 405 360, 460 365 Q 472 395, 460 425 Q 420 442, 380 442 Q 350 435, 340 410 Q 335 385, 345 370 Z"/>
+
+              <!-- ====== KWARA STATE — TODAY · BLINKING ====== -->
+              <!-- pulsing rings underneath -->
+              <g transform="translate(257,387)">
+                <circle class="kwara-ring r1" r="55"/>
+                <circle class="kwara-ring r2" r="55"/>
+              </g>
+              <path class="state kwara" id="kwara"
+                    d="M 175 360
+                       Q 220 345, 270 348
+                       Q 320 350, 340 370
+                       Q 348 395, 332 415
+                       Q 290 425, 240 422
+                       Q 195 418, 175 405
+                       Q 165 385, 175 360 Z"/>
+              <!-- Internal LGA pins (Kaiama, Baruten, Ilorin) — visible always but emphasised at 2027 -->
+              <g class="lga-pin" transform="translate(195,378)">
+                <circle r="5" fill="#fff" stroke="#7A4F0F" stroke-width="2"/>
+                <circle r="2" fill="#7A4F0F"/>
+              </g>
+              <g class="lga-pin" transform="translate(220,395)">
+                <circle r="5" fill="#fff" stroke="#7A4F0F" stroke-width="2"/>
+                <circle r="2" fill="#7A4F0F"/>
+              </g>
+              <g class="lga-pin" transform="translate(258,400)">
+                <circle r="5" fill="#fff" stroke="#7A4F0F" stroke-width="2"/>
+                <circle r="2" fill="#7A4F0F"/>
+              </g>
+              <g class="lga-pin" transform="translate(298,395)">
+                <circle r="5" fill="#fff" stroke="#7A4F0F" stroke-width="2"/>
+                <circle r="2" fill="#7A4F0F"/>
+              </g>
+              <!-- Ilesha Baruba pin: golden anchor -->
+              <g transform="translate(190,378)">
+                <circle r="13" fill="#D9A55B" opacity=".25">
+                  <animate attributeName="r" values="9;22;9" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values=".55;0;.55" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle r="6" fill="#D9A55B" stroke="#fff" stroke-width="2"/>
+                <circle r="2" fill="#fff"/>
+              </g>
+
+              <!-- 2030 plant dots (small distributed across Nigeria) -->
+              <g class="plant-dot-group">
+                <circle class="plant-dot" cx="395" cy="330" r="4.5"/>
+                <circle class="plant-dot" cx="465" cy="295" r="4.5"/>
+                <circle class="plant-dot" cx="540" cy="230" r="4.5"/>
+                <circle class="plant-dot" cx="615" cy="345" r="4.5"/>
+                <circle class="plant-dot" cx="565" cy="455" r="4.5"/>
+                <circle class="plant-dot" cx="225" cy="455" r="4.5"/>
+                <circle class="plant-dot" cx="175" cy="510" r="4.5"/>
+                <circle class="plant-dot" cx="475" cy="490" r="4.5"/>
+                <circle class="plant-dot" cx="270" cy="160" r="4.5"/>
+                <circle class="plant-dot" cx="690" cy="270" r="4.5"/>
+                <circle class="plant-dot" cx="780" cy="345" r="4.5"/>
+              </g>
+
+              <!-- 2033 — continental arrows leaving Nigeria -->
+              <!-- west to Ghana / Benin / Senegal -->
+              <path class="cont-arrow" d="M 130 440 Q 80 460 30 480"/>
+              <text class="cont-arrow-label" x="20" y="498" font-family="Inter" font-size="11" font-weight="700" fill="#7A4F0F" opacity="0">→ Ghana · Senegal</text>
+              <!-- north to Niger / Mali -->
+              <path class="cont-arrow" d="M 380 130 Q 380 80 400 30"/>
+              <!-- east to Cameroon / Kenya / Ethiopia -->
+              <path class="cont-arrow" d="M 880 320 Q 940 340 990 340"/>
+              <text class="cont-arrow-label" x="990" y="318" text-anchor="end" font-family="Inter" font-size="11" font-weight="700" fill="#7A4F0F" opacity="0">→ Kenya · Ethiopia</text>
+              <!-- south to Cameroon / South Africa -->
+              <path class="cont-arrow" d="M 720 540 Q 800 580 940 590"/>
+
+              <!-- State labels -->
+              <text class="ng-label kwara" x="257" y="392" text-anchor="middle">KWARA</text>
+              <text class="ng-label" x="320" y="312" text-anchor="middle" fill="#FFF">NIGER</text>
+              <text class="ng-label" x="155" y="225" text-anchor="middle" fill="#FFF">KEBBI</text>
+              <text class="ng-label" x="400" y="408" text-anchor="middle" fill="#FFF">KOGI</text>
+              <text class="ng-label" x="240" y="160" text-anchor="middle" opacity=".7">SOKOTO</text>
+              <text class="ng-label" x="375" y="245" text-anchor="middle" opacity=".7">KADUNA</text>
+              <text class="ng-label" x="480" y="205" text-anchor="middle" opacity=".7">KANO</text>
+              <text class="ng-label" x="455" y="328" text-anchor="middle" opacity=".7">FCT</text>
+              <text class="ng-label" x="560" y="355" text-anchor="middle" opacity=".7">PLATEAU</text>
+              <text class="ng-label" x="232" y="463" text-anchor="middle" opacity=".7">OYO</text>
+              <text class="ng-label" x="188" y="513" text-anchor="middle" opacity=".7">LAGOS</text>
+              <text class="ng-label" x="600" y="496" text-anchor="middle" opacity=".7">CROSS RIVER</text>
+              <text class="ng-label" x="635" y="280" text-anchor="middle" opacity=".7">BAUCHI</text>
+
+              <!-- Country label -->
+              <text x="500" y="80" text-anchor="middle" font-family="Fraunces,serif" font-size="22" font-weight="600" fill="#0F4C3A" letter-spacing="2" opacity=".55">NIGERIA</text>
+
+              <!-- Compass -->
+              <g transform="translate(945,55)" opacity=".75">
+                <circle r="20" fill="#fff" stroke="#A8E0BD" stroke-width="1.2"/>
+                <path d="M0,-12 L4,0 L0,4 L-4,0 Z" fill="#0F4C3A"/>
+                <text y="-24" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#0F4C3A" font-weight="700">N</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Map legend / clickable filter cards -->
+          <div class="map-legend">
+          <div class="map-stop today selected" data-y="today">
+            <span class="ms-tag">Today · 2026</span>
+            <div class="ms-year">Ilesha Baruba</div>
+            <div class="ms-title">First plant goes live</div>
+            <div class="ms-desc">10MT solar-powered LPG refill facility in Baruten LGA, Kwara — NMDPRA licensed, SON approved. Kwara State is glowing on the map.</div>
+          </div>
+          <div class="map-stop" data-y="2027">
+            <span class="ms-tag">2027</span>
+            <div class="ms-year">Kwara · last mile</div>
+            <div class="ms-title">Every LGA, every village</div>
+            <div class="ms-desc">Other communities in Baruten LGA beyond Ilesha Baruba — plus Kaiama, Patigi, Edu and other rural Kwara LGAs.</div>
+          </div>
+          <div class="map-stop" data-y="2028">
+            <span class="ms-tag">2028</span>
+            <div class="ms-year">Nearby states</div>
+            <div class="ms-title">Niger · Kebbi · Kogi</div>
+            <div class="ms-desc">Plants 2 – 6 deployed in neighbouring states. Same year, our first solar electricity pilots light up Baruten homes.</div>
+          </div>
+          <div class="map-stop" data-y="2030">
+            <span class="ms-tag">2030</span>
+            <div class="ms-year">National rollout</div>
+            <div class="ms-title">A plant in every region</div>
+            <div class="ms-desc">A FahmanEnergy plant in every geopolitical zone — north-west, north-central, south-west, south-south. 25,000+ households on solar.</div>
+          </div>
+          <div class="map-stop" data-y="2033">
+            <span class="ms-tag">2033</span>
+            <div class="ms-year">African expansion</div>
+            <div class="ms-title">Beyond Nigeria</div>
+            <div class="ms-desc">The model crosses borders — Ghana, Senegal, Kenya, Ethiopia, South Africa. A continental rural clean-energy network.</div>
+          </div>
+        </div>
+        </div><!-- /ng-section -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section style="padding:80px 0;">
+  <div class="container">
+    <div class="problem reveal">
+      <div style="max-width:760px;position:relative;">
+        <div class="eyebrow">The problem</div>
+        <h2 style="margin:22px 0 24px;">Rural Nigeria pays the highest price for the dirtiest fuel — and lives without electricity.</h2>
+        <p class="lead">The supply chain for clean cooking gas in Nigeria stops at the city limits. Beyond them, families fall back on firewood and charcoal — burning their health, their time, and the forests around them. And after sunset, most have no electricity at all.</p>
+      </div>
+      <div class="problem-stats">
+        <div class="problem-stat"><div class="num"><span data-count="80">0</span>%</div><div class="desc">of rural households still cook with biomass</div></div>
+        <div class="problem-stat"><div class="num"><span data-count="85">0</span>M+</div><div class="desc">Nigerians without reliable access to electricity</div></div>
+        <div class="problem-stat"><div class="num"><span data-count="3.5" data-decimals="1">0</span>hrs</div><div class="desc">daily, lost gathering firewood — mostly by women</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION FEATURE -->
+<section>
+  <div class="container">
+    <div class="feature-split">
+      <div class="reveal">
+        <div class="eyebrow">Our solution</div>
+        <h2>Solar-powered LPG plants today.<br/>Solar electricity tomorrow.</h2>
+        <p class="lead">We design compact refill plants that run entirely on on-site solar. They sit inside the communities they serve — no diesel, no grid dependency, no waiting for distant supply. The same plants, the same communities, become the launch pads for our solar-electricity rollout.</p>
+        <div class="feat-list">
+          <div class="feat-item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h4>Green energy → clean energy</h4><p>Solar panels power the plant. The plant produces LPG. The full chain is decarbonised.</p></div></div>
+          <div class="feat-item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3l9 9-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Replicable, modular units</h4><p>Each plant is a self-contained operating unit — easy to clone into the next community.</p></div></div>
+          <div class="feat-item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16 11V7a4 4 0 0 0-8 0v4M5 11h14v10H5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Compliance, end to end</h4><p>NMDPRA licensed. SON approved. Standards as a baseline, not an aspiration.</p></div></div>
+        </div>
+      </div>
+
+      <div class="feat-visual reveal delay-1">
+        <svg viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="solBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1B7A5C"/><stop offset="1" stop-color="#0B3D2E"/></linearGradient>
+            <linearGradient id="solP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A9D74"/><stop offset="1" stop-color="#0F4C3A"/></linearGradient>
+            <pattern id="cells3" width="22" height="16" patternUnits="userSpaceOnUse"><rect width="22" height="16" fill="url(#solP)"/><line x1="11" y1="0" x2="11" y2="16" stroke="#0B3D2E" stroke-width=".6"/><line x1="0" y1="8" x2="22" y2="8" stroke="#0B3D2E" stroke-width=".6"/></pattern>
+          </defs>
+          <rect width="500" height="600" fill="url(#solBg)"/>
+          <circle cx="380" cy="120" r="50" fill="#FCEAB6"/>
+          <circle cx="380" cy="120" r="80" fill="#FCEAB6" opacity=".2"/>
+
+          <!-- Animated energy: sun → panels -->
+          <path d="M380,170 Q280,240 180,290" stroke="#FCEAB6" stroke-width="2" stroke-dasharray="3 6" fill="none" opacity=".8" stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" from="0" to="-36" dur="2s" repeatCount="indefinite"/>
+          </path>
+
+          <g transform="translate(80,280) rotate(-8)">
+            <rect width="200" height="100" fill="url(#cells3)" rx="4"/>
+            <rect width="200" height="100" fill="none" stroke="#A8E0BD" stroke-width="2" rx="4" opacity=".4"/>
+            <line x1="100" y1="100" x2="100" y2="135" stroke="#FAF8F2" stroke-width="4"/>
+            <rect x="86" y="133" width="28" height="6" fill="#FAF8F2"/>
+          </g>
+
+          <!-- Animated energy: panels → plant -->
+          <path d="M250,400 Q310,400 350,420" stroke="#A8E0BD" stroke-width="2.5" stroke-dasharray="4 6" fill="none" opacity=".9" stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1.5s" repeatCount="indefinite"/>
+          </path>
+
+          <g transform="translate(310,380)">
+            <rect x="20" y="80" width="6" height="22" fill="#FAF8F2"/>
+            <rect x="120" y="80" width="6" height="22" fill="#FAF8F2"/>
+            <rect x="10" y="20" width="130" height="64" rx="32" fill="#6FCF97" stroke="#FAF8F2" stroke-width="2"/>
+            <ellipse cx="10" cy="52" rx="14" ry="32" fill="#2A9D74" stroke="#FAF8F2" stroke-width="2"/>
+            <ellipse cx="140" cy="52" rx="14" ry="32" fill="#2A9D74" stroke="#FAF8F2" stroke-width="2"/>
+            <rect x="20" y="28" width="120" height="6" rx="3" fill="#A8E0BD" opacity=".7"/>
+            <rect x="50" y="42" width="60" height="20" rx="3" fill="#0B3D2E"/>
+            <text x="80" y="56" text-anchor="middle" font-family="Fraunces,serif" font-size="11" font-weight="600" fill="#A8E0BD">10MT</text>
+            <rect x="65" y="6" width="30" height="14" fill="#0B3D2E" rx="2"/>
+            <circle cx="80" cy="6" r="6" fill="#D9A55B" stroke="#0B3D2E" stroke-width="1.5"/>
+          </g>
+
+          <rect x="0" y="500" width="500" height="100" fill="#0A1F18"/>
+          <line x1="0" y1="500" x2="500" y2="500" stroke="#FAF8F2" stroke-width="1" opacity=".3"/>
+
+          <!-- Cylinders -->
+          <g transform="translate(60,510)">
+            <rect x="14" y="0" width="6" height="3" fill="#0A1F18"/>
+            <ellipse cx="17" cy="2" rx="3" ry="1.6" fill="#D9A55B"/>
+            <path d="M6 5 Q6 1 11 1 H23 Q28 1 28 5 V12 H6 Z" fill="#0A1F18"/>
+            <path d="M2 18 Q2 10 17 10 Q32 10 32 18 V22 H2 Z" fill="#FAF8F2" stroke="#0A1F18" stroke-width="1.3"/>
+            <rect x="2" y="20" width="30" height="62" fill="#FAF8F2" stroke="#0A1F18" stroke-width="1.3"/>
+            <rect x="2" y="36" width="30" height="22" fill="#0F4C3A"/>
+            <text x="17" y="44" text-anchor="middle" font-size="5" font-weight="700" fill="#A8E0BD" font-family="Fraunces,serif">FAHMAN</text>
+            <text x="17" y="54" text-anchor="middle" font-size="7" font-weight="700" fill="#FCEAB6">12.5kg</text>
+            <rect x="0" y="80" width="34" height="5" fill="#14624A"/>
+          </g>
+          <g transform="translate(110,520)">
+            <rect x="11" y="0" width="5" height="3" fill="#0A1F18"/>
+            <ellipse cx="13.5" cy="1.5" rx="2.5" ry="1.5" fill="#D9A55B"/>
+            <path d="M5 5 Q5 1 9 1 H18 Q22 1 22 5 V10 H5 Z" fill="#0A1F18"/>
+            <path d="M2 14 Q2 8 13.5 8 Q25 8 25 14 V18 H2 Z" fill="#FAF8F2" stroke="#0A1F18" stroke-width="1"/>
+            <rect x="2" y="16" width="23" height="48" fill="#FAF8F2" stroke="#0A1F18" stroke-width="1"/>
+            <rect x="2" y="28" width="23" height="18" fill="#1B7A5C"/>
+            <text x="13.5" y="40" text-anchor="middle" font-size="6.5" font-weight="700" fill="#FCEAB6">5kg</text>
+            <rect x="0" y="62" width="27" height="4" fill="#14624A"/>
+          </g>
+          <g transform="translate(155,530)">
+            <rect x="9" y="0" width="4" height="3" fill="#0A1F18"/>
+            <ellipse cx="11" cy="1.5" rx="2" ry="1.2" fill="#D9A55B"/>
+            <path d="M4 4 Q4 0 7 0 H15 Q18 0 18 4 V8 H4 Z" fill="#0A1F18"/>
+            <path d="M2 12 Q2 6 11 6 Q20 6 20 12 V14 H2 Z" fill="#FAF8F2" stroke="#0A1F18" stroke-width=".8"/>
+            <rect x="2" y="13" width="18" height="38" fill="#FAF8F2" stroke="#0A1F18" stroke-width=".8"/>
+            <rect x="2" y="22" width="18" height="14" fill="#2A9D74"/>
+            <text x="11" y="32" text-anchor="middle" font-size="5.5" font-weight="700" fill="#FCEAB6">3kg</text>
+            <rect x="0" y="50" width="22" height="3" fill="#14624A"/>
+          </g>
+
+          <text x="40" y="56" font-family="Fraunces,serif" font-size="22" font-weight="500" fill="#FAF8F2" letter-spacing="-.5">Solar in.</text>
+          <text x="40" y="84" font-family="Fraunces,serif" font-size="22" font-style="italic" font-weight="500" fill="#A8E0BD" letter-spacing="-.5">Clean energy out.</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="background:var(--mint-50);">
+  <div class="container">
+    <div class="section-head reveal" style="grid-template-columns:1fr;text-align:center;max-width:720px;margin:0 auto 56px;">
+      <div class="eyebrow" style="justify-content:center;">What we stand for</div>
+      <h2>Four principles that drive every decision.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v6M12 16v6M2 12h6M16 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/></svg></div><h4>Rural-first</h4><p>We build where the supply chain ends. The hardest-to-reach communities are our starting line, not our last stop.</p></div>
+      <div class="value-card reveal delay-1"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Safety, no compromise</h4><p>Every cylinder, regulator and fitting is SON-approved. Every operation licensed and audited.</p></div>
+      <div class="value-card reveal delay-2"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 22h20M5 22V10l7-5 7 5v12M9 22v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Local ownership</h4><p>Plants employ local people. Profits stay in the community. Skills compound across generations.</p></div>
+      <div class="value-card reveal delay-3"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0zM3 12h18M12 3a13 13 0 010 18M12 3a13 13 0 000 18" stroke="currentColor" stroke-width="2"/></svg></div><h4>Climate-aligned</h4><p>Solar in. LPG out. Biomass displaced. Every plant is an emissions-reduction asset.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact" id="impact">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Impact at a glance</div>
+        <h2>The numbers we're building<br/>toward by 2030.</h2>
+      </div>
+      <p class="lead">We measure what matters — clean cooking access, emissions avoided, hours returned to women, jobs created, and homes electrified. Every plant adds to the ledger.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-item reveal"><div class="num"><span data-count="50">0</span></div><div class="lab">LPG plants by 2030</div><div class="desc">Across rural Nigeria</div></div>
+      <div class="proj-item reveal delay-1"><div class="num"><span data-count="2">0</span><span class="unit">M+</span></div><div class="lab">Households reached</div><div class="desc">With clean cooking gas</div></div>
+      <div class="proj-item reveal delay-2"><div class="num"><span data-count="100">0</span><span class="unit">k+</span></div><div class="lab">Solar homes powered</div><div class="desc">From 2028 onward</div></div>
+      <div class="proj-item reveal delay-3"><div class="num"><span data-count="5000">0</span>+</div><div class="lab">Direct &amp; indirect jobs</div><div class="desc">In rural Nigeria</div></div>
+    </div>
+    <div style="text-align:center;margin-top:56px;">
+      <a href="contact.html" class="btn btn-primary">Become a partner<svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="11" fill="#14624A"/>
+            <path d="M20 9 C 23.5 14, 26.5 17.5, 24.5 23 C 23.5 27, 20.5 28.5, 20 28.5 C 20 28.5, 16.5 27, 15.5 23 C 13.5 17.5, 16.5 14, 20 9 Z" fill="#A8E0BD"/>
+            <path d="M20 13 C 22 17, 24 19.5, 22.5 23 C 22 25, 20.5 26, 20 26 C 19.5 26, 18 25, 17.5 23 C 16 19.5, 18 17, 20 13 Z" fill="#6FCF97"/>
+            <circle cx="26" cy="12" r="2.2" fill="#FCEAB6"/>
+          </svg>
+          <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+        </a>
+        <p>Solar-powered LPG refill plants for rural Nigeria — and tomorrow, solar electricity for the same homes. Building the federation's clean-energy backbone.</p>
+        <form class="newsletter"><input type="email" placeholder="Email for impact updates" required /><button type="submit">Subscribe</button></form>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About us</a></li><li><a href="about.html#story">Our story</a></li><li><a href="about.html#impact">Impact</a></li><li><a href="investors.html">Investors</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="services.html#lpg">LPG refill</a></li><li><a href="services.html#consultancy">Consultancy</a></li><li><a href="services.html#equipment">Equipment</a></li><li><a href="solar.html">Solar Energy <span style="color:var(--gold);font-size:.7rem;font-weight:700;">SOON</span></a></li></ul></div>
+      <div><h4>Reach us</h4><ul><li class="addr"><strong>HQ</strong>Pipeline Area, Ilorin,<br/>Kwara State, Nigeria</li><li class="addr"><strong>Branch</strong>Ilesha Baruba,<br/>Kwara State, Nigeria</li><li><a href="mailto:Fahmanltd@gmail.com">Fahmanltd@gmail.com</a></li><li><a href="tel:+2347060868580">+234 706 086 8580</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Fahman Oil &amp; Gas Ltd. (trading as Fahman). NMDPRA Licensed · SON Approved.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 2a2 2 0 100 4 2 2 0 000-4zM10 8h4v2c.6-1.2 2.2-2.4 4.2-2.4 4.5 0 5.3 3 5.3 6.8V20h-4v-5c0-1.2 0-2.7-1.8-2.7s-2.1 1.3-2.1 2.6V20h-4V8z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1A4 4 0 0012 8.5c0 .3 0 .6.1.9A11.4 11.4 0 013 4.7a4 4 0 001.2 5.4c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.6 3.2 4-.3.1-.7.2-1.1.2h-.7a4 4 0 003.7 2.8 8 8 0 01-5.9 1.6 11.4 11.4 0 006.2 1.8c7.4 0 11.5-6.2 11.5-11.5v-.5c.8-.6 1.5-1.3 2-2.3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const header=document.querySelector('.header');
+  const onScroll=()=>{
+    if(window.scrollY>16)header?.classList.add('scrolled');else header?.classList.remove('scrolled');
+    const h=document.documentElement;const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+    const bar=document.querySelector('.scroll-progress');if(bar)bar.style.width=pct+'%';
+  };
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  const toggle=document.querySelector('.menu-toggle');const links=document.querySelector('.nav-links');
+  toggle?.addEventListener('click',()=>links?.classList.toggle('open'));
+  const revealEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){const io=new IntersectionObserver((entries)=>{entries.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -50px 0px'});revealEls.forEach((el)=>io.observe(el));}else revealEls.forEach((el)=>el.classList.add('in'));
+  const counters=document.querySelectorAll('[data-count]');
+  const co=new IntersectionObserver((entries)=>{entries.forEach((e)=>{if(!e.isIntersecting)return;const el=e.target;const target=parseFloat(el.dataset.count);const decimals=parseInt(el.dataset.decimals||'0',10);const dur=1800;const start=performance.now();const ease=(t)=>1-Math.pow(1-t,3);const tick=(now)=>{const p=Math.min((now-start)/dur,1);const v=target*ease(p);el.textContent=decimals?v.toFixed(decimals):Math.round(v).toLocaleString();if(p<1)requestAnimationFrame(tick);else el.textContent=decimals?target.toFixed(decimals):target.toLocaleString();};requestAnimationFrame(tick);co.unobserve(el);});},{threshold:.4});
+  counters.forEach((c)=>co.observe(c));
+  document.querySelectorAll('.newsletter').forEach((news)=>{news.addEventListener('submit',(e)=>{e.preventDefault();const btn=news.querySelector('button');if(!btn)return;const o=btn.textContent;btn.textContent='Subscribed ✓';setTimeout(()=>{btn.textContent=o;news.reset();},1800);});});
+  const glow=document.querySelector('.cursor-glow');
+  if(glow&&window.matchMedia('(min-width:880px)').matches){document.addEventListener('mousemove',(e)=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});}else if(glow)glow.style.display='none';
+
+  // ===== Nigeria-map year filter wiring =====
+  const ngWrap=document.getElementById('ngWrap');
+  const ngFilter=document.getElementById('ngFilter');
+  const ngLabel=document.getElementById('ngStageLabel');
+  const stageLabels={
+    'today':'Showing: Today · 2026 · Ilesha Baruba live',
+    '2027':'Showing: 2027 · Kwara last mile',
+    '2028':'Showing: 2028 · Niger · Kebbi · Kogi',
+    '2030':'Showing: 2030 · National rollout',
+    '2033':'Showing: 2033 · Continental expansion'
+  };
+  function setStage(y){
+    if(!ngWrap||!y) return;
+    ngWrap.setAttribute('data-stage',y);
+    if(ngFilter) ngFilter.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b.dataset.y===y));
+    document.querySelectorAll('.map-stop[data-y]').forEach(c=>c.classList.toggle('selected', c.dataset.y===y));
+    if(ngLabel && stageLabels[y]) ngLabel.textContent=stageLabels[y];
+  }
+  if(ngFilter){
+    ngFilter.querySelectorAll('button[data-y]').forEach(b=>{
+      b.addEventListener('click',()=>setStage(b.dataset.y));
+    });
+  }
+  document.querySelectorAll('.map-stop[data-y]').forEach(c=>{
+    c.addEventListener('click',()=>setStage(c.dataset.y));
+    c.setAttribute('role','button');
+    c.setAttribute('tabindex','0');
+    c.addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setStage(c.dataset.y);}});
+  });
+  // Set initial label to match the default 'today' stage
+  if(ngLabel && ngWrap) {
+    const initial = ngWrap.getAttribute('data-stage')||'today';
+    if(stageLabels[initial]) ngLabel.textContent = stageLabels[initial];
+  }
+});
+</script>
+</body>
+</html>

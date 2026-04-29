@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — FahmanEnergy</title>
+<meta name="description" content="LPG refill, energy consultancy, equipment procurement and (soon) solar electricity for rural Nigeria — four integrated services with one mission." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" />
+<style>
+:root{
+  --mint-50:#EAF7EF; --mint-100:#D6EFE0; --mint-200:#A8E0BD; --mint-300:#6FCF97;
+  --mint-400:#3FA876; --mint-500:#1B7A5C; --mint-600:#0F4C3A; --mint-700:#0B3D2E; --mint-900:#062418;
+  --ink-900:#0E1410; --ink-700:#28342C; --ink-500:#5C6961; --ink-300:#9AA59E;
+  --cream:#F6F2EA; --paper:#FBF9F4; --warm:#FCEAB6; --gold:#D9A55B;
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-xl:32px;
+  --shadow-sm:0 1px 2px rgba(11,61,46,.06), 0 4px 12px rgba(11,61,46,.04);
+  --shadow-md:0 6px 24px rgba(11,61,46,.10), 0 2px 6px rgba(11,61,46,.06);
+  --shadow-lg:0 24px 60px rgba(11,61,46,.18), 0 8px 24px rgba(11,61,46,.10);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink-900);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1240px;margin:0 auto;padding:0 28px}
+section{padding:120px 0;position:relative}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.05;letter-spacing:-.02em;color:var(--mint-700)}
+h1{font-size:clamp(40px,6vw,80px)}
+h2{font-size:clamp(32px,4.6vw,58px)}
+h3{font-size:clamp(22px,2.4vw,30px)}
+h4{font-size:18px;font-weight:600;letter-spacing:.02em;color:var(--ink-900)}
+p{color:var(--ink-700);font-size:16px}
+.lead{font-size:19px;color:var(--ink-700);max-width:620px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mint-500);margin-bottom:18px}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--mint-500)}
+
+/* progress bar */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--mint-300),var(--mint-500));z-index:99;transition:width .1s linear}
+
+/* cursor glow */
+.cursor-glow{position:fixed;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(168,224,189,.45),transparent 70%);pointer-events:none;z-index:1;mix-blend-mode:multiply;transform:translate(-50%,-50%);transition:opacity .3s ease;opacity:0}
+@media(hover:hover){body:hover .cursor-glow{opacity:1}}
+
+/* header */
+.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .35s var(--ease);background:rgba(251,249,244,.0)}
+.header.scrolled{background:rgba(251,249,244,.85);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);box-shadow:0 1px 0 rgba(15,76,58,.06);padding:12px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:inline-flex;align-items:center;gap:12px}
+.logo-svg{width:38px;height:38px;flex:none}
+.logo-text{display:inline-flex;align-items:baseline;font-size:22px;letter-spacing:-.02em}
+.logo-text .a{font-family:'Inter',sans-serif;font-weight:800;color:var(--mint-700)}
+.logo-text .b{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--mint-500);margin-left:1px}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-700);position:relative;transition:color .2s ease}
+.nav-links a:hover,.nav-links a.active{color:var(--mint-700)}
+.nav-links a.active::after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:2px;background:var(--mint-500);border-radius:2px}
+.soon-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--warm);color:var(--mint-700);padding:2px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-size:14.5px;font-weight:600;cursor:pointer;border:none;transition:all .35s var(--ease);position:relative;overflow:hidden;text-decoration:none}
+.btn-primary{background:var(--mint-700);color:#fff}
+.btn-primary:hover{background:var(--mint-600);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-ghost{background:transparent;color:var(--mint-700);border:1.5px solid rgba(15,76,58,.15)}
+.btn-ghost:hover{background:rgba(15,76,58,.04);border-color:var(--mint-500)}
+.btn .arrow{transition:transform .35s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+.menu-toggle{display:none;background:transparent;border:none;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center;border-radius:50%}
+.menu-toggle span{display:block;width:22px;height:2px;background:var(--mint-700);position:relative}
+.menu-toggle span::before,.menu-toggle span::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--mint-700);transition:transform .25s ease}
+.menu-toggle span::before{top:-7px}.menu-toggle span::after{top:7px}
+
+/* page hero */
+.page-hero{padding:200px 0 100px;background:linear-gradient(180deg,var(--mint-50) 0%,transparent 70%);position:relative}
+.page-hero::before{content:"";position:absolute;top:140px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(168,224,189,.45),transparent 70%);border-radius:50%;filter:blur(40px);z-index:0}
+.page-hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:80px;align-items:center;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-500);margin-bottom:24px}
+.breadcrumb a:hover{color:var(--mint-500)}
+.breadcrumb-sep{color:var(--ink-300)}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(168,224,189,.5);color:var(--mint-700);border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.tag.warm{background:var(--warm);color:#7a5d18;border:1px solid rgba(217,165,91,.4)}
+
+/* hero illustration with cylinders */
+.hero-illust{aspect-ratio:1/1.05;border-radius:var(--r-xl);background:linear-gradient(160deg,var(--mint-100),var(--mint-50));position:relative;overflow:hidden;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;padding:32px}
+.hero-illust::before{content:"";position:absolute;top:-30%;right:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(255,234,170,.5),transparent 60%);border-radius:50%}
+.hero-illust svg{width:100%;height:100%;position:relative;z-index:1}
+
+/* service rows */
+.service-row{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center;padding:80px 0;border-bottom:1px solid rgba(15,76,58,.08)}
+.service-row.reverse{grid-template-columns:1.1fr 1fr}
+.service-row.reverse .s-visual{order:2}
+.service-row:last-child{border-bottom:none}
+.s-visual{position:relative;border-radius:var(--r-xl);aspect-ratio:1/1;background:linear-gradient(160deg,var(--mint-200),var(--mint-500));overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .6s var(--ease)}
+.s-visual:hover{transform:translateY(-6px)}
+.s-visual img{width:100%;height:100%;object-fit:cover}
+.s-tag{position:absolute;top:24px;left:24px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);padding:8px 14px;border-radius:999px;font-size:12px;font-weight:600;color:var(--mint-700);z-index:2}
+.s-illust{aspect-ratio:1/1;border-radius:var(--r-xl);position:relative;overflow:hidden;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;padding:36px}
+.s-illust.lpg{background:linear-gradient(160deg,#D6EFE0,#A8E0BD)}
+.s-illust.consult{background:linear-gradient(160deg,#0F4C3A,#1B7A5C);color:#fff}
+.s-illust.equip{background:linear-gradient(160deg,#EAF7EF,#FCEAB6)}
+.s-illust.solar{background:linear-gradient(160deg,#FCEAB6,#FFCC66 80%);color:var(--mint-700)}
+.s-illust svg{width:100%;height:100%}
+.s-content h2{margin-bottom:18px}
+.s-content p{font-size:18px;margin-bottom:32px;max-width:540px}
+.s-features{display:grid;gap:16px}
+.s-feature{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:var(--r-md);background:#fff;border:1px solid rgba(15,76,58,.06);transition:all .3s var(--ease)}
+.s-feature:hover{transform:translateX(4px);border-color:var(--mint-300);box-shadow:var(--shadow-sm)}
+.tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--mint-200);color:var(--mint-700);display:flex;align-items:center;justify-content:center;margin-top:2px}
+.s-feature .text strong{display:block;font-size:15px;color:var(--ink-900);margin-bottom:3px;font-weight:600}
+.s-feature .text span{font-size:14px;color:var(--ink-500)}
+
+/* coming soon banner inside service section */
+.coming-soon-row{position:relative}
+.coming-soon-row::before{content:"";position:absolute;inset:60px 0 60px 0;background:linear-gradient(160deg,rgba(252,234,182,.35),rgba(255,234,170,.15));border-radius:var(--r-xl);z-index:0;border:1px dashed rgba(217,165,91,.4)}
+.coming-soon-row > *{position:relative;z-index:1}
+.cs-pill{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--warm),#FFD27F);color:#7a5d18;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;border:1px solid rgba(217,165,91,.4);box-shadow:0 4px 14px rgba(217,165,91,.18)}
+.cs-pill .pulse{width:8px;height:8px;border-radius:50%;background:#D9A55B;position:relative}
+.cs-pill .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(217,165,91,.6);animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+
+/* process */
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px;align-items:end}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.process-step{padding:36px 28px;background:#fff;border-radius:var(--r-lg);border:1px solid rgba(15,76,58,.08);transition:all .35s var(--ease);position:relative;overflow:hidden}
+.process-step::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--mint-500);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.process-step:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:var(--mint-300)}
+.process-step:hover::before{transform:scaleX(1)}
+.step-num{font-family:'Fraunces',serif;font-size:48px;font-weight:500;color:var(--mint-300);margin-bottom:14px;line-height:1}
+.process-step h4{margin-bottom:8px}
+.process-step p{font-size:14.5px}
+
+/* CTA */
+.invest-card{background:linear-gradient(135deg,var(--mint-600),var(--mint-700));color:#fff;border-radius:var(--r-xl);padding:80px;display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.invest-card::before{content:"";position:absolute;top:-50%;right:-20%;width:80%;height:200%;background:radial-gradient(circle,rgba(168,224,189,.18),transparent 60%);transform:rotate(20deg)}
+.invest-card .eyebrow{color:var(--mint-200)}
+.invest-card .eyebrow::before{background:var(--mint-200)}
+.invest-card h2{color:#fff;margin-bottom:20px}
+.invest-card p,.invest-card .lead{color:rgba(255,255,255,.85)}
+.invest-figures{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;z-index:1}
+.fig{padding:30px 24px;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);border-radius:var(--r-md);border:1px solid rgba(255,255,255,.12)}
+.fig.dark{background:rgba(0,0,0,.18)}
+.fig-num{font-family:'Fraunces',serif;font-size:34px;font-weight:500;line-height:1;color:#fff;margin-bottom:6px}
+.fig-lab{font-size:12.5px;letter-spacing:.04em;color:rgba(255,255,255,.7)}
+
+/* footer */
+.footer{background:var(--mint-900);color:rgba(255,255,255,.78);padding:90px 0 40px;position:relative;overflow:hidden}
+.footer::before{content:"";position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:120%;height:200px;background:radial-gradient(ellipse,rgba(168,224,189,.08),transparent 70%);filter:blur(30px)}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:60px;margin-bottom:60px}
+.footer .logo-text .a{color:#fff}
+.footer .logo-text .b{color:var(--mint-300)}
+.footer h4{color:#fff;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;font-family:'Inter',sans-serif}
+.footer p{color:rgba(255,255,255,.65);font-size:14.5px;margin-top:18px}
+.footer ul{list-style:none}
+.footer ul li{margin-bottom:10px;font-size:14.5px}
+.footer ul li a{color:rgba(255,255,255,.65);transition:color .2s}
+.footer ul li a:hover{color:var(--mint-300)}
+.newsletter{display:flex;gap:8px;margin-top:18px;background:rgba(255,255,255,.06);border-radius:999px;padding:6px;border:1px solid rgba(255,255,255,.08)}
+.newsletter input{flex:1;background:transparent;border:none;color:#fff;padding:10px 14px;font-size:14px;outline:none}
+.newsletter input::placeholder{color:rgba(255,255,255,.4)}
+.newsletter button{background:var(--mint-300);color:var(--mint-900);border:none;padding:10px 18px;border-radius:999px;font-weight:600;cursor:pointer;font-size:13.5px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:34px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(255,255,255,.5);flex-wrap:wrap;gap:18px}
+.footer-socials{display:flex;gap:14px}
+.footer-socials a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);display:inline-flex;align-items:center;justify-content:center;transition:all .25s}
+.footer-socials a:hover{background:var(--mint-300);color:var(--mint-900)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.1s}.reveal.delay-2{transition-delay:.2s}.reveal.delay-3{transition-delay:.3s}
+
+/* responsive */
+@media(max-width:980px){
+  section{padding:80px 0}
+  .nav-links{display:none;position:fixed;inset:72px 16px auto 16px;flex-direction:column;background:#fff;border-radius:var(--r-md);padding:20px;align-items:stretch;gap:8px;box-shadow:var(--shadow-md);border:1px solid rgba(15,76,58,.06)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 12px;border-radius:8px}
+  .nav-links a:hover,.nav-links a.active{background:var(--mint-50)}
+  .nav-links a.active::after{display:none}
+  .nav-cta .btn-primary{display:none}
+  .menu-toggle{display:inline-flex}
+  .page-hero-grid{grid-template-columns:1fr;gap:50px}
+  .service-row,.service-row.reverse{grid-template-columns:1fr;gap:50px}
+  .service-row.reverse .s-visual{order:0}
+  .section-head{grid-template-columns:1fr;gap:24px}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .invest-card{grid-template-columns:1fr;padding:50px 32px;gap:50px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+@media(max-width:560px){
+  .container{padding:0 18px}
+  h1{font-size:42px}h2{font-size:34px}
+  .process-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .invest-figures{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="60" height="60" rx="14" fill="#0F4C3A"/>
+        <path d="M32 14c5 6 10 11 10 18a10 10 0 11-20 0c0-7 5-12 10-18z" fill="#6FCF97"/>
+        <path d="M32 22c2.5 3.5 5.5 6.5 5.5 10.5a5.5 5.5 0 11-11 0c0-4 3-7 5.5-10.5z" fill="#FCEAB6"/>
+        <circle cx="48" cy="16" r="3.5" fill="#FCEAB6"/>
+      </svg>
+      <span class="logo-text"><span class="a">Fahman</span><span class="b">Energy</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="solar.html">Solar<span class="soon-badge">Soon</span></a>
+      <a href="investors.html">Investors</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">
+        Partner with us
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Page hero ===== -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-grid">
+      <div class="reveal">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>Services</span>
+        </div>
+        <div class="eyebrow">What we do</div>
+        <h1>Four services.<br/>One mission.</h1>
+        <p class="lead">
+          Clean energy for rural Nigeria depends on more than gas alone.
+          We deliver the supply, the know-how, the hardware — and from 2028,
+          the solar electricity that finishes the job.
+        </p>
+        <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap;">
+          <span class="tag">LPG refill & distribution</span>
+          <span class="tag">Energy consultancy</span>
+          <span class="tag">Equipment procurement</span>
+          <span class="tag warm">Solar electricity · Coming 2028</span>
+        </div>
+      </div>
+      <div class="hero-illust reveal delay-2">
+        <!-- Three properly drawn cylinders + a sun -->
+        <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- sun -->
+          <g>
+            <circle cx="290" cy="70" r="28" fill="#FCEAB6"/>
+            <circle cx="290" cy="70" r="18" fill="#F5C84C"/>
+          </g>
+          <!-- ground line -->
+          <line x1="20" y1="290" x2="340" y2="290" stroke="#0F4C3A" stroke-opacity=".18" stroke-width="1.5" stroke-dasharray="4 6"/>
+
+          <!-- 12.5 kg cylinder (largest) -->
+          <g transform="translate(60,108)">
+            <!-- base ring -->
+            <ellipse cx="40" cy="180" rx="42" ry="8" fill="#0F4C3A" opacity=".18"/>
+            <!-- body -->
+            <rect x="6" y="58" width="68" height="124" rx="8" fill="#1B7A5C"/>
+            <!-- band brand -->
+            <rect x="6" y="100" width="68" height="32" fill="#0F4C3A"/>
+            <text x="40" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#FCEAB6" letter-spacing="1">FAHMAN</text>
+            <text x="40" y="128" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#A8E0BD">12.5 KG</text>
+            <!-- shoulder dome -->
+            <path d="M6 60 Q40 30 74 60 Z" fill="#1B7A5C"/>
+            <!-- collar / protection -->
+            <rect x="20" y="32" width="40" height="14" rx="3" fill="#0F4C3A"/>
+            <rect x="20" y="32" width="40" height="4" fill="#062418"/>
+            <!-- valve -->
+            <rect x="34" y="20" width="12" height="14" rx="2" fill="#5C6961"/>
+            <circle cx="40" cy="20" r="4" fill="#9AA59E"/>
+            <!-- highlight -->
+            <rect x="14" y="64" width="6" height="116" rx="3" fill="#fff" opacity=".14"/>
+          </g>
+
+          <!-- 5 kg cylinder (medium) -->
+          <g transform="translate(160,142)">
+            <ellipse cx="32" cy="146" rx="34" ry="7" fill="#0F4C3A" opacity=".18"/>
+            <rect x="6" y="48" width="52" height="100" rx="6" fill="#3FA876"/>
+            <rect x="6" y="84" width="52" height="26" fill="#0F4C3A"/>
+            <text x="32" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" font-weight="700" fill="#FCEAB6" letter-spacing="1">FAHMAN</text>
+            <text x="32" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" fill="#A8E0BD">5 KG</text>
+            <path d="M6 50 Q32 24 58 50 Z" fill="#3FA876"/>
+            <rect x="16" y="26" width="32" height="12" rx="3" fill="#0F4C3A"/>
+            <rect x="16" y="26" width="32" height="3" fill="#062418"/>
+            <rect x="27" y="16" width="10" height="12" rx="2" fill="#5C6961"/>
+            <circle cx="32" cy="16" r="3" fill="#9AA59E"/>
+            <rect x="12" y="54" width="5" height="92" rx="2" fill="#fff" opacity=".14"/>
+          </g>
+
+          <!-- 3 kg cylinder (smallest) -->
+          <g transform="translate(238,170)">
+            <ellipse cx="26" cy="120" rx="28" ry="6" fill="#0F4C3A" opacity=".18"/>
+            <rect x="4" y="40" width="44" height="82" rx="6" fill="#6FCF97"/>
+            <rect x="4" y="68" width="44" height="22" fill="#0F4C3A"/>
+            <text x="26" y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#FCEAB6" letter-spacing="1">FAHMAN</text>
+            <text x="26" y="89" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" fill="#A8E0BD">3 KG</text>
+            <path d="M4 42 Q26 22 48 42 Z" fill="#6FCF97"/>
+            <rect x="13" y="22" width="26" height="10" rx="2.5" fill="#0F4C3A"/>
+            <rect x="13" y="22" width="26" height="3" fill="#062418"/>
+            <rect x="22" y="14" width="8" height="10" rx="1.5" fill="#5C6961"/>
+            <circle cx="26" cy="14" r="2.5" fill="#9AA59E"/>
+            <rect x="9" y="46" width="4" height="76" rx="2" fill="#fff" opacity=".14"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Services rows ===== -->
+<section style="padding-top:30px">
+  <div class="container">
+
+    <!-- LPG Refill -->
+    <div class="service-row" id="lpg">
+      <div class="s-illust lpg reveal">
+        <span class="s-tag">01 — Core service</span>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- plant building -->
+          <rect x="60" y="160" width="200" height="120" rx="8" fill="#0F4C3A"/>
+          <rect x="60" y="160" width="200" height="20" fill="#062418"/>
+          <!-- roof -->
+          <polygon points="50,160 270,160 230,130 90,130" fill="#1B7A5C"/>
+          <!-- solar panel on roof -->
+          <rect x="120" y="108" width="80" height="22" rx="2" fill="#1B7A5C" stroke="#062418" stroke-width="1"/>
+          <line x1="140" y1="108" x2="140" y2="130" stroke="#062418" stroke-width=".8"/>
+          <line x1="160" y1="108" x2="160" y2="130" stroke="#062418" stroke-width=".8"/>
+          <line x1="180" y1="108" x2="180" y2="130" stroke="#062418" stroke-width=".8"/>
+          <!-- bulk tank -->
+          <ellipse cx="80" cy="220" rx="34" ry="14" fill="#FBF9F4"/>
+          <rect x="46" y="200" width="68" height="40" fill="#FBF9F4"/>
+          <ellipse cx="80" cy="240" rx="34" ry="14" fill="#EAF7EF"/>
+          <text x="80" y="225" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#0F4C3A">10MT</text>
+          <!-- cylinder small inside -->
+          <g transform="translate(178,206)">
+            <rect x="0" y="14" width="22" height="44" rx="3" fill="#3FA876"/>
+            <rect x="0" y="32" width="22" height="10" fill="#0F4C3A"/>
+            <path d="M0 16 Q11 6 22 16 Z" fill="#3FA876"/>
+            <rect x="6" y="6" width="10" height="6" rx="1" fill="#0F4C3A"/>
+            <rect x="9" y="2" width="4" height="6" rx="1" fill="#5C6961"/>
+          </g>
+          <!-- door -->
+          <rect x="220" y="220" width="28" height="60" fill="#062418"/>
+          <!-- ground -->
+          <line x1="20" y1="280" x2="300" y2="280" stroke="#0F4C3A" stroke-opacity=".3" stroke-width="2"/>
+          <!-- sun -->
+          <circle cx="270" cy="60" r="22" fill="#FCEAB6"/>
+          <circle cx="270" cy="60" r="14" fill="#F5C84C"/>
+          <!-- flow lines from panel to tank -->
+          <path d="M150 130 C 140 150, 110 180, 80 200" stroke="#FCEAB6" stroke-width="2" fill="none" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      </div>
+      <div class="s-content reveal delay-1">
+        <div class="eyebrow">LPG refill & distribution</div>
+        <h2>Cooking gas, refilled at the source.</h2>
+        <p>
+          Our solar-powered plants refill cylinders on-site for households, businesses, schools
+          and clinics across rural communities. We handle storage, safety and last-mile delivery.
+        </p>
+        <div class="s-features">
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>10MT capacity at Ilesha Baruba</strong><span>Live, NMDPRA-licensed plant serving Kwara State.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>3kg, 5kg, 12.5kg cylinders</strong><span>Sized for every household budget — from micro-refill to monthly bulk.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Last-mile delivery network</strong><span>Local agents and exchange points within walking distance of every customer.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Bulk supply contracts</strong><span>Schools, clinics, hospitality and SME accounts.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consultancy -->
+    <div class="service-row reverse" id="consultancy">
+      <div class="s-content reveal">
+        <div class="eyebrow">Energy consultancy</div>
+        <h2>The know-how to build a rural plant — properly.</h2>
+        <p>
+          Governments, NGOs and operators come to us when they want to build rural energy capacity
+          but don't yet have the operating playbook. We sell ours: from licensing to live ops.
+        </p>
+        <div class="s-features">
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Site selection & feasibility</strong><span>Demand modelling, geographic analysis, community engagement.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Regulatory & NMDPRA licensing</strong><span>End-to-end navigation of the Nigerian downstream gas regulatory regime.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Plant design & deployment</strong><span>Modular, solar-powered architecture — built from our own templates.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Operator training</strong><span>Safety, distribution and customer-care playbooks delivered on-site.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s-illust consult reveal delay-1">
+        <span class="s-tag">02 — Advisory</span>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- blueprint grid -->
+          <defs>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M20 0H0V20" fill="none" stroke="#A8E0BD" stroke-opacity=".22" stroke-width=".7"/>
+            </pattern>
+          </defs>
+          <rect x="40" y="60" width="240" height="200" rx="6" fill="#062418" stroke="#A8E0BD" stroke-opacity=".4"/>
+          <rect x="40" y="60" width="240" height="200" rx="6" fill="url(#grid)"/>
+          <!-- plant outline blueprint -->
+          <rect x="80" y="160" width="160" height="74" rx="2" fill="none" stroke="#A8E0BD" stroke-width="1.4"/>
+          <polygon points="70,160 250,160 220,128 100,128" fill="none" stroke="#A8E0BD" stroke-width="1.4"/>
+          <!-- panel -->
+          <rect x="130" y="108" width="60" height="20" fill="none" stroke="#FCEAB6" stroke-width="1.2"/>
+          <line x1="145" y1="108" x2="145" y2="128" stroke="#FCEAB6" stroke-width=".8"/>
+          <line x1="160" y1="108" x2="160" y2="128" stroke="#FCEAB6" stroke-width=".8"/>
+          <line x1="175" y1="108" x2="175" y2="128" stroke="#FCEAB6" stroke-width=".8"/>
+          <!-- tank circle -->
+          <circle cx="110" cy="200" r="18" fill="none" stroke="#A8E0BD" stroke-width="1.4"/>
+          <text x="110" y="204" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#A8E0BD" font-weight="600">10MT</text>
+          <!-- dimensions -->
+          <line x1="80" y1="244" x2="240" y2="244" stroke="#FCEAB6" stroke-opacity=".7" stroke-width="1"/>
+          <text x="160" y="256" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="#FCEAB6" opacity=".9">SITE PLAN · NMDPRA</text>
+          <!-- compass -->
+          <g transform="translate(54,76)" stroke="#A8E0BD" stroke-width="1" fill="none">
+            <circle cx="10" cy="10" r="9"/>
+            <path d="M10 2 L13 10 L10 18 L7 10 Z" fill="#A8E0BD"/>
+          </g>
+          <!-- title corner -->
+          <text x="252" y="252" text-anchor="end" font-family="Inter,sans-serif" font-size="8" fill="#A8E0BD" opacity=".7">SCALE 1:200</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Equipment -->
+    <div class="service-row" id="equipment">
+      <div class="s-illust equip reveal">
+        <span class="s-tag">03 — Procurement</span>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- shelf -->
+          <rect x="20" y="252" width="280" height="6" fill="#0F4C3A" opacity=".25"/>
+          <rect x="20" y="160" width="280" height="6" fill="#0F4C3A" opacity=".15"/>
+
+          <!-- big tank -->
+          <g transform="translate(40,162)">
+            <ellipse cx="50" cy="84" rx="50" ry="10" fill="#0F4C3A" opacity=".15"/>
+            <rect x="0" y="14" width="100" height="74" rx="6" fill="#FBF9F4" stroke="#0F4C3A" stroke-width="1.5"/>
+            <ellipse cx="50" cy="14" rx="50" ry="10" fill="#FBF9F4" stroke="#0F4C3A" stroke-width="1.5"/>
+            <text x="50" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#0F4C3A">FAHMAN</text>
+            <text x="50" y="70" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#1B7A5C">50MT TANK</text>
+          </g>
+
+          <!-- 12.5 kg cylinder -->
+          <g transform="translate(166,176)">
+            <ellipse cx="28" cy="78" rx="30" ry="6" fill="#0F4C3A" opacity=".2"/>
+            <rect x="4" y="22" width="48" height="58" rx="5" fill="#1B7A5C"/>
+            <rect x="4" y="46" width="48" height="18" fill="#0F4C3A"/>
+            <text x="28" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="700" fill="#FCEAB6">FAHMAN</text>
+            <text x="28" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" fill="#A8E0BD">12.5KG</text>
+            <path d="M4 24 Q28 4 52 24 Z" fill="#1B7A5C"/>
+            <rect x="14" y="6" width="28" height="10" rx="2" fill="#0F4C3A"/>
+            <rect x="22" y="0" width="12" height="8" rx="1.5" fill="#5C6961"/>
+          </g>
+
+          <!-- 5 kg cylinder -->
+          <g transform="translate(228,194)">
+            <ellipse cx="22" cy="60" rx="24" ry="5" fill="#0F4C3A" opacity=".2"/>
+            <rect x="2" y="18" width="40" height="42" rx="4" fill="#3FA876"/>
+            <rect x="2" y="36" width="40" height="14" fill="#0F4C3A"/>
+            <text x="22" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#FCEAB6">5KG</text>
+            <path d="M2 20 Q22 4 42 20 Z" fill="#3FA876"/>
+            <rect x="10" y="6" width="24" height="8" rx="2" fill="#0F4C3A"/>
+            <rect x="17" y="0" width="10" height="7" rx="1" fill="#5C6961"/>
+          </g>
+
+          <!-- top shelf: regulators / hoses -->
+          <g transform="translate(50,80)">
+            <!-- regulator -->
+            <rect x="0" y="40" width="34" height="22" rx="3" fill="#5C6961"/>
+            <circle cx="34" cy="51" r="6" fill="#9AA59E" stroke="#0F4C3A" stroke-width="1"/>
+            <rect x="14" y="30" width="6" height="12" fill="#9AA59E"/>
+            <!-- hose -->
+            <path d="M40 56 Q70 80 110 60 Q150 40 170 60" stroke="#0F4C3A" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <!-- burner -->
+            <g transform="translate(180,38)">
+              <rect x="0" y="14" width="30" height="6" rx="2" fill="#0F4C3A"/>
+              <circle cx="15" cy="14" r="8" fill="none" stroke="#0F4C3A" stroke-width="1.5"/>
+              <circle cx="15" cy="14" r="3" fill="#D9A55B"/>
+            </g>
+          </g>
+
+          <!-- SON badge -->
+          <g transform="translate(244,72)">
+            <circle cx="20" cy="20" r="20" fill="#D9A55B"/>
+            <text x="20" y="18" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" font-weight="700" fill="#fff">SON</text>
+            <text x="20" y="28" text-anchor="middle" font-family="Inter,sans-serif" font-size="5" fill="#fff">CERTIFIED</text>
+          </g>
+        </svg>
+      </div>
+      <div class="s-content reveal delay-1">
+        <div class="eyebrow">Equipment procurement</div>
+        <h2>SON-approved hardware, sourced at scale.</h2>
+        <p>
+          From the cylinder a household carries home to the storage tank that anchors a regional plant —
+          we procure, certify and supply the full hardware stack of a rural energy operation.
+        </p>
+        <div class="s-features">
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Cylinders</strong><span>3kg, 5kg, 6kg, 12.5kg — all SON-stamped, batch-tested.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Storage tanks</strong><span>From 1MT community units to 50MT regional installations.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Regulators, hoses & burners</strong><span>Certified accessories that close the safety loop in the home.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Solar dispensing systems</strong><span>Pumps, panels and controllers configured for off-grid rural use.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solar Energy — Coming Soon -->
+    <div class="service-row reverse coming-soon-row" id="solar" style="border-bottom:none;padding:90px 40px;">
+      <div class="s-content reveal">
+        <div class="cs-pill"><span class="pulse"></span> Coming soon · 2028</div>
+        <div class="eyebrow">Solar energy for rural homes</div>
+        <h2>The next chapter:<br/>light, after the gas.</h2>
+        <p>
+          Cooking is only half the energy story. Across the same communities we already serve with LPG,
+          most households still cook in the dark, charge phones at kiosks and lose a day's trade when the
+          sun goes down. Our next service brings solar electricity directly into the home —
+          panels, batteries, and small mini-grids built around the plants we already run.
+        </p>
+        <div class="s-features">
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Solar Home Systems</strong><span>Panel + battery + LED kits sized for a single household — pay-as-you-go ready.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Community mini-grids</strong><span>Anchored at our LPG plants and extended to schools, clinics and market stalls.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Productive-use energy</strong><span>Refrigeration, milling and irrigation packages for rural micro-enterprises.</span></div>
+          </div>
+          <div class="s-feature">
+            <span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="text"><strong>Rooted in the same communities</strong><span>We already know the homes. We already know the agents. The pipeline runs both ways.</span></div>
+          </div>
+        </div>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="solar.html" class="btn btn-primary">
+            See the solar plan
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="contact.html" class="btn btn-ghost">Join the waitlist</a>
+        </div>
+      </div>
+      <div class="s-illust solar reveal delay-1">
+        <span class="s-tag" style="background:rgba(15,76,58,.92);color:#fff;">04 — Coming soon</span>
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- sun -->
+          <g>
+            <circle cx="80" cy="74" r="30" fill="#FFD27F"/>
+            <circle cx="80" cy="74" r="20" fill="#F5C84C"/>
+            <g stroke="#0F4C3A" stroke-opacity=".55" stroke-width="2" stroke-linecap="round">
+              <line x1="80" y1="20" x2="80" y2="32"/>
+              <line x1="30" y1="74" x2="42" y2="74"/>
+              <line x1="42" y1="36" x2="50" y2="44"/>
+              <line x1="42" y1="112" x2="50" y2="104"/>
+            </g>
+          </g>
+          <!-- panel -->
+          <g transform="translate(170,110)">
+            <rect x="0" y="0" width="100" height="50" rx="3" fill="#0F4C3A" stroke="#062418"/>
+            <line x1="25" y1="0" x2="25" y2="50" stroke="#1B7A5C" stroke-width="1"/>
+            <line x1="50" y1="0" x2="50" y2="50" stroke="#1B7A5C" stroke-width="1"/>
+            <line x1="75" y1="0" x2="75" y2="50" stroke="#1B7A5C" stroke-width="1"/>
+            <line x1="0" y1="25" x2="100" y2="25" stroke="#1B7A5C" stroke-width="1"/>
+            <line x1="50" y1="50" x2="50" y2="76" stroke="#0F4C3A" stroke-width="3"/>
+          </g>
+          <!-- house with light -->
+          <g transform="translate(110,200)">
+            <polygon points="0,40 50,0 100,40" fill="#1B7A5C"/>
+            <rect x="6" y="40" width="88" height="60" fill="#0F4C3A"/>
+            <rect x="36" y="64" width="28" height="36" fill="#FCEAB6"/>
+            <rect x="14" y="50" width="14" height="14" fill="#FCEAB6"/>
+            <rect x="72" y="50" width="14" height="14" fill="#FCEAB6"/>
+            <!-- chimney smoke none, glow under roof -->
+            <ellipse cx="50" cy="100" rx="60" ry="6" fill="#0F4C3A" opacity=".28"/>
+          </g>
+          <!-- glow ring around house -->
+          <circle cx="160" cy="240" r="80" fill="none" stroke="#FCEAB6" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="3 6">
+            <animate attributeName="stroke-dashoffset" from="0" to="-36" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- flow lines -->
+          <path d="M104 86 Q 150 90 195 130" stroke="#F5C84C" stroke-width="2" fill="none" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <path d="M220 186 Q 200 210 178 224" stroke="#0F4C3A" stroke-width="2" fill="none" stroke-dasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="1.6s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== Process ===== -->
+<section style="background:var(--mint-50);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">How we work</div>
+        <h2>From first conversation<br/>to live operation.</h2>
+      </div>
+      <p class="lead">
+        Whether we're operating a plant directly or building one for a partner,
+        we follow the same disciplined four-phase playbook.
+      </p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <h4>Discover</h4>
+        <p>Community demand mapping, site survey, regulatory baseline and partner alignment.</p>
+      </div>
+      <div class="process-step reveal delay-1">
+        <div class="step-num">02</div>
+        <h4>Design</h4>
+        <p>Plant layout, solar sizing, distribution model and unit economics tailored to the community.</p>
+      </div>
+      <div class="process-step reveal delay-2">
+        <div class="step-num">03</div>
+        <h4>Deploy</h4>
+        <p>Procurement, civil works, equipment installation, NMDPRA licensing and SON certification.</p>
+      </div>
+      <div class="process-step reveal delay-3">
+        <div class="step-num">04</div>
+        <h4>Operate</h4>
+        <p>Live refilling, last-mile distribution, local hiring, monitoring and impact reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section>
+  <div class="container">
+    <div class="invest-card reveal">
+      <div>
+        <div class="eyebrow">Ready to work together?</div>
+        <h2>Let's build the next plant.</h2>
+        <p class="lead">
+          Whether you're an investor, a development partner, a government agency or a community
+          leader — we'd like to hear from you. Most rural energy projects fail at the handoff. Ours don't.
+        </p>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn-primary">
+            Start a conversation
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="about.html" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.25)">Read our story</a>
+        </div>
+      </div>
+      <div class="invest-figures">
+        <div class="fig"><div class="fig-num">10MT</div><div class="fig-lab">Live plant capacity</div></div>
+        <div class="fig dark"><div class="fig-num">100%</div><div class="fig-lab">Solar-powered ops</div></div>
+        <div class="fig dark"><div class="fig-num">SON</div><div class="fig-lab">All equipment certified</div></div>
+        <div class="fig"><div class="fig-num">NMDPRA</div><div class="fig-lab">Licensed operator</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo">
+          <svg class="logo-svg" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="14" fill="#1B7A5C"/><path d="M32 14c5 6 10 11 10 18a10 10 0 11-20 0c0-7 5-12 10-18z" fill="#6FCF97"/><path d="M32 22c2.5 3.5 5.5 6.5 5.5 10.5a5.5 5.5 0 11-11 0c0-4 3-7 5.5-10.5z" fill="#FCEAB6"/><circle cx="48" cy="16" r="3.5" fill="#FCEAB6"/></svg>
+          <span class="logo-text"><span class="a">Fahman</span><span class="b">Energy</span></span>
+        </a>
+        <p>Solar-powered LPG today. Solar electricity for rural homes from 2028. Building the clean energy infrastructure of rural Nigeria, one community at a time.</p>
+        <form class="newsletter">
+          <input type="email" placeholder="Email for our impact updates" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="about.html#story">Our story</a></li>
+          <li><a href="about.html#impact">Impact</a></li>
+          <li><a href="investors.html">Investors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#lpg">LPG refill</a></li>
+          <li><a href="services.html#consultancy">Consultancy</a></li>
+          <li><a href="services.html#equipment">Equipment</a></li>
+          <li><a href="solar.html">Solar (soon)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach us</h4>
+        <ul>
+          <li><strong style="color:#fff;">HQ</strong><br/>Pipeline Area, Ilorin<br/>Kwara State, Nigeria</li>
+          <li><strong style="color:#fff;">Branch</strong><br/>Ilesha Baruba, Kwara State</li>
+          <li><a href="mailto:Fahmanltd@gmail.com">Fahmanltd@gmail.com</a></li>
+          <li><a href="tel:+2347060868580">+234 706 086 8580</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Fahman Oil & Gas Ltd. (trading as Fahman / FahmanEnergy) · NMDPRA Licensed · SON Approved.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 2a2 2 0 100 4 2 2 0 000-4zM10 8h4v2c.6-1.2 2.2-2.4 4.2-2.4 4.5 0 5.3 3 5.3 6.8V20h-4v-5c0-1.2 0-2.7-1.8-2.7s-2.1 1.3-2.1 2.6V20h-4V8z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1A4 4 0 0012 8.5c0 .3 0 .6.1.9A11.4 11.4 0 013 4.7a4 4 0 001.2 5.4c-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.6 3.2 4-.3.1-.7.2-1.1.2h-.7a4 4 0 003.7 2.8 8 8 0 01-5.9 1.6 11.4 11.4 0 006.2 1.8c7.4 0 11.5-6.2 11.5-11.5v-.5c.8-.6 1.5-1.3 2-2.3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  // header scroll
+  const header=document.querySelector('.header');
+  const onScroll=()=>{
+    if(window.scrollY>16) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    const p=document.getElementById('progress');
+    if(p) p.style.width=((window.scrollY/max)*100)+'%';
+  };
+  onScroll();
+  window.addEventListener('scroll',onScroll,{passive:true});
+
+  // mobile menu
+  const toggle=document.querySelector('.menu-toggle');
+  const links=document.querySelector('.nav-links');
+  toggle?.addEventListener('click',()=>links.classList.toggle('open'));
+
+  // reveal
+  const revealEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+    revealEls.forEach(el=>io.observe(el));
+  } else revealEls.forEach(el=>el.classList.add('in'));
+
+  // anchor smooth
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',(e)=>{
+      const href=a.getAttribute('href');
+      if(href.length<=1)return;
+      const target=document.querySelector(href);
+      if(!target)return;
+      e.preventDefault();
+      const top=target.getBoundingClientRect().top+window.scrollY-80;
+      window.scrollTo({top,behavior:'smooth'});
+      links?.classList.remove('open');
+    });
+  });
+
+  // newsletter mock
+  const news=document.querySelector('.newsletter');
+  news?.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const btn=news.querySelector('button');
+    if(!btn) return;
+    const orig=btn.textContent;
+    btn.textContent='Subscribed';
+    setTimeout(()=>{ btn.textContent=orig; news.reset(); },1800);
+  });
+
+  // cursor glow
+  const glow=document.getElementById('cursorGlow');
+  if(glow && window.matchMedia('(hover:hover)').matches){
+    document.addEventListener('mousemove',(e)=>{
+      glow.style.left=e.clientX+'px';
+      glow.style.top=e.clientY+'px';
+    });
+  }
+});
+</script>
+</body>
+</html>
