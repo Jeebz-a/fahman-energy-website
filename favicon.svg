@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fahman Energy logo">
+  <title>Fahman Energy</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14624A"/>
+      <stop offset="1" stop-color="#0B3D2E"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FCEAB6"/>
+      <stop offset=".55" stop-color="#D9A55B"/>
+      <stop offset="1" stop-color="#B8842F"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/>
+  <!-- Subtle inner ring -->
+  <rect x="5.5" y="5.5" width="53" height="53" rx="11" fill="none" stroke="#FAF8F2" stroke-opacity=".12" stroke-width="1"/>
+  <!-- Flame-drop mark: teardrop body + inner flame -->
+  <path d="M32 12 C40 22, 48 30, 48 40 C48 50, 41 56, 32 56 C23 56, 16 50, 16 40 C16 30, 24 22, 32 12 Z" fill="url(#flame)"/>
+  <!-- Inner highlight -->
+  <path d="M32 22 C36 28, 40 33, 40 40 C40 46, 36.5 50, 32 50 C27.5 50, 24 46, 24 40 C24 33, 28 28, 32 22 Z" fill="#FAF8F2" fill-opacity=".18"/>
+  <!-- Hot core dot -->
+  <circle cx="32" cy="42" r="3" fill="#FAF8F2"/>
+</svg>
