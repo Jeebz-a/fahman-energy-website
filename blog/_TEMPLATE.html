@@ -1,0 +1,352 @@
+<!--
+=========================================================================
+NEW BLOG POST TEMPLATE — copy this file to /blog/your-slug.html and edit.
+
+WORKFLOW (5 minutes):
+  1. Copy:        cp blog/_TEMPLATE.html blog/your-slug.html
+  2. Replace ALL `{{...}}` placeholders below with your content
+  3. Write the article body inside the <!-- BODY START --> region
+  4. Add a card to blog.html (see "ADD-A-CARD SNIPPET" comment block at
+     the bottom of this file)
+  5. Add this URL to sitemap.xml:
+        <url><loc>https://www.fahmanenergy.com/blog/your-slug</loc>
+        <lastmod>YYYY-MM-DD</lastmod><changefreq>monthly</changefreq>
+        <priority>0.6</priority></url>
+  6. git add . && git commit -m "Blog: <title>" && git push origin main
+  7. Vercel auto-deploys within ~30 seconds.
+
+CATEGORY VALUES (used in blog.html data-cat filter):
+  lpg | solar | policy | field | investors
+
+SLUG RULES:
+  - all lowercase, words-separated-by-dashes
+  - no dates, no special chars (Google likes short, evergreen URLs)
+  - good:  why-rural-lpg-matters
+  - bad:   2026-05-03_Why_Rural_LPG_Matters!.html
+=========================================================================
+-->
+<!DOCTYPE html>
+<html lang="en-NG">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ==== EDIT THESE 8 FIELDS PER POST ==== -->
+<title>{{POST_TITLE}} — FahmanEnergy</title>
+<meta name="description" content="{{POST_DESCRIPTION_150_CHARS}}" />
+<meta name="keywords" content="{{COMMA, SEPARATED, KEYWORDS}}" />
+<meta name="author" content="{{AUTHOR_NAME}}" />
+<meta property="article:published_time" content="{{YYYY-MM-DDT09:00:00+01:00}}" />
+<meta property="article:modified_time" content="{{YYYY-MM-DDT09:00:00+01:00}}" />
+<meta property="article:section" content="{{CATEGORY}}" />
+<meta property="article:tag" content="{{TAGS}}" />
+<!-- ====================================== -->
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0F4C3A" />
+<link rel="canonical" href="https://www.fahmanenergy.com/blog/{{POST_SLUG}}" />
+<link rel="alternate" hreflang="en-NG" href="https://www.fahmanenergy.com/blog/{{POST_SLUG}}" />
+<link rel="alternate" hreflang="x-default" href="https://www.fahmanenergy.com/blog/{{POST_SLUG}}" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="FahmanEnergy" />
+<meta property="og:locale" content="en_NG" />
+<meta property="og:url" content="https://www.fahmanenergy.com/blog/{{POST_SLUG}}" />
+<meta property="og:title" content="{{POST_TITLE}}" />
+<meta property="og:description" content="{{POST_DESCRIPTION_150_CHARS}}" />
+<meta property="og:image" content="https://www.fahmanenergy.com/og-image.svg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{{HERO_IMAGE_ALT_TEXT}}" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@FahmanEnergy" />
+<meta name="twitter:title" content="{{POST_TITLE}}" />
+<meta name="twitter:description" content="{{POST_DESCRIPTION_150_CHARS}}" />
+<meta name="twitter:image" content="https://www.fahmanenergy.com/og-image.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300..900;1,300..900&family=Inter:wght@300;400;500;600;700;800&display=swap" />
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{POST_TITLE}}",
+  "image": ["https://www.fahmanenergy.com/og-image.svg"],
+  "datePublished": "{{YYYY-MM-DDT09:00:00+01:00}}",
+  "dateModified": "{{YYYY-MM-DDT09:00:00+01:00}}",
+  "author": {"@type": "Organization", "name": "FahmanEnergy", "url": "https://www.fahmanenergy.com/"},
+  "publisher": {"@type": "Organization", "name": "FahmanEnergy", "logo": {"@type": "ImageObject", "url": "https://www.fahmanenergy.com/apple-touch-icon.svg"}},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.fahmanenergy.com/blog/{{POST_SLUG}}"},
+  "description": "{{POST_DESCRIPTION_150_CHARS}}",
+  "articleSection": "{{CATEGORY}}",
+  "inLanguage": "en-NG",
+  "isPartOf": {"@type": "Blog", "@id": "https://www.fahmanenergy.com/blog#blog"}
+}</script>
+
+<style>
+/* Identical to blog/why-rural-lpg-matters.html — keep this in sync if you tweak styles */
+:root{--mint-100:#E2F4E9;--mint-300:#A8E0BD;--mint-500:#6FCF97;--mint-700:#14624A;--mint-800:#0F4C3A;--mint-900:#0B3D2E;--gold:#D9A55B;--cream:#FAF8F2;--ink-900:#0A1F18;--ink-700:#3F5A4F;--ink-500:#6F8278;--ink-300:#A8B5AE;--line:#E6ECE8;--r-md:14px;--r-lg:20px;--r-xl:28px;--shadow-md:0 8px 24px rgba(11,61,46,.08);--t:.35s cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink-900);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:1240px;margin:0 auto;padding:0 32px}
+a{color:inherit;text-decoration:none}
+img,svg{max-width:100%;display:block}
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink-900)}
+.logo-mark{width:42px;height:42px;flex:none}
+.logo-text{display:inline-flex;align-items:baseline;letter-spacing:-.02em}
+.logo-fahman{font-family:'Fraunces',serif;font-weight:500;font-size:1.32rem;color:#0F4C3A;letter-spacing:-.02em}
+.logo-energy{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.32rem;color:#6FCF97;letter-spacing:-.02em;margin-left:1px}
+.footer .logo-fahman{color:#FFFFFF}
+.footer .logo-energy{color:#A8E0BD}
+.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:var(--t);background:#FAF8F2;border-bottom:1px solid transparent}
+.header.scrolled{border-bottom:1px solid var(--line);box-shadow:0 2px 14px rgba(11,61,46,.07);padding:12px 0}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:10px 18px;border-radius:999px;font-size:.92rem;font-weight:500;color:var(--ink-700);transition:.2s}
+.nav-links a:hover{color:var(--mint-800)}
+.nav-links a.active{background:var(--mint-100);color:var(--mint-800)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-size:.95rem;font-weight:500;border:0;cursor:pointer;transition:var(--t);font-family:inherit;white-space:nowrap}
+.btn-primary{background:var(--mint-800);color:#fff}
+.btn-primary:hover{background:var(--mint-700);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.menu-toggle{display:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);align-items:center;justify-content:center;background:#fff}
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{display:block;width:18px;height:1.5px;background:var(--ink-900)}
+.menu-toggle span{position:relative}
+.menu-toggle span::before{content:'';position:absolute;left:0;top:-6px}
+.menu-toggle span::after{content:'';position:absolute;left:0;top:6px}
+@media(max-width:980px){.nav-links{display:none}.menu-toggle{display:flex}.nav-cta .btn-primary{display:none}.nav-links.open{display:flex;flex-direction:column;align-items:stretch;position:fixed;top:70px;left:16px;right:16px;background:#fff;padding:16px;border-radius:var(--r-md);box-shadow:0 20px 50px rgba(11,61,46,.12);gap:4px}}
+.article-hero{padding:140px 0 32px}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--ink-500);margin-bottom:24px}
+.crumbs a:hover{color:var(--mint-800)}.crumbs .sep{color:var(--ink-300)}
+.tag-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:var(--mint-100);color:var(--mint-800);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.article-title{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-.02em;line-height:1.12;font-size:clamp(2.2rem,5vw,3.6rem);max-width:18ch;margin-bottom:24px}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:.9rem;color:var(--ink-500);margin-bottom:48px;flex-wrap:wrap}
+.article-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--ink-300)}
+.article-meta strong{color:var(--ink-900);font-weight:600}
+.cover{aspect-ratio:16/9;border-radius:var(--r-xl);overflow:hidden;margin-bottom:64px;background:linear-gradient(160deg,#14624A,#0B3D2E)}
+.cover svg{width:100%;height:100%}
+.body-grid{display:grid;grid-template-columns:1fr minmax(0,720px) 1fr;column-gap:48px;padding-bottom:96px}
+.body-grid > .body{grid-column:2}
+.body p{font-size:1.08rem;color:var(--ink-700);margin:0 0 22px;line-height:1.75}
+.body p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.6rem;float:left;line-height:.95;padding:6px 12px 0 0;color:var(--mint-700);font-weight:500}
+.body h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.85rem;letter-spacing:-.02em;line-height:1.18;margin:48px 0 18px}
+.body h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.35rem;line-height:1.25;margin:32px 0 14px}
+.body ul,.body ol{margin:0 0 22px 24px;color:var(--ink-700)}
+.body li{margin-bottom:8px;font-size:1.05rem}
+.body blockquote{margin:32px 0;padding:24px 28px;border-left:4px solid var(--mint-500);background:#fff;border-radius:0 var(--r-md) var(--r-md) 0;font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;color:var(--ink-900);line-height:1.45}
+.body blockquote cite{display:block;margin-top:12px;font-family:'Inter',sans-serif;font-style:normal;font-size:.85rem;color:var(--ink-500);font-weight:500}
+.body strong{color:var(--ink-900);font-weight:600}
+.body a{color:var(--mint-800);font-weight:500;border-bottom:1px solid var(--mint-300);transition:.2s}
+.body a:hover{color:var(--mint-700);border-color:var(--mint-700)}
+.body hr{border:0;border-top:1px solid var(--line);margin:48px 0}
+.callout{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:0 var(--r-md) var(--r-md) 0;padding:20px 24px;margin:32px 0}
+.callout strong{display:block;color:var(--gold);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+@media(max-width:880px){.body-grid{grid-template-columns:1fr;padding:0 16px 64px}.body-grid > .body{grid-column:1}.article-hero{padding:110px 16px 24px}.cover{margin:0 16px 48px}}
+.footer{background:var(--ink-900);color:rgba(255,255,255,.7);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer h4{color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
+.footer ul{list-style:none}.footer li{margin-bottom:10px}
+.footer a{color:rgba(255,255,255,.65);font-size:.92rem}.footer a:hover{color:#fff}
+.footer-brand p{margin-top:18px;font-size:.92rem;color:rgba(255,255,255,.55)}
+.footer-bottom{padding-top:32px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;font-size:.85rem;color:rgba(255,255,255,.5)}
+@media(max-width:880px){.footer-grid{grid-template-columns:1fr 1fr;gap:40px}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr}}
+html, body { overflow-x: hidden; max-width:100%; width:100%; }
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="52" cy="13" r="5" fill="#D9A55B"/>
+        <path d="M28 4 Q6 26 6 39 A22 22 0 0 1 50 39 Q50 26 28 4 Z" fill="#0F4C3A"/>
+        <path d="M28 14 C21 21 15 28 15 34 C15 41 21 49 28 54 Z" fill="#A8E0BD"/>
+        <path d="M28 14 C35 21 41 28 41 34 C41 41 35 49 28 54 Z" fill="#6FCF97"/>
+      </svg>
+      <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../services.html">Services</a>
+      <a href="../solar.html">Solar</a>
+      <a href="../investors.html">Investors</a>
+      <a href="../blog.html" class="active">Blog</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="../contact.html" class="btn btn-primary">Partner with us</a>
+      <button class="menu-toggle" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="article-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a> <span class="sep">/</span>
+        <a href="../blog.html">Blog</a> <span class="sep">/</span>
+        <span>{{POST_TITLE_SHORT}}</span>
+      </nav>
+      <span class="tag-pill">{{CATEGORY}}</span>
+      <h1 class="article-title">{{POST_TITLE}}</h1>
+      <div class="article-meta">
+        <strong>By {{AUTHOR_NAME}}</strong>
+        <span class="dot"></span>
+        <time datetime="{{YYYY-MM-DD}}">{{Month D, YYYY}}</time>
+        <span class="dot"></span>
+        <span>{{N}} min read</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Replace this SVG cover with your own. Keep viewBox 1200x675 for 16:9. -->
+  <div class="cover">
+    <svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="coverTitle coverDesc">
+      <title id="coverTitle">{{HERO_IMAGE_ALT_TEXT}}</title>
+      <desc id="coverDesc">{{HERO_IMAGE_LONGER_DESCRIPTION}}</desc>
+      <rect width="1200" height="675" fill="#14624A"/>
+      <text x="50%" y="50%" text-anchor="middle" font-family="Fraunces,serif" font-size="48" fill="#A8E0BD">Replace with your hero illustration or photo</text>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="body-grid">
+      <div class="body">
+        <!-- BODY START — write your article here.
+             Use these elements:
+               <p>           paragraph
+               <h2>          section heading
+               <h3>          subsection heading
+               <ul><li>      bullet list
+               <ol><li>      numbered list
+               <blockquote>...<cite>—Name, Role</cite></blockquote>
+               <strong>      bold for emphasis
+               <a href="">   inline link
+               <hr/>         section break
+               <div class="callout"><strong>Field note</strong>...</div>
+        -->
+
+        <p>{{OPENING_PARAGRAPH — first letter gets a serif drop-cap automatically.}}</p>
+
+        <h2>{{First section heading}}</h2>
+        <p>{{Section text...}}</p>
+
+        <blockquote>
+          {{A pull quote that earns a moment of attention.}}
+          <cite>— Source name, role</cite>
+        </blockquote>
+
+        <h2>{{Second section heading}}</h2>
+        <p>{{Section text...}}</p>
+
+        <ul>
+          <li>{{Bullet 1}}</li>
+          <li>{{Bullet 2}}</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Field note</strong>
+          {{Optional callout box for a single insight you want to surface.}}
+        </div>
+
+        <h2>{{Closing section}}</h2>
+        <p>{{Wrap-up paragraph with a soft CTA — invite a reply, a partnership, a meeting.}}</p>
+
+        <p>If you're working on related questions, drop us a line at <a href="mailto:Fahmanltd@gmail.com">Fahmanltd@gmail.com</a>.</p>
+
+        <!-- BODY END -->
+      </div>
+    </div>
+  </div>
+</article>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo">
+          <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="52" cy="13" r="5" fill="#D9A55B"/>
+            <path d="M28 4 Q6 26 6 39 A22 22 0 0 1 50 39 Q50 26 28 4 Z" fill="#0F4C3A"/>
+            <path d="M28 14 C21 21 15 28 15 34 C15 41 21 49 28 54 Z" fill="#A8E0BD"/>
+            <path d="M28 14 C35 21 41 28 41 34 C41 41 35 49 28 54 Z" fill="#6FCF97"/>
+          </svg>
+          <span class="logo-text"><span class="logo-fahman">Fahman</span><span class="logo-energy">Energy</span></span>
+        </a>
+        <p>Solar-powered LPG refill plants for rural Nigeria — and tomorrow, solar electricity for the same homes.</p>
+      </div>
+      <div><h4>Company</h4><ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../solar.html">Solar 2028</a></li>
+        <li><a href="../investors.html">Investors</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+      </ul></div>
+      <div><h4>Reach us</h4><ul>
+        <li><a href="mailto:Fahmanltd@gmail.com">Fahmanltd@gmail.com</a></li>
+        <li><a href="tel:+2347060868580">+234 706 086 8580</a></li>
+        <li>Pipeline Area, Ilorin</li>
+        <li>Ilesha Baruba, Kwara</li>
+      </ul></div>
+      <div><h4>Legal</h4><ul>
+        <li>NMDPRA Licensed</li>
+        <li>SON Approved</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Fahman Oil &amp; Gas Ltd. (trading as Fahman / FahmanEnergy) · NMDPRA Licensed · SON Approved.</div>
+      <div>Built with care in Kwara State.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20), {passive:true});
+document.querySelector('.menu-toggle')?.addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('open'));
+</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
+
+<!--
+=========================================================================
+ADD-A-CARD SNIPPET — paste this inside <div class="posts" id="postGrid">
+in blog.html. Update the 5 marked spots.
+
+  <article class="post-card" data-cat="lpg">      <!-- CATEGORY ←
+    <a href="blog/your-slug.html" class="pc-cover">
+      <span class="pc-tag">LPG</span>
+      <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Card illustration">
+        <rect width="400" height="250" fill="#14624A"/>
+        <!-- Replace with a small illustration -->
+      </svg>
+    </a>
+    <div class="pc-body">
+      <div class="pc-meta">
+        <time datetime="2026-05-10">May 10, 2026</time>     <!-- DATE ←
+        <span class="dot"></span>
+        <span>5 min read</span>                                <!-- TIME ←
+      </div>
+      <h3><a href="blog/your-slug.html">Your headline</a></h3>  <!-- TITLE ←
+      <p class="pc-excerpt">One- or two-sentence excerpt.</p>   <!-- EXCERPT ←
+      <a href="blog/your-slug.html" class="pc-cta">Read more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+=========================================================================
+-->
