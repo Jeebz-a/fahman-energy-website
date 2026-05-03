@@ -715,5 +715,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(glow&&window.matchMedia('(min-width:880px)').matches){document.addEventListener('mousemove',(e)=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';});}else if(glow)glow.style.display='none';
 });
 </script>
+<!-- Vercel Analytics + Speed Insights -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
