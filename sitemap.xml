@@ -2,43 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://fahman-energy-website.vercel.app/</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://fahman-energy-website.vercel.app/og-image.svg</image:loc>
+      <image:loc>https://www.fahmanenergy.com/og-image.svg</image:loc>
       <image:title>FahmanEnergy — Solar-powered LPG plants for rural Nigeria</image:title>
       <image:caption>FahmanEnergy provides clean cooking energy and (from 2028) solar electricity to rural Nigerian communities.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://fahman-energy-website.vercel.app/about</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/about</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fahman-energy-website.vercel.app/services</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/services</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://fahman-energy-website.vercel.app/solar</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/solar</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://fahman-energy-website.vercel.app/investors</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/investors</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://fahman-energy-website.vercel.app/contact</loc>
-    <lastmod>2026-04-29</lastmod>
+    <loc>https://www.fahmanenergy.com/contact</loc>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

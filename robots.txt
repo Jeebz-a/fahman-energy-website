@@ -58,4 +58,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://fahman-energy-website.vercel.app/sitemap.xml
+Sitemap: https://www.fahmanenergy.com/sitemap.xml
