@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>FahmanEnergy Admin</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="/admin/app.css" />
+</head>
+<body>
+
+<div class="app" id="app" hidden>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="52" cy="13" r="5" fill="#D9A55B"/>
+        <path d="M28 4 Q6 26 6 39 A22 22 0 0 1 50 39 Q50 26 28 4 Z" fill="#0F4C3A"/>
+        <path d="M28 14 C21 21 15 28 15 34 C15 41 21 49 28 54 Z" fill="#A8E0BD"/>
+        <path d="M28 14 C35 21 41 28 41 34 C41 41 35 49 28 54 Z" fill="#6FCF97"/>
+      </svg>
+      <span class="wm">Fahman<em>Energy</em></span>
+      <span class="badge">Admin</span>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <span class="nav-section-label">Workspace</span>
+
+      <a class="nav-link is-active" data-route="blog" role="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        <span>Blog</span>
+      </a>
+
+      <a class="nav-link" data-route="new" role="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>New post</span>
+      </a>
+
+      <a class="nav-link" data-route="inbox" role="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        <span>Inbox</span>
+        <span class="count is-zero" id="inboxCount">0</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="avatar" id="avatar">F</div>
+      <div class="who">
+        <strong id="username">—</strong>
+        <span>Admin</span>
+      </div>
+      <button class="logout-btn" id="logoutBtn" title="Sign out" aria-label="Sign out">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="crumbs" id="crumbs">Workspace</div>
+        <h2 id="pageTitle">Blog</h2>
+      </div>
+      <div class="actions" id="topbarActions"></div>
+    </div>
+
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<!-- Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked@13.0.3/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+
+<script>
+/* =========================================================================
+   FahmanEnergy Admin — single-page client
+   ========================================================================= */
+(function(){
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  const CATEGORIES = [
+    { value: 'lpg',       label: 'LPG' },
+    { value: 'solar',     label: 'Solar' },
+    { value: 'vision',    label: 'Vision 2030' },
+    { value: 'approach',  label: 'Our approach' },
+    { value: 'investors', label: 'Investors' },
+  ];
+
+  const ROUTES = {
+    blog:  { title: 'Blog',     crumbs: 'Workspace · Blog',         render: renderBlogList },
+    new:   { title: 'New post', crumbs: 'Workspace · Blog · Editor', render: renderEditor  },
+    inbox: { title: 'Inbox',    crumbs: 'Workspace · Inbox',        render: renderInbox   },
+  };
+
+  let state = {
+    user: null,
+    posts: [],
+    loadingPosts: false,
+    editor: emptyDraft(),
+  };
+
+  function emptyDraft() {
+    return {
+      title: '',
+      slug: '',
+      category: 'lpg',
+      excerpt: '',
+      body: '',
+      hero: null, // { name, dataUrl, mime, size }
+      status: '', // success/error message
+      kind: '',
+    };
+  }
+
+  // ---- boot ---------------------------------------------------------------
+  fetch('/api/admin/me', { credentials:'same-origin' })
+    .then(r => r.ok ? r.json() : null)
+    .then(j => {
+      if (!j || !j.ok) { location.replace('/admin/login'); return; }
+      state.user = j.username;
+      $('#app').hidden = false;
+      $('#username').textContent = j.username;
+      $('#avatar').textContent = (j.username || '?').slice(0,1).toUpperCase();
+      bindNav();
+      bindLogout();
+      navigate('blog');
+      // Best-effort fetch counts (will be 0 until inbox API ships)
+      refreshInboxCount();
+    })
+    .catch(() => location.replace('/admin/login'));
+
+  function bindNav() {
+    $$('.nav-link').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const route = a.dataset.route;
+        if (route) navigate(route);
+      });
+    });
+  }
+  function bindLogout() {
+    $('#logoutBtn').addEventListener('click', async () => {
+      try { await fetch('/api/admin/logout', { method:'POST', credentials:'same-origin' }); } catch {}
+      location.replace('/admin/login');
+    });
+  }
+
+  function navigate(route) {
+    if (!ROUTES[route]) route = 'blog';
+    $$('.nav-link').forEach(a => a.classList.toggle('is-active', a.dataset.route === route));
+    $('#pageTitle').textContent = ROUTES[route].title;
+    $('#crumbs').textContent = ROUTES[route].crumbs;
+    $('#topbarActions').innerHTML = '';
+    $('#content').innerHTML = '';
+    ROUTES[route].render();
+    window.scrollTo({ top:0, behavior:'instant' });
+  }
+
+  // ---- BLOG list ----------------------------------------------------------
+  async function renderBlogList() {
+    const action = document.createElement('button');
+    action.className = 'btn btn-primary';
+    action.innerHTML = 'New post <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    action.onclick = () => navigate('new');
+    $('#topbarActions').appendChild(action);
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <div class="section-head">
+        <div>
+          <h1>All blog posts</h1>
+          <div class="meta">Published posts and drafts.</div>
+        </div>
+      </div>
+      <div id="postList"></div>
+    `;
+    $('#content').appendChild(wrap);
+
+    const list = $('#postList', wrap);
+    list.innerHTML = `<div class="empty"><p>Loading posts…</p></div>`;
+
+    try {
+      const res = await fetch('/api/admin/posts', { credentials:'same-origin' });
+      if (res.status === 401) { location.replace('/admin/login'); return; }
+      const json = await res.json().catch(() => ({}));
+      const posts = (json && json.posts) || [];
+      state.posts = posts;
+      if (!posts.length) {
+        list.innerHTML = renderEmptyPosts();
+        list.querySelector('[data-action=new]')?.addEventListener('click', () => navigate('new'));
+        return;
+      }
+      list.innerHTML = '<div class="post-list"></div>';
+      const grid = list.querySelector('.post-list');
+      posts.forEach(p => grid.appendChild(renderPostRow(p)));
+    } catch (err) {
+      list.innerHTML = `<div class="empty"><h3>Couldn't load posts</h3><p>${escapeHtml(err.message || 'Unknown error')}</p></div>`;
+    }
+  }
+
+  function renderEmptyPosts() {
+    return `
+      <div class="empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+        <h3>No posts yet</h3>
+        <p>Publishing your first post takes about 5 minutes. Drafts are stored in GitHub for you.</p>
+        <button class="btn btn-primary" data-action="new">Write your first post</button>
+      </div>
+    `;
+  }
+
+  function renderPostRow(p) {
+    const row = document.createElement('div');
+    row.className = 'post-row';
+    const cat = CATEGORIES.find(c => c.value === p.category) || { label: p.category || 'Post' };
+    const dateText = p.date ? new Date(p.date).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' }) : '';
+    row.innerHTML = `
+      <div class="thumb">${p.heroSvg || initials(p.title)}</div>
+      <div class="info">
+        <h3>${escapeHtml(p.title || '(untitled)')}</h3>
+        <div class="meta">
+          <span class="tag ${p.status === 'draft' ? 'gold' : ''}">${escapeHtml(p.status === 'draft' ? 'Draft' : cat.label)}</span>
+          <span>${escapeHtml(dateText)}</span>
+          ${p.slug ? `<span>· /blog/${escapeHtml(p.slug)}</span>` : ''}
+        </div>
+      </div>
+      <div class="row-actions">
+        ${p.slug && p.status !== 'draft' ? `<a class="icon-btn" href="/blog/${encodeURIComponent(p.slug)}" target="_blank" rel="noopener" title="View live">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>` : ''}
+      </div>
+    `;
+    return row;
+  }
+
+  function initials(t) {
+    const w = String(t || 'P').trim().split(/\s+/).slice(0,2).map(s => s[0] || '').join('').toUpperCase();
+    return w || 'P';
+  }
+
+  // ---- EDITOR -------------------------------------------------------------
+  function renderEditor() {
+    const back = document.createElement('button');
+    back.className = 'btn btn-ghost';
+    back.textContent = '← Back';
+    back.onclick = () => navigate('blog');
+    $('#topbarActions').appendChild(back);
+
+    const publishBtn = document.createElement('button');
+    publishBtn.className = 'btn btn-primary';
+    publishBtn.innerHTML = 'Publish <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    publishBtn.id = 'publishBtn';
+    $('#topbarActions').appendChild(publishBtn);
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <div class="section-head">
+        <div>
+          <h1>New blog post</h1>
+          <div class="meta">Markdown body, live preview, drag-drop hero image. Publishing commits to GitHub.</div>
+        </div>
+      </div>
+
+      <div class="pane card" style="padding:24px;margin-bottom:20px;">
+        <h3 style="font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-500);margin-bottom:16px;">Metadata</h3>
+        <div class="field">
+          <label for="ed-title">Title</label>
+          <input id="ed-title" type="text" placeholder="e.g. How rural Kwara cooks now — and why it has to change" maxlength="160" />
+        </div>
+        <div class="field-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="field">
+            <label for="ed-slug">URL slug</label>
+            <input id="ed-slug" type="text" placeholder="auto-generated" maxlength="80" />
+            <span class="hint">URL: /blog/<span id="slug-preview" style="color:var(--mint-700)">your-slug-here</span></span>
+          </div>
+          <div class="field">
+            <label for="ed-cat">Category</label>
+            <select id="ed-cat">
+              ${CATEGORIES.map(c => `<option value="${c.value}">${c.label}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ed-excerpt">Excerpt <span class="hint" style="font-weight:400;text-transform:none;letter-spacing:0;">(shown on the blog index card)</span></label>
+          <textarea id="ed-excerpt" maxlength="220" placeholder="One or two sentences that pull the reader in." style="min-height:72px;"></textarea>
+          <div class="char-count" id="excerpt-count">0 / 220</div>
+        </div>
+        <div class="field">
+          <label>Hero image</label>
+          <label class="upload" for="ed-hero">
+            <input id="ed-hero" type="file" accept="image/jpeg,image/png,image/webp" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <strong>Drop an image or click to upload</strong>
+            <span class="small">JPG, PNG, or WebP · up to 4MB · 16:9 looks best</span>
+          </label>
+          <div class="upload-preview" id="hero-preview">
+            <img id="hero-preview-img" alt="Hero preview" />
+            <button class="clear" id="hero-clear" type="button" aria-label="Remove image">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor">
+        <div class="pane">
+          <h3>Body (Markdown)</h3>
+          <textarea class="body-editor" id="ed-body" placeholder="# Heading
+
+Write your post in Markdown. Supports **bold**, *italic*, [links](https://example.com), lists, blockquotes, and code.
+
+## Section heading
+
+A few sentences here.
+
+- Bullet
+- Another bullet
+
+> A pull quote that highlights a key insight.
+"></textarea>
+          <div class="char-count" id="body-count">0 words</div>
+        </div>
+        <div class="pane">
+          <h3>Live preview</h3>
+          <article class="preview" id="ed-preview"><p style="color:var(--ink-500);">Start writing — preview shows up here.</p></article>
+        </div>
+      </div>
+
+      <div class="editor-footer">
+        <div class="status" id="ed-status">Draft is in your browser. Click <strong>Publish</strong> to commit + go live.</div>
+      </div>
+    `;
+    $('#content').appendChild(wrap);
+
+    bindEditor(publishBtn);
+  }
+
+  function bindEditor(publishBtn) {
+    const title = $('#ed-title');
+    const slug = $('#ed-slug');
+    const slugPreview = $('#slug-preview');
+    const cat = $('#ed-cat');
+    const excerpt = $('#ed-excerpt');
+    const excerptCount = $('#excerpt-count');
+    const body = $('#ed-body');
+    const bodyCount = $('#body-count');
+    const preview = $('#ed-preview');
+    const heroInput = $('#ed-hero');
+    const heroPreview = $('#hero-preview');
+    const heroPreviewImg = $('#hero-preview-img');
+    const heroClear = $('#hero-clear');
+    const status = $('#ed-status');
+
+    let slugDirty = false;
+
+    title.addEventListener('input', () => {
+      state.editor.title = title.value;
+      if (!slugDirty) {
+        const s = slugify(title.value);
+        slug.value = s;
+        slugPreview.textContent = s || 'your-slug-here';
+        state.editor.slug = s;
+      }
+    });
+    slug.addEventListener('input', () => {
+      slugDirty = true;
+      const s = slugify(slug.value);
+      slug.value = s;
+      slugPreview.textContent = s || 'your-slug-here';
+      state.editor.slug = s;
+    });
+    cat.addEventListener('change', () => { state.editor.category = cat.value; });
+    excerpt.addEventListener('input', () => {
+      state.editor.excerpt = excerpt.value;
+      const len = excerpt.value.length;
+      excerptCount.textContent = `${len} / 220`;
+      excerptCount.classList.toggle('is-warn', len > 180 && len <= 220);
+    });
+    body.addEventListener('input', () => {
+      state.editor.body = body.value;
+      const words = body.value.trim() ? body.value.trim().split(/\s+/).length : 0;
+      bodyCount.textContent = `${words} word${words === 1 ? '' : 's'}`;
+      renderMarkdown(body.value, preview);
+    });
+
+    // Drag-drop + file
+    const uploadEl = heroInput.closest('.upload');
+    ['dragenter','dragover'].forEach(ev => uploadEl.addEventListener(ev, (e) => { e.preventDefault(); uploadEl.classList.add('is-drag'); }));
+    ['dragleave','drop'].forEach(ev => uploadEl.addEventListener(ev, (e) => { e.preventDefault(); uploadEl.classList.remove('is-drag'); }));
+    uploadEl.addEventListener('drop', (e) => {
+      const f = e.dataTransfer?.files?.[0];
+      if (f) handleHeroFile(f);
+    });
+    heroInput.addEventListener('change', () => {
+      const f = heroInput.files?.[0];
+      if (f) handleHeroFile(f);
+    });
+    heroClear.addEventListener('click', () => {
+      heroInput.value = '';
+      heroPreview.classList.remove('is-visible');
+      heroPreviewImg.src = '';
+      state.editor.hero = null;
+    });
+
+    function handleHeroFile(f) {
+      if (!/^image\/(jpeg|png|webp)$/i.test(f.type)) {
+        setStatus('Hero must be JPG, PNG, or WebP.', 'error');
+        return;
+      }
+      if (f.size > 4 * 1024 * 1024) {
+        setStatus('Hero image is over 4MB. Compress it first.', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        heroPreviewImg.src = reader.result;
+        heroPreview.classList.add('is-visible');
+        state.editor.hero = { name: f.name, mime: f.type, size: f.size, dataUrl: reader.result };
+      };
+      reader.readAsDataURL(f);
+    }
+
+    publishBtn.addEventListener('click', async () => {
+      if (publishBtn.disabled) return;
+      const errs = validate();
+      if (errs.length) { setStatus(errs[0], 'error'); return; }
+      const label = publishBtn.querySelector('.label') || publishBtn;
+      publishBtn.disabled = true;
+      const original = publishBtn.innerHTML;
+      publishBtn.innerHTML = 'Publishing…';
+      setStatus('Committing to GitHub… this takes ~10s.', 'info');
+
+      try {
+        const payload = {
+          title: state.editor.title.trim(),
+          slug: state.editor.slug.trim(),
+          category: state.editor.category,
+          excerpt: state.editor.excerpt.trim(),
+          body: state.editor.body,
+          hero: state.editor.hero ? {
+            mime: state.editor.hero.mime,
+            name: state.editor.hero.name,
+            dataUrl: state.editor.hero.dataUrl,
+          } : null,
+        };
+        const res = await fetch('/api/admin/posts', {
+          method: 'POST',
+          credentials:'same-origin',
+          headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || !json.ok) throw new Error(json.error || ('HTTP ' + res.status));
+
+        publishBtn.innerHTML = 'Published ✓';
+        setStatus(
+          `Published — Vercel is rebuilding. <a href="/blog/${encodeURIComponent(state.editor.slug)}" target="_blank" rel="noopener" style="color:var(--mint-700);text-decoration:underline;">Open live URL</a> in ~60s.`,
+          'success', true
+        );
+        // reset draft after a moment
+        setTimeout(() => {
+          state.editor = emptyDraft();
+          navigate('blog');
+        }, 2400);
+      } catch (err) {
+        publishBtn.disabled = false;
+        publishBtn.innerHTML = original;
+        setStatus(err.message || 'Publish failed.', 'error');
+      }
+    });
+
+    function validate() {
+      const e = [];
+      if (!state.editor.title.trim()) e.push('Title is required.');
+      if (!state.editor.slug.trim()) e.push('Slug is required.');
+      if (!/^[a-z0-9-]{3,80}$/.test(state.editor.slug)) e.push('Slug must be lowercase letters, numbers, and dashes (3–80 chars).');
+      if (!state.editor.excerpt.trim()) e.push('Excerpt is required.');
+      if ((state.editor.body || '').trim().length < 200) e.push('Body is too short — write at least 200 characters.');
+      return e;
+    }
+
+    function setStatus(html, kind, allowHtml=false) {
+      status.classList.remove('is-success','is-error','is-info');
+      if (kind) status.classList.add(`is-${kind}`);
+      status[allowHtml ? 'innerHTML' : 'textContent'] = html;
+    }
+  }
+
+  // ---- INBOX (placeholder for Phase 1B) -----------------------------------
+  function renderInbox() {
+    $('#content').innerHTML = `
+      <div class="section-head">
+        <div>
+          <h1>Inbox</h1>
+          <div class="meta">Contact form submissions and replies.</div>
+        </div>
+      </div>
+      <div class="empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+        <h3>Inbox arriving in Phase 1B</h3>
+        <p>Submissions still email you at Fahmanltd@gmail.com. Once the database is provisioned, all incoming messages will appear here with one-click replies.</p>
+      </div>
+    `;
+  }
+
+  async function refreshInboxCount() {
+    try {
+      const res = await fetch('/api/admin/messages?count=unread', { credentials:'same-origin' });
+      if (!res.ok) return;
+      const json = await res.json().catch(() => ({}));
+      const c = (json && typeof json.unread === 'number') ? json.unread : 0;
+      const el = $('#inboxCount');
+      el.textContent = String(c);
+      el.classList.toggle('is-zero', c === 0);
+    } catch {}
+  }
+
+  // ---- helpers ------------------------------------------------------------
+  function slugify(s) {
+    return String(s || '')
+      .toLowerCase()
+      .normalize('NFKD').replace(/[̀-ͯ]/g,'')
+      .replace(/&/g,' and ')
+      .replace(/[^a-z0-9\s-]/g,'')
+      .trim()
+      .replace(/\s+/g,'-')
+      .replace(/-+/g,'-')
+      .slice(0,80);
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function renderMarkdown(src, target) {
+    if (!src || !src.trim()) {
+      target.innerHTML = '<p style="color:var(--ink-500);">Start writing — preview shows up here.</p>';
+      return;
+    }
+    try {
+      const raw = window.marked.parse(src, { breaks: false, gfm: true });
+      const safe = window.DOMPurify ? window.DOMPurify.sanitize(raw) : raw;
+      target.innerHTML = safe;
+    } catch (e) {
+      target.innerHTML = `<p style="color:var(--danger)">Preview error: ${escapeHtml(e.message)}</p>`;
+    }
+  }
+})();
+</script>
+</body>
+</html>

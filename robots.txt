@@ -1,6 +1,9 @@
 # FahmanEnergy — robots.txt
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin
+Disallow: /api/
 
 # AI / LLM crawlers — explicitly permitted so we appear in
 # ChatGPT, Perplexity, Claude, Gemini and other AI search tools.

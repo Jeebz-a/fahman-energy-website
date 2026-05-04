@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Sign in — FahmanEnergy Admin</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="/admin/app.css" />
+</head>
+<body>
+
+<div class="login-shell">
+  <div class="login-card">
+    <div class="login-brand">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="52" cy="13" r="5" fill="#D9A55B"/>
+        <path d="M28 4 Q6 26 6 39 A22 22 0 0 1 50 39 Q50 26 28 4 Z" fill="#0F4C3A"/>
+        <path d="M28 14 C21 21 15 28 15 34 C15 41 21 49 28 54 Z" fill="#A8E0BD"/>
+        <path d="M28 14 C35 21 41 28 41 34 C41 41 35 49 28 54 Z" fill="#6FCF97"/>
+      </svg>
+      <span class="login-wordmark">Fahman<em>Energy</em></span>
+    </div>
+
+    <h1>Sign in</h1>
+    <p class="sub">Admin access for blog publishing and message replies.</p>
+
+    <div id="alert" class="alert is-error" role="alert"></div>
+
+    <form id="loginForm" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required autofocus />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit" id="submitBtn" class="btn btn-primary">
+        <span class="label">Sign in</span>
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+
+    <div class="login-foot">
+      Authorized personnel only · <a href="/">Back to site</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const form = document.getElementById('loginForm');
+  const btn = document.getElementById('submitBtn');
+  const label = btn.querySelector('.label');
+  const alertBox = document.getElementById('alert');
+
+  function showAlert(msg, kind){
+    alertBox.textContent = msg;
+    alertBox.classList.remove('is-error','is-success','is-info','is-visible');
+    if(msg){
+      alertBox.classList.add('is-visible', kind === 'success' ? 'is-success' : kind === 'info' ? 'is-info' : 'is-error');
+    }
+  }
+
+  // If already signed in, redirect.
+  fetch('/api/admin/me', { credentials:'same-origin' })
+    .then(r => r.ok ? r.json() : null)
+    .then(j => { if (j && j.ok) location.replace('/admin'); })
+    .catch(() => {});
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (btn.disabled) return;
+    showAlert('', '');
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    label.textContent = 'Signing in…';
+    try {
+      const res = await fetch('/api/admin/login', {
+        method:'POST',
+        credentials:'same-origin',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.ok) {
+        label.textContent = 'Welcome ✓';
+        location.replace('/admin');
+        return;
+      }
+      throw new Error(json.error || ('HTTP ' + res.status));
+    } catch (err) {
+      showAlert(err.message || 'Sign in failed.', 'error');
+      label.textContent = 'Sign in';
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
