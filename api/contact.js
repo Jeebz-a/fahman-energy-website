@@ -3,6 +3,7 @@
 // Env var required: RESEND_API_KEY (set in Vercel project settings).
 
 import { Resend } from 'resend';
+import { insertMessage } from './admin/_lib/db.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -131,6 +132,18 @@ export default async function handler(req, res) {
     `— Reply directly to this email to respond.`,
   ].join('\n');
 
+  // Save to DB first so the inbox always has the record, even if email fails.
+  // Fail-soft: a DB outage must not block the user's submission.
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || null;
+  const userAgent = req.headers['user-agent'] || null;
+  let dbId = null;
+  try {
+    const row = await insertMessage({ name, org, email, phone, role, message, source: 'contact', ip, userAgent });
+    dbId = row?.id ?? null;
+  } catch (dbErr) {
+    console.error('[contact] db insert failed (continuing to email)', dbErr);
+  }
+
   try {
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
@@ -143,12 +156,16 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('[contact] resend error', error);
+      // If DB write succeeded we still recorded the message, so don't 502;
+      // tell the client the message was received.
+      if (dbId) return ok(res, { id: dbId, emailDelayed: true });
       return fail(res, 502, 'Email service rejected the message');
     }
 
-    return ok(res, { id: data?.id });
+    return ok(res, { id: data?.id, dbId });
   } catch (err) {
     console.error('[contact] handler exception', err);
+    if (dbId) return ok(res, { id: dbId, emailDelayed: true });
     return fail(res, 500, 'Internal error');
   }
 }

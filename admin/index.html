@@ -492,21 +492,369 @@ A few sentences here.
     }
   }
 
-  // ---- INBOX (placeholder for Phase 1B) -----------------------------------
-  function renderInbox() {
-    $('#content').innerHTML = `
+  // ---- INBOX --------------------------------------------------------------
+  let inbox = {
+    messages: [],
+    activeId: null,
+    activeData: null, // { message, replies }
+    filter: 'all',
+    loading: false,
+    error: null,
+  };
+
+  async function renderInbox() {
+    // Refresh button in topbar
+    const refreshBtn = document.createElement('button');
+    refreshBtn.className = 'btn btn-ghost';
+    refreshBtn.innerHTML = '↻ Refresh';
+    refreshBtn.onclick = () => loadMessages(true);
+    $('#topbarActions').appendChild(refreshBtn);
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
       <div class="section-head">
         <div>
           <h1>Inbox</h1>
-          <div class="meta">Contact form submissions and replies.</div>
+          <div class="meta">Contact form submissions land here in real time. Click any message to read and reply.</div>
         </div>
       </div>
-      <div class="empty">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
-        <h3>Inbox arriving in Phase 1B</h3>
-        <p>Submissions still email you at Fahmanltd@gmail.com. Once the database is provisioned, all incoming messages will appear here with one-click replies.</p>
+      <div class="inbox-shell" id="inboxShell">
+        <aside class="inbox-list">
+          <div class="inbox-filters" id="inboxFilters"></div>
+          <div id="msgListWrap" style="flex:1;overflow-y:auto;"></div>
+        </aside>
+        <section class="msg-pane" id="msgPane"></section>
       </div>
     `;
+    $('#content').appendChild(wrap);
+
+    paintFilters();
+    paintMsgPane(); // empty state initially
+    await loadMessages();
+  }
+
+  function paintFilters() {
+    const counts = countByFilter();
+    const filters = [
+      { key:'all',     label:'All',      n: counts.all },
+      { key:'unread',  label:'Unread',   n: counts.unread },
+      { key:'read',    label:'Read',     n: counts.read },
+      { key:'replied', label:'Replied',  n: counts.replied },
+      { key:'archived',label:'Archived', n: counts.archived },
+    ];
+    const root = $('#inboxFilters');
+    if (!root) return;
+    root.innerHTML = filters.map(f => `
+      <button class="filter-pill ${inbox.filter === f.key ? 'is-active' : ''}" data-filter="${f.key}">
+        ${f.label}${f.n > 0 ? ` <span class="n">${f.n}</span>` : ''}
+      </button>
+    `).join('');
+    root.querySelectorAll('.filter-pill').forEach(p => {
+      p.onclick = () => {
+        inbox.filter = p.dataset.filter;
+        paintFilters();
+        paintMsgList();
+      };
+    });
+  }
+
+  function countByFilter() {
+    const c = { all: inbox.messages.length, unread:0, read:0, replied:0, archived:0 };
+    inbox.messages.forEach(m => { if (c[m.status] !== undefined) c[m.status]++; });
+    return c;
+  }
+
+  async function loadMessages(forceFresh) {
+    inbox.loading = true;
+    paintMsgList();
+    try {
+      const res = await fetch('/api/admin/messages', { credentials:'same-origin', cache:'no-store' });
+      if (res.status === 401) { location.replace('/admin/login'); return; }
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Failed to load');
+      inbox.messages = json.messages || [];
+      inbox.error = null;
+      if (forceFresh && inbox.activeId) {
+        await loadMessage(inbox.activeId, true);
+      }
+    } catch (err) {
+      inbox.error = err.message;
+    } finally {
+      inbox.loading = false;
+      paintFilters();
+      paintMsgList();
+      refreshInboxCount();
+    }
+  }
+
+  function paintMsgList() {
+    const root = $('#msgListWrap');
+    if (!root) return;
+    if (inbox.loading && !inbox.messages.length) {
+      root.innerHTML = `<div class="inbox-empty-list">Loading messages…</div>`;
+      return;
+    }
+    if (inbox.error) {
+      root.innerHTML = `
+        <div class="inbox-empty-list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+          <strong style="color:var(--danger)">Couldn't load messages</strong>
+          <p style="margin-top:6px;">${escapeHtml(inbox.error)}</p>
+        </div>
+      `;
+      return;
+    }
+    const filtered = inbox.filter === 'all'
+      ? inbox.messages
+      : inbox.messages.filter(m => m.status === inbox.filter);
+    if (!filtered.length) {
+      root.innerHTML = `
+        <div class="inbox-empty-list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          <strong>${inbox.filter === 'all' ? 'No messages yet' : `No ${inbox.filter} messages`}</strong>
+          <p style="margin-top:6px;">${inbox.filter === 'all' ? 'Submissions from your contact form will appear here.' : 'Check another filter.'}</p>
+        </div>
+      `;
+      return;
+    }
+    root.innerHTML = `<ul class="msg-list">${filtered.map(m => renderMsgRow(m)).join('')}</ul>`;
+    root.querySelectorAll('.msg-row').forEach(li => {
+      li.onclick = () => {
+        const id = Number(li.dataset.id);
+        loadMessage(id);
+      };
+    });
+  }
+
+  function renderMsgRow(m) {
+    const isActive = inbox.activeId === m.id;
+    const isUnread = m.status === 'unread';
+    const role = m.role ? `<div class="role-tag">${escapeHtml(m.role)}</div>` : '';
+    const replyBadge = m.reply_count > 0 ? `<div class="reply-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+      ${m.reply_count} repl${m.reply_count === 1 ? 'y' : 'ies'} sent
+    </div>` : '';
+    return `<li class="msg-row ${isActive ? 'is-active' : ''} ${isUnread ? 'is-unread' : ''}" data-id="${m.id}">
+      <div class="row-top">
+        <span class="name">${escapeHtml(m.name)}</span>
+        <span class="when">${formatRelative(m.created_at)}</span>
+      </div>
+      ${role}
+      <div class="excerpt">${escapeHtml(m.excerpt || '')}</div>
+      ${replyBadge}
+    </li>`;
+  }
+
+  async function loadMessage(id, silent) {
+    if (!silent) {
+      inbox.activeId = id;
+      $('#inboxShell')?.classList.add('is-detail');
+      paintMsgList();
+      paintMsgPane({ loading: true });
+    }
+    try {
+      const res = await fetch(`/api/admin/messages/${id}`, { credentials:'same-origin', cache:'no-store' });
+      if (res.status === 401) { location.replace('/admin/login'); return; }
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Failed to load message');
+      inbox.activeData = { message: json.message, replies: json.replies || [] };
+      // The server auto-marked it read; reflect that locally.
+      const local = inbox.messages.find(x => x.id === id);
+      if (local && local.status === 'unread') local.status = 'read';
+      paintFilters();
+      paintMsgList();
+      paintMsgPane();
+      refreshInboxCount();
+    } catch (err) {
+      paintMsgPane({ error: err.message });
+    }
+  }
+
+  function paintMsgPane(state = {}) {
+    const pane = $('#msgPane');
+    if (!pane) return;
+    if (state.loading) {
+      pane.innerHTML = `<div class="msg-pane-empty">Loading…</div>`;
+      return;
+    }
+    if (state.error) {
+      pane.innerHTML = `<div class="msg-pane-empty"><strong style="color:var(--danger)">${escapeHtml(state.error)}</strong></div>`;
+      return;
+    }
+    if (!inbox.activeData) {
+      pane.innerHTML = `
+        <div class="msg-pane-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3>Select a message</h3>
+          <p>Pick a conversation from the list to read it and send a reply.</p>
+        </div>
+      `;
+      return;
+    }
+    const { message: m, replies } = inbox.activeData;
+    const phone = m.phone ? `<span><strong>Phone:</strong> <a href="tel:${escapeHtml(m.phone)}">${escapeHtml(m.phone)}</a></span>` : '';
+    const org = m.org ? `<span><strong>Org:</strong> ${escapeHtml(m.org)}</span>` : '';
+    const role = m.role ? `<span><strong>As:</strong> ${escapeHtml(m.role)}</span>` : '';
+
+    pane.innerHTML = `
+      <div class="msg-head">
+        <button class="btn btn-ghost back-btn" id="backToList" style="margin-bottom:14px;">← Back to inbox</button>
+        <h2>${escapeHtml(m.name)}</h2>
+        <div class="from-row">
+          <span><strong>From:</strong> <a href="mailto:${escapeHtml(m.email)}">${escapeHtml(m.email)}</a></span>
+          ${phone}
+          ${org}
+          ${role}
+        </div>
+        <div class="actions-row">
+          <button class="btn btn-ghost" id="markUnread">Mark unread</button>
+          <button class="btn btn-ghost" id="archiveMsg">Archive</button>
+          <button class="btn btn-danger" id="deleteMsg">Delete</button>
+        </div>
+      </div>
+      <div class="msg-scroll">
+        <div class="msg-meta-line">Received ${formatFull(m.created_at)} · status <strong>${escapeHtml(m.status)}</strong></div>
+        <div class="msg-body">${escapeHtml(m.message)}</div>
+
+        ${replies.length ? `
+          <div class="replies-list">
+            <h4>${replies.length} repl${replies.length === 1 ? 'y' : 'ies'} sent</h4>
+            ${replies.map(r => `
+              <div class="reply-bubble">
+                <div class="who">
+                  <span>${escapeHtml(r.sent_by)} replied</span>
+                  <span class="when">${formatFull(r.sent_at)}</span>
+                </div>
+                <div class="body">${escapeHtml(r.body)}</div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+      <form class="reply-form" id="replyForm">
+        <label for="replyBody">Send reply to ${escapeHtml(m.email)}</label>
+        <textarea id="replyBody" required maxlength="10000" placeholder="Hi ${escapeHtml(m.name?.split(/\\s+/)[0] || 'there')}, thanks for reaching out — ..."></textarea>
+        <div class="row">
+          <span class="send-status" id="sendStatus"></span>
+          <button class="btn btn-primary" type="submit" id="sendBtn">
+            <span class="btn-label">Send reply</span>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </form>
+    `;
+
+    // Wire actions
+    pane.querySelector('#backToList').onclick = () => {
+      $('#inboxShell')?.classList.remove('is-detail');
+      inbox.activeId = null;
+      inbox.activeData = null;
+      paintMsgList();
+      paintMsgPane();
+    };
+    pane.querySelector('#markUnread').onclick = () => updateStatus(m.id, 'unread');
+    pane.querySelector('#archiveMsg').onclick = () => updateStatus(m.id, 'archived');
+    pane.querySelector('#deleteMsg').onclick = () => deleteOpen(m.id);
+
+    pane.querySelector('#replyForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendReply(m.id);
+    });
+  }
+
+  async function updateStatus(id, status) {
+    try {
+      const res = await fetch(`/api/admin/messages/${id}`, {
+        method:'PATCH', credentials:'same-origin',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ status })
+      });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error);
+      // Update local
+      const local = inbox.messages.find(x => x.id === id);
+      if (local) local.status = status;
+      if (inbox.activeData?.message?.id === id) inbox.activeData.message.status = status;
+      paintFilters();
+      paintMsgList();
+      paintMsgPane();
+      refreshInboxCount();
+    } catch (err) {
+      alert('Failed: ' + err.message);
+    }
+  }
+
+  async function deleteOpen(id) {
+    if (!confirm('Permanently delete this message and all its replies? This cannot be undone.')) return;
+    try {
+      const res = await fetch(`/api/admin/messages/${id}`, {
+        method:'DELETE', credentials:'same-origin',
+      });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error);
+      inbox.messages = inbox.messages.filter(m => m.id !== id);
+      inbox.activeId = null;
+      inbox.activeData = null;
+      $('#inboxShell')?.classList.remove('is-detail');
+      paintFilters();
+      paintMsgList();
+      paintMsgPane();
+      refreshInboxCount();
+    } catch (err) {
+      alert('Delete failed: ' + err.message);
+    }
+  }
+
+  async function sendReply(id) {
+    const ta = $('#replyBody');
+    const btn = $('#sendBtn');
+    const lbl = btn?.querySelector('.btn-label');
+    const status = $('#sendStatus');
+    const body = (ta?.value || '').trim();
+    if (!body) { ta?.focus(); return; }
+    btn.disabled = true;
+    lbl.textContent = 'Sending…';
+    status.classList.remove('is-success','is-error');
+    status.textContent = '';
+    try {
+      const res = await fetch(`/api/admin/messages/${id}/reply`, {
+        method:'POST', credentials:'same-origin',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ body }),
+      });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Send failed');
+      lbl.textContent = 'Sent ✓';
+      status.classList.add('is-success');
+      status.textContent = 'Reply sent.';
+      ta.value = '';
+      // Refresh this message to show the new reply
+      await loadMessage(id, true);
+      setTimeout(() => { lbl.textContent = 'Send reply'; btn.disabled = false; status.textContent = ''; status.classList.remove('is-success'); }, 2000);
+    } catch (err) {
+      lbl.textContent = 'Send reply';
+      btn.disabled = false;
+      status.classList.add('is-error');
+      status.textContent = 'Failed: ' + err.message;
+    }
+  }
+
+  function formatRelative(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const diff = Date.now() - d.getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins}m`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours}h`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days}d`;
+    return d.toLocaleDateString('en-GB', { month:'short', day:'numeric' });
+  }
+  function formatFull(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' });
   }
 
   async function refreshInboxCount() {
