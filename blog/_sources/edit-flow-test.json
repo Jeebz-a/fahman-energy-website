@@ -1,13 +1,14 @@
 {
-  "title": "Edit-Flow Test Post",
+  "title": "Edit-Flow Test Post (UPDATED)",
   "slug": "edit-flow-test",
-  "category": "lpg",
-  "excerpt": "Automated end-to-end check of the new edit + delete flow. Will be deleted at end of test.",
-  "body": "# Test post\n\nThis is the body of the test post. It contains enough characters to pass the minimum length validation. We are going to fetch it back, then update it, then delete it. All automated.\n\n## Section\n\nMore filler text so the body is well over the 200-char minimum. This text is here purely to satisfy validation. Once the test passes, the post will be deleted.\n\n- Bullet one\n- Bullet two",
+  "category": "solar",
+  "excerpt": "Updated excerpt for the edit-flow test. Still automated, still going to be deleted shortly.",
+  "body": "# Updated body\n\nThis body has been updated by the automated test. Slug stays the same (it is permanent). Category changed from lpg to solar.\n\n## New section\n\nFiller text to keep the body length reasonable. Edit-flow validation checks pass when body is at least 50 chars in update mode.",
   "bodyFormat": "markdown",
   "heroPath": null,
-  "heroAlt": "Edit-Flow Test Post",
+  "heroAlt": "Edit-Flow Test Post (UPDATED)",
   "publishedAt": "2026-05-04T20:08:10.786Z",
-  "updatedAt": "2026-05-04T20:08:10.786Z",
-  "publishedBy": "Fahmanadm"
+  "updatedAt": "2026-05-04T20:08:32.967Z",
+  "publishedBy": "Fahmanadm",
+  "updatedBy": "Fahmanadm"
 }
