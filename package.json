@@ -1,0 +1,13 @@
+{
+  "name": "fahman-energy-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "FahmanEnergy — solar-powered LPG plants for rural Nigeria. Static site + serverless contact form.",
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "resend": "^4.0.1"
+  }
+}
