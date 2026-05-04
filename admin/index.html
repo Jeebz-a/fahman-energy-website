@@ -94,7 +94,8 @@
 
   const ROUTES = {
     blog:  { title: 'Blog',     crumbs: 'Workspace · Blog',         render: renderBlogList },
-    new:   { title: 'New post', crumbs: 'Workspace · Blog · Editor', render: renderEditor  },
+    new:   { title: 'New post', crumbs: 'Workspace · Blog · Editor', render: (p) => renderEditor(p) },
+    edit:  { title: 'Edit post', crumbs: 'Workspace · Blog · Editor', render: (p) => renderEditor(p) },
     inbox: { title: 'Inbox',    crumbs: 'Workspace · Inbox',        render: renderInbox   },
   };
 
@@ -151,14 +152,16 @@
     });
   }
 
-  function navigate(route) {
+  function navigate(route, params) {
     if (!ROUTES[route]) route = 'blog';
-    $$('.nav-link').forEach(a => a.classList.toggle('is-active', a.dataset.route === route));
+    // For non-primary routes (like 'edit'), highlight the closest sidebar item.
+    const sidebarKey = (route === 'edit') ? 'blog' : route;
+    $$('.nav-link').forEach(a => a.classList.toggle('is-active', a.dataset.route === sidebarKey));
     $('#pageTitle').textContent = ROUTES[route].title;
     $('#crumbs').textContent = ROUTES[route].crumbs;
     $('#topbarActions').innerHTML = '';
     $('#content').innerHTML = '';
-    ROUTES[route].render();
+    ROUTES[route].render(params || {});
     window.scrollTo({ top:0, behavior:'instant' });
   }
 
@@ -220,24 +223,35 @@
     row.className = 'post-row';
     const cat = CATEGORIES.find(c => c.value === p.category) || { label: p.category || 'Post' };
     const dateText = p.date ? new Date(p.date).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' }) : '';
+    const legacyTag = (p.hasSource === false) ? '<span class="tag gray" title="Published before edit tracking — editor opens in HTML mode">legacy</span>' : '';
     row.innerHTML = `
       <div class="thumb">${p.heroSvg || initials(p.title)}</div>
       <div class="info">
         <h3>${escapeHtml(p.title || '(untitled)')}</h3>
         <div class="meta">
           <span class="tag ${p.status === 'draft' ? 'gold' : ''}">${escapeHtml(p.status === 'draft' ? 'Draft' : cat.label)}</span>
+          ${legacyTag}
           <span>${escapeHtml(dateText)}</span>
           ${p.slug ? `<span>· /blog/${escapeHtml(p.slug)}</span>` : ''}
         </div>
       </div>
       <div class="row-actions">
+        <button class="icon-btn" data-action="edit" data-slug="${escapeAttr(p.slug)}" title="Edit post">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
         ${p.slug && p.status !== 'draft' ? `<a class="icon-btn" href="/blog/${encodeURIComponent(p.slug)}" target="_blank" rel="noopener" title="View live">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>` : ''}
       </div>
     `;
+    row.querySelector('[data-action="edit"]').addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigate('edit', { slug: p.slug });
+    });
     return row;
   }
+
+  function escapeAttr(s) { return escapeHtml(s); }
 
   function initials(t) {
     const w = String(t || 'P').trim().split(/\s+/).slice(0,2).map(s => s[0] || '').join('').toUpperCase();
@@ -245,27 +259,45 @@
   }
 
   // ---- EDITOR -------------------------------------------------------------
-  function renderEditor() {
+  function renderEditor(params) {
+    const editingSlug = (params && params.slug) ? String(params.slug) : null;
+    const isEdit = !!editingSlug;
+
     const back = document.createElement('button');
     back.className = 'btn btn-ghost';
     back.textContent = '← Back';
     back.onclick = () => navigate('blog');
     $('#topbarActions').appendChild(back);
 
+    if (isEdit) {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn btn-danger';
+      delBtn.id = 'deletePostBtn';
+      delBtn.textContent = 'Delete post';
+      $('#topbarActions').appendChild(delBtn);
+    }
+
     const publishBtn = document.createElement('button');
     publishBtn.className = 'btn btn-primary';
-    publishBtn.innerHTML = 'Publish <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    publishBtn.innerHTML = `${isEdit ? 'Update' : 'Publish'} <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     publishBtn.id = 'publishBtn';
     $('#topbarActions').appendChild(publishBtn);
+
+    // Reset draft when entering "new" mode; keep state.editor in edit mode (filled in by loadForEdit).
+    if (!isEdit) state.editor = emptyDraft();
+    state.editor.editingSlug = editingSlug;
+    state.editor.bodyFormat = state.editor.bodyFormat || 'markdown';
+    state.editor.heroExistingPath = null;
 
     const wrap = document.createElement('div');
     wrap.innerHTML = `
       <div class="section-head">
         <div>
-          <h1>New blog post</h1>
-          <div class="meta">Markdown body, live preview, drag-drop hero image. Publishing commits to GitHub.</div>
+          <h1>${isEdit ? 'Edit blog post' : 'New blog post'}</h1>
+          <div class="meta">${isEdit ? 'Changes commit to GitHub and redeploy in ~60 seconds. Slug is locked for SEO.' : 'Markdown body, live preview, drag-drop hero image. Publishing commits to GitHub.'}</div>
         </div>
       </div>
+      <div id="ed-banner"></div>
 
       <div class="pane card" style="padding:24px;margin-bottom:20px;">
         <h3 style="font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-500);margin-bottom:16px;">Metadata</h3>
@@ -338,10 +370,73 @@ A few sentences here.
     `;
     $('#content').appendChild(wrap);
 
-    bindEditor(publishBtn);
+    bindEditor(publishBtn, { isEdit, editingSlug });
+
+    if (isEdit) loadPostIntoEditor(editingSlug);
   }
 
-  function bindEditor(publishBtn) {
+  async function loadPostIntoEditor(slug) {
+    const banner = $('#ed-banner');
+    if (banner) banner.innerHTML = `<div class="alert is-info is-visible" style="margin-bottom:18px;">Loading post…</div>`;
+    try {
+      const res = await fetch(`/api/admin/posts/${encodeURIComponent(slug)}`, { credentials:'same-origin' });
+      if (res.status === 401) { location.replace('/admin/login'); return; }
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Failed to load');
+      const p = json.post;
+
+      state.editor.title = p.title || '';
+      state.editor.slug = p.slug;
+      state.editor.category = p.category || 'lpg';
+      state.editor.excerpt = p.excerpt || '';
+      state.editor.body = p.body || '';
+      state.editor.bodyFormat = p.bodyFormat || 'markdown';
+      state.editor.heroExistingPath = p.heroPath || null;
+      state.editor.hero = null;
+
+      $('#ed-title').value = p.title || '';
+      $('#ed-slug').value = p.slug;
+      $('#ed-slug').setAttribute('disabled', 'disabled');
+      $('#ed-slug').setAttribute('title', 'Slug is permanent for SEO. Delete + republish to rename.');
+      $('#slug-preview').textContent = p.slug;
+      $('#ed-cat').value = p.category || 'lpg';
+      $('#ed-excerpt').value = p.excerpt || '';
+      $('#excerpt-count').textContent = `${(p.excerpt || '').length} / 220`;
+      $('#ed-body').value = p.body || '';
+      const words = (p.body || '').trim() ? (p.body || '').trim().split(/\s+/).length : 0;
+      $('#body-count').textContent = `${words} word${words === 1 ? '' : 's'}`;
+
+      // Update body editor heading + preview based on format
+      const bodyHeading = document.querySelector('.editor .pane h3');
+      if (bodyHeading) bodyHeading.textContent = p.bodyFormat === 'html' ? 'Body (HTML)' : 'Body (Markdown)';
+      const previewEl = $('#ed-preview');
+      if (p.bodyFormat === 'html') previewEl.innerHTML = p.body || '';
+      else renderMarkdown(p.body || '', previewEl);
+
+      // Show existing hero preview if any
+      if (p.heroPath) {
+        $('#hero-preview-img').src = p.heroPath;
+        $('#hero-preview').classList.add('is-visible');
+      }
+
+      // Banner messaging
+      if (p.isLegacy) {
+        banner.innerHTML = `<div class="alert is-info is-visible" style="margin-bottom:18px;">
+          <strong>Legacy post.</strong> ${escapeHtml(p.note || '')} Saving now creates a source record so future edits are simpler.
+        </div>`;
+      } else {
+        banner.innerHTML = `<div class="alert is-info is-visible" style="margin-bottom:18px;">
+          Editing <strong>/blog/${escapeHtml(p.slug)}</strong> · last updated ${p.updatedAt ? new Date(p.updatedAt).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' }) : '—'}.
+        </div>`;
+      }
+    } catch (err) {
+      if (banner) banner.innerHTML = `<div class="alert is-error is-visible" style="margin-bottom:18px;">Couldn't load post: ${escapeHtml(err.message)}</div>`;
+    }
+  }
+
+  function bindEditor(publishBtn, opts) {
+    const isEdit = !!(opts && opts.isEdit);
+    const editingSlug = opts && opts.editingSlug;
     const title = $('#ed-title');
     const slug = $('#ed-slug');
     const slugPreview = $('#slug-preview');
@@ -430,27 +525,49 @@ A few sentences here.
       if (publishBtn.disabled) return;
       const errs = validate();
       if (errs.length) { setStatus(errs[0], 'error'); return; }
-      const label = publishBtn.querySelector('.label') || publishBtn;
       publishBtn.disabled = true;
       const original = publishBtn.innerHTML;
-      publishBtn.innerHTML = 'Publishing…';
+      publishBtn.innerHTML = isEdit ? 'Updating…' : 'Publishing…';
       setStatus('Committing to GitHub… this takes ~10s.', 'info');
 
       try {
+        // Hero handling differs:
+        //   New mode → null or { dataUrl } (server uploads new file or none)
+        //   Edit mode →
+        //     - If user uploaded a fresh file → send { dataUrl } to replace
+        //     - If user cleared the existing image → send null to remove
+        //     - If user left it untouched → omit the field so server keeps existing
+        let heroPayload;
+        if (isEdit) {
+          if (state.editor.hero && state.editor.hero.dataUrl) {
+            heroPayload = { mime: state.editor.hero.mime, name: state.editor.hero.name, dataUrl: state.editor.hero.dataUrl };
+          } else if (state.editor.heroExistingPath && !$('#hero-preview').classList.contains('is-visible')) {
+            heroPayload = null; // user removed it
+          } else {
+            heroPayload = undefined; // keep existing
+          }
+        } else {
+          heroPayload = state.editor.hero ? {
+            mime: state.editor.hero.mime,
+            name: state.editor.hero.name,
+            dataUrl: state.editor.hero.dataUrl,
+          } : null;
+        }
+
         const payload = {
           title: state.editor.title.trim(),
           slug: state.editor.slug.trim(),
           category: state.editor.category,
           excerpt: state.editor.excerpt.trim(),
           body: state.editor.body,
-          hero: state.editor.hero ? {
-            mime: state.editor.hero.mime,
-            name: state.editor.hero.name,
-            dataUrl: state.editor.hero.dataUrl,
-          } : null,
+          bodyFormat: state.editor.bodyFormat || 'markdown',
         };
-        const res = await fetch('/api/admin/posts', {
-          method: 'POST',
+        if (heroPayload !== undefined) payload.hero = heroPayload;
+
+        const url = isEdit ? `/api/admin/posts/${encodeURIComponent(editingSlug)}` : '/api/admin/posts';
+        const method = isEdit ? 'PUT' : 'POST';
+        const res = await fetch(url, {
+          method,
           credentials:'same-origin',
           headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
           body: JSON.stringify(payload),
@@ -458,12 +575,11 @@ A few sentences here.
         const json = await res.json().catch(() => ({}));
         if (!res.ok || !json.ok) throw new Error(json.error || ('HTTP ' + res.status));
 
-        publishBtn.innerHTML = 'Published ✓';
+        publishBtn.innerHTML = isEdit ? 'Updated ✓' : 'Published ✓';
         setStatus(
-          `Published — Vercel is rebuilding. <a href="/blog/${encodeURIComponent(state.editor.slug)}" target="_blank" rel="noopener" style="color:var(--mint-700);text-decoration:underline;">Open live URL</a> in ~60s.`,
+          `${isEdit ? 'Updated' : 'Published'} — Vercel is rebuilding. <a href="/blog/${encodeURIComponent(state.editor.slug)}" target="_blank" rel="noopener" style="color:var(--mint-700);text-decoration:underline;">Open live URL</a> in ~60s.`,
           'success', true
         );
-        // reset draft after a moment
         setTimeout(() => {
           state.editor = emptyDraft();
           navigate('blog');
@@ -471,17 +587,45 @@ A few sentences here.
       } catch (err) {
         publishBtn.disabled = false;
         publishBtn.innerHTML = original;
-        setStatus(err.message || 'Publish failed.', 'error');
+        setStatus(err.message || 'Save failed.', 'error');
       }
     });
+
+    // Delete-post button (edit mode only)
+    if (isEdit) {
+      $('#deletePostBtn')?.addEventListener('click', async () => {
+        const sure = confirm(`Delete /blog/${editingSlug} permanently?\n\nThis removes the post from the live site, the blog index, and the sitemap. The URL will start returning 404. Cannot be undone.`);
+        if (!sure) return;
+        const btn = $('#deletePostBtn');
+        btn.disabled = true;
+        btn.textContent = 'Deleting…';
+        setStatus('Removing post from GitHub…', 'info');
+        try {
+          const res = await fetch(`/api/admin/posts/${encodeURIComponent(editingSlug)}`, {
+            method: 'DELETE', credentials:'same-origin',
+          });
+          const json = await res.json();
+          if (!res.ok || !json.ok) throw new Error(json.error || 'Delete failed');
+          setStatus('Deleted. Returning to blog list…', 'success');
+          setTimeout(() => navigate('blog'), 1400);
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = 'Delete post';
+          setStatus(err.message || 'Delete failed.', 'error');
+        }
+      });
+    }
 
     function validate() {
       const e = [];
       if (!state.editor.title.trim()) e.push('Title is required.');
-      if (!state.editor.slug.trim()) e.push('Slug is required.');
-      if (!/^[a-z0-9-]{3,80}$/.test(state.editor.slug)) e.push('Slug must be lowercase letters, numbers, and dashes (3–80 chars).');
+      if (!isEdit) {
+        if (!state.editor.slug.trim()) e.push('Slug is required.');
+        if (!/^[a-z0-9-]{3,80}$/.test(state.editor.slug)) e.push('Slug must be lowercase letters, numbers, and dashes (3–80 chars).');
+      }
       if (!state.editor.excerpt.trim()) e.push('Excerpt is required.');
-      if ((state.editor.body || '').trim().length < 200) e.push('Body is too short — write at least 200 characters.');
+      const minBody = isEdit ? 50 : 200;
+      if ((state.editor.body || '').trim().length < minBody) e.push(`Body is too short — write at least ${minBody} characters.`);
       return e;
     }
 

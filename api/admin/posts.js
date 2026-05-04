@@ -13,7 +13,7 @@
 import { marked } from 'marked';
 import { verifySession } from './_lib/auth.js';
 import {
-  getFileText, fileExists, commitFiles,
+  getFileText, fileExists, listDir, commitFiles,
 } from './_lib/github.js';
 import {
   renderPostPage, renderBlogCard,
@@ -55,13 +55,29 @@ async function list(res) {
   const sm = await getFileText('sitemap.xml').catch(() => null);
   if (!sm) return ok(res, { posts: [] });
 
+  // Find which slugs have a source JSON (= editable cleanly via the editor).
+  const sources = await listDir('blog/_sources').catch(() => []);
+  const editableSlugs = new Set(
+    sources
+      .filter((f) => f.type === 'file' && f.name.endsWith('.json'))
+      .map((f) => f.name.replace(/\.json$/, ''))
+  );
+
   const matches = [...sm.text.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)];
   const posts = matches
     .map((m) => ({ url: m[1], date: m[2] }))
     .filter((p) => /\/blog\/[a-z0-9-]+$/.test(p.url) && !p.url.endsWith('/blog'))
     .map((p) => {
       const slug = p.url.split('/blog/')[1];
-      return { slug, url: p.url, date: p.date, title: humanize(slug), category: 'lpg', status: 'published' };
+      return {
+        slug,
+        url: p.url,
+        date: p.date,
+        title: humanize(slug),
+        category: 'lpg',
+        status: 'published',
+        hasSource: editableSlugs.has(slug),
+      };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 
@@ -144,9 +160,23 @@ async function publish(req, res, session) {
   const dateShort = isoTimestampLagos(publishedAt).slice(0, 10);
   const newSitemap = injectUrlIntoSitemap(sitemap.text, slug, dateShort);
 
+  // Source-of-truth JSON saved alongside the rendered HTML so the post is
+  // editable from the admin editor going forward.
+  const sourceJson = {
+    title, slug, category, excerpt,
+    body: bodyMd,
+    bodyFormat: 'markdown',
+    heroPath: heroPath || null,
+    heroAlt: title,
+    publishedAt: publishedAt.toISOString(),
+    updatedAt: publishedAt.toISOString(),
+    publishedBy: session.username,
+  };
+
   // Commit everything in a single tree commit
   const files = [
     { path: postPath, content: pageHtml },
+    { path: `blog/_sources/${slug}.json`, content: JSON.stringify(sourceJson, null, 2) },
     { path: 'blog.html', content: newBlogIdx },
     { path: 'sitemap.xml', content: newSitemap },
   ];

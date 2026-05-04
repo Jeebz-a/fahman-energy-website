@@ -380,6 +380,54 @@ export function renderBlogCard({ title, slug, excerpt, category, publishedAt, he
       </article>`;
 }
 
+/** Best-effort extract of body HTML from a published post page (legacy support). */
+export function extractLegacyBody(html) {
+  let m = html.match(/<div class="body">([\s\S]*?)<div class="share-row">/);
+  if (m) return m[1].trim();
+  m = html.match(/<div class="body">([\s\S]*?)<\/div>\s*<\/div>\s*<\/article>/);
+  return m ? m[1].trim() : '';
+}
+
+/** Best-effort extract of basic meta from a published post page. */
+export function extractLegacyMeta(html) {
+  const titleM = html.match(/<title>([^<]+?)(?:\s*—\s*FahmanEnergy)?\s*<\/title>/i);
+  const descM = html.match(/<meta\s+name="description"\s+content="([^"]+)"/i);
+  const tagM = html.match(/<span class="tag-pill">([^<]+)<\/span>/i);
+  const dateM = html.match(/<meta\s+property="article:published_time"\s+content="([^"]+)"/i);
+  const heroM = html.match(/<div class="cover">[\s\S]*?<img\s+src="([^"]+)"/i);
+  return {
+    title: (titleM ? titleM[1] : '').trim(),
+    excerpt: descM ? descM[1] : '',
+    tagLabel: tagM ? tagM[1].trim() : '',
+    publishedAt: dateM ? dateM[1] : null,
+    heroPath: heroM ? heroM[1] : null,
+  };
+}
+
+/** Map a tag-pill label back to a category key (best effort). */
+export function categoryFromTag(tag) {
+  const t = String(tag || '').toLowerCase();
+  if (t.includes('vision')) return 'vision';
+  if (t.includes('approach') || t.includes('field')) return 'approach';
+  if (t.includes('investor')) return 'investors';
+  if (t.includes('solar')) return 'solar';
+  return 'lpg';
+}
+
+/** Remove a single post-card from blog.html matching the given slug. */
+export function removeCardFromBlogIndex(html, slug) {
+  const escSlug = String(slug).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+  const re = new RegExp(`\\s*<article class="post-card"[^>]*>[\\s\\S]*?href="/blog/${escSlug}"[\\s\\S]*?<\\/article>\\s*`, 'g');
+  return html.replace(re, '\n      ');
+}
+
+/** Remove a sitemap <url>...{slug}...</url> block. */
+export function removeUrlFromSitemap(xml, slug) {
+  const escSlug = String(slug).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+  const re = new RegExp(`\\s*<url>\\s*<loc>https://www\\.fahmanenergy\\.com/blog/${escSlug}</loc>[\\s\\S]*?</url>\\s*`, 'g');
+  return xml.replace(re, '\n  ');
+}
+
 export function injectCardIntoBlogIndex(blogHtml, cardHtml) {
   // Try to insert as the first card inside #postGrid.
   const re = /(<div[^>]*id=["']postGrid["'][^>]*>)([\s\S]*?)(<\/div>\s*(?:<\/div>|<aside|<section)?)/i;

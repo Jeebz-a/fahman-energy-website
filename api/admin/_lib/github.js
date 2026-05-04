@@ -54,6 +54,18 @@ export async function getFileText(path, ref = REPO_BRANCH) {
   }
 }
 
+/** Returns an array of filenames in a directory, or [] if the dir doesn't exist. */
+export async function listDir(path, ref = REPO_BRANCH) {
+  try {
+    const json = await gh(`/contents/${encodeURIComponent(path).replace(/%2F/g, '/')}?ref=${encodeURIComponent(ref)}`);
+    if (!Array.isArray(json)) return [];
+    return json.map((entry) => ({ name: entry.name, type: entry.type, path: entry.path, sha: entry.sha }));
+  } catch (err) {
+    if (err.status === 404) return [];
+    throw err;
+  }
+}
+
 /** Returns true if a path exists in the repo. */
 export async function fileExists(path, ref = REPO_BRANCH) {
   try {
