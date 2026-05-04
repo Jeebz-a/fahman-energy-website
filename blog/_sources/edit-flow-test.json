@@ -1,0 +1,13 @@
+{
+  "title": "Edit-Flow Test Post",
+  "slug": "edit-flow-test",
+  "category": "lpg",
+  "excerpt": "Automated end-to-end check of the new edit + delete flow. Will be deleted at end of test.",
+  "body": "# Test post\n\nThis is the body of the test post. It contains enough characters to pass the minimum length validation. We are going to fetch it back, then update it, then delete it. All automated.\n\n## Section\n\nMore filler text so the body is well over the 200-char minimum. This text is here purely to satisfy validation. Once the test passes, the post will be deleted.\n\n- Bullet one\n- Bullet two",
+  "bodyFormat": "markdown",
+  "heroPath": null,
+  "heroAlt": "Edit-Flow Test Post",
+  "publishedAt": "2026-05-04T20:08:10.786Z",
+  "updatedAt": "2026-05-04T20:08:10.786Z",
+  "publishedBy": "Fahmanadm"
+}
