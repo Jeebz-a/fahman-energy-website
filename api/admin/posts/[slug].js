@@ -100,6 +100,8 @@ async function update(slug, req, res, session) {
   const bodySource = String(body.body || '');
   const bodyFormat = body.bodyFormat === 'html' ? 'html' : 'markdown';
   const hero       = body.hero === undefined ? 'keep' : body.hero; // null | dataUrl | 'keep'
+  const heroSvg    = body.heroSvg === undefined ? 'keep' : (typeof body.heroSvg === 'string' ? body.heroSvg : null);
+  const cardSvg    = body.cardSvg === undefined ? 'keep' : (typeof body.cardSvg === 'string' ? body.cardSvg : null);
 
   // Validate
   if (!title || title.length > 160) return fail(res, 400, 'Title is required (max 160 chars)');
@@ -151,16 +153,20 @@ async function update(slug, req, res, session) {
   const now = new Date();
   const publishedAt = existingSrc?.publishedAt ? new Date(existingSrc.publishedAt) : now;
 
+  // Hero/card SVG: 'keep' = inherit from source, string = replace, null = remove
+  const finalHeroSvg = heroSvg === 'keep' ? (existingSrc?.heroSvg || null) : heroSvg;
+  const finalCardSvg = cardSvg === 'keep' ? (existingSrc?.cardSvg || null) : cardSvg;
+
   // Build full HTML page
   const pageHtml = renderPostPage({
     title, slug, category, excerpt, bodyHtml,
-    heroPath, heroAlt: title, publishedAt,
+    heroPath, heroAlt: title, heroSvgInline: finalHeroSvg, publishedAt,
   });
 
   // Refresh card in blog.html: remove old card + insert new one at top
   const blogIdx = await getFileText('blog.html');
   if (!blogIdx) return fail(res, 500, 'blog.html not found in repo');
-  const cardHtml = renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath });
+  const cardHtml = renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath, cardSvg: finalCardSvg });
   const blogIdxNoOld = removeCardFromBlogIndex(blogIdx.text, slug);
   const newBlogIdx   = injectCardIntoBlogIndex(blogIdxNoOld, cardHtml);
 
@@ -178,6 +184,8 @@ async function update(slug, req, res, session) {
     bodyFormat,
     heroPath,
     heroAlt: title,
+    heroSvg: finalHeroSvg,
+    cardSvg: finalCardSvg,
     publishedAt: publishedAt.toISOString(),
     updatedAt: now.toISOString(),
     publishedBy: existingSrc?.publishedBy || session.username,

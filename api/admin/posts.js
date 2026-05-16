@@ -102,6 +102,8 @@ async function publish(req, res, session) {
   const excerpt  = String(body.excerpt || '').trim();
   const bodyMd   = String(body.body || '');
   const hero     = body.hero || null;
+  const heroSvg  = typeof body.heroSvg === 'string' ? body.heroSvg : null;
+  const cardSvg  = typeof body.cardSvg === 'string' ? body.cardSvg : null;
 
   // Validate
   if (!title || title.length > 160) return fail(res, 400, 'Title is required (max 160 chars)');
@@ -145,13 +147,13 @@ async function publish(req, res, session) {
   const publishedAt = new Date();
   const pageHtml = renderPostPage({
     title, slug, category, excerpt, bodyHtml,
-    heroPath, heroAlt: title, publishedAt,
+    heroPath, heroAlt: title, heroSvgInline: heroSvg, publishedAt,
   });
 
   // Update blog.html (inject card)
   const blogIdx = await getFileText('blog.html');
   if (!blogIdx) return fail(res, 500, 'blog.html not found in repo');
-  const cardHtml = renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath });
+  const cardHtml = renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath, cardSvg });
   const newBlogIdx = injectCardIntoBlogIndex(blogIdx.text, cardHtml);
 
   // Update sitemap.xml
@@ -168,6 +170,8 @@ async function publish(req, res, session) {
     bodyFormat: 'markdown',
     heroPath: heroPath || null,
     heroAlt: title,
+    heroSvg: heroSvg || null,
+    cardSvg: cardSvg || null,
     publishedAt: publishedAt.toISOString(),
     updatedAt: publishedAt.toISOString(),
     publishedBy: session.username,

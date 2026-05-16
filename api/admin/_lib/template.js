@@ -79,7 +79,7 @@ export function isoTimestampLagos(d) {
 export function renderPostPage(p) {
   const {
     title, slug, category, excerpt, bodyHtml,
-    heroPath, heroAlt, publishedAt,
+    heroPath, heroAlt, heroSvgInline, publishedAt,
   } = p;
 
   const url = `${SITE_ORIGIN}/blog/${slug}`;
@@ -91,13 +91,18 @@ export function renderPostPage(p) {
   const tagLabel = categoryLabel(category);
   const ogImage = heroPath ? `${SITE_ORIGIN}${heroPath}` : `${SITE_ORIGIN}/og-image.svg`;
 
-  const heroBlock = heroPath
-    ? `<div class="cover"><img src="${escapeAttr(heroPath)}" alt="${escapeAttr(heroAlt || title)}" loading="eager" /></div>`
-    : `<div class="cover"><svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${escapeAttr(title)}">
+  let heroBlock;
+  if (heroSvgInline) {
+    heroBlock = `<div class="cover">${heroSvgInline}</div>`;
+  } else if (heroPath) {
+    heroBlock = `<div class="cover"><img src="${escapeAttr(heroPath)}" alt="${escapeAttr(heroAlt || title)}" loading="eager" /></div>`;
+  } else {
+    heroBlock = `<div class="cover"><svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${escapeAttr(title)}">
   <defs><linearGradient id="bg-${slug}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14624A"/><stop offset="1" stop-color="#0B3D2E"/></linearGradient></defs>
   <rect width="1200" height="675" fill="url(#bg-${slug})"/>
   <text x="600" y="360" text-anchor="middle" font-family="Fraunces,serif" font-size="56" fill="#A8E0BD" font-style="italic" opacity=".9">FahmanEnergy</text>
 </svg></div>`;
+  }
 
   return `<!DOCTYPE html>
 <html lang="en-NG">
@@ -357,25 +362,38 @@ ${bodyHtml}
 /**
  * Build the small card snippet that gets injected into blog.html's #postGrid.
  */
-export function renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath }) {
+export function renderBlogCard({ title, slug, excerpt, category, publishedAt, heroPath, cardSvg, readMinutes: rm }) {
   const dateIso = isoTimestampLagos(publishedAt).slice(0, 10);
   const datePretty = prettyDate(publishedAt);
   const tagLabel = categoryLabel(category);
-  const minutes = readMinutes(excerpt) + 5; // approximate; refined per-post on detail page
-  const heroBg = heroPath
-    ? `<img src="${escapeAttr(heroPath)}" alt="${escapeAttr(title)}" loading="lazy" />`
-    : `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="card-${slug}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14624A"/><stop offset="1" stop-color="#0B3D2E"/></linearGradient></defs><rect width="400" height="250" fill="url(#card-${slug})"/><text x="200" y="135" text-anchor="middle" font-family="Fraunces,serif" font-size="22" fill="#A8E0BD" font-style="italic">FahmanEnergy</text></svg>`;
+  // Rough estimate of read-time when nothing was passed in (200 wpm against the body length the card derives from).
+  const minutes = Math.max(1, rm || Math.round(((excerpt || '').length + 1500) / 1000) + 4);
+
+  let coverContent;
+  if (cardSvg) {
+    coverContent = cardSvg;
+  } else if (heroPath) {
+    coverContent = `<img src="${escapeAttr(heroPath)}" alt="${escapeAttr(title)}" loading="lazy" />`;
+  } else {
+    coverContent = `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="250" fill="#14624A"/><text x="200" y="135" text-anchor="middle" font-family="Fraunces,serif" font-size="22" fill="#A8E0BD" font-style="italic">FahmanEnergy</text></svg>`;
+  }
 
   return `<article class="post-card" data-cat="${escapeAttr(category)}">
-        <a href="/blog/${escapeAttr(slug)}" class="post-thumb">${heroBg}</a>
-        <div class="post-body">
-          <div class="post-meta">
-            <span class="post-tag">${escapeHtml(tagLabel)}</span>
+        <a href="blog/${escapeAttr(slug)}.html" class="pc-cover">
+          <span class="pc-tag">${escapeHtml(tagLabel)}</span>
+          ${coverContent}
+        </a>
+        <div class="pc-body">
+          <div class="pc-meta">
             <time datetime="${dateIso}">${escapeHtml(datePretty)}</time>
+            <span class="dot"></span>
+            <span>${minutes} min read</span>
           </div>
-          <h3><a href="/blog/${escapeAttr(slug)}">${escapeHtml(title)}</a></h3>
-          <p>${escapeHtml(excerpt)}</p>
-          <a href="/blog/${escapeAttr(slug)}" class="post-link">Read article →</a>
+          <h3><a href="blog/${escapeAttr(slug)}.html">${escapeHtml(title)}</a></h3>
+          <p class="pc-excerpt">${escapeHtml(excerpt)}</p>
+          <a href="blog/${escapeAttr(slug)}.html" class="pc-cta">Read more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
       </article>`;
 }
