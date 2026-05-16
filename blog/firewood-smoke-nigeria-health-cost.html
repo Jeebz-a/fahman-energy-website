@@ -173,10 +173,62 @@ html, body { overflow-x: hidden; max-width:100%; width:100%; }
     </div>
   </div>
 
-  <div class="cover"><svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="The Real Cost of Firewood: What Indoor Air Pollution Is Doing to Nigerian Families">
-  <defs><linearGradient id="bg-firewood-smoke-nigeria-health-cost" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14624A"/><stop offset="1" stop-color="#0B3D2E"/></linearGradient></defs>
-  <rect width="1200" height="675" fill="url(#bg-firewood-smoke-nigeria-health-cost)"/>
-  <text x="600" y="360" text-anchor="middle" font-family="Fraunces,serif" font-size="56" fill="#A8E0BD" font-style="italic" opacity=".9">FahmanEnergy</text>
+  <div class="cover"><svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="cv2t cv2d">
+<title id="cv2t">Indoor cooking smoke — 855 deaths per day in Nigeria</title>
+<desc id="cv2d">A stylised illustration of a cooking pot over a fire with smoke rising into a dark interior, with the large number 855 representing daily Nigerian deaths from household air pollution, and faint silhouettes of a mother and child near the fire.</desc>
+<defs>
+<linearGradient id="fwBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1A2F26"/><stop offset="1" stop-color="#0B3D2E"/></linearGradient>
+<radialGradient id="fwFire" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#FCEAB6"/><stop offset=".5" stop-color="#D9A55B"/><stop offset="1" stop-color="#0B3D2E" stop-opacity="0"/></radialGradient>
+<linearGradient id="fwSmoke" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FAF8F2" stop-opacity=".5"/><stop offset="1" stop-color="#FAF8F2" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#fwBg)"/>
+<!-- Smoke plumes -->
+<g fill="url(#fwSmoke)" opacity=".75">
+<path d="M380 460 C 360 380, 420 320, 380 240 C 360 180, 430 130, 400 60 C 470 110, 460 200, 480 270 C 500 350, 460 410, 480 460 Z"/>
+<path d="M540 460 C 530 380, 580 340, 560 270 C 540 200, 600 160, 580 90 C 640 140, 630 220, 650 290 C 670 360, 620 410, 640 460 Z"/>
+<path d="M700 460 C 690 390, 740 340, 720 280 C 700 220, 760 180, 740 110 C 800 160, 800 240, 800 300 C 800 360, 750 410, 770 460 Z"/>
+</g>
+<!-- PM2.5 particles -->
+<g fill="#FAF8F2" opacity=".5">
+<circle cx="430" cy="320" r="3"/>
+<circle cx="480" cy="240" r="2"/>
+<circle cx="530" cy="180" r="2.5"/>
+<circle cx="580" cy="120" r="2"/>
+<circle cx="620" cy="240" r="3"/>
+<circle cx="680" cy="160" r="2"/>
+<circle cx="720" cy="220" r="2.5"/>
+<circle cx="760" cy="140" r="2"/>
+<circle cx="450" cy="200" r="2"/>
+<circle cx="560" cy="260" r="2"/>
+<circle cx="700" cy="320" r="2"/>
+</g>
+<!-- Fire glow -->
+<ellipse cx="560" cy="540" rx="180" ry="70" fill="url(#fwFire)" opacity=".9"/>
+<!-- Three-stone fire -->
+<g fill="#5A6B62">
+<ellipse cx="470" cy="530" rx="30" ry="22"/>
+<ellipse cx="560" cy="540" rx="32" ry="24"/>
+<ellipse cx="650" cy="528" rx="30" ry="22"/>
+</g>
+<!-- Pot -->
+<g transform="translate(450,440)">
+<ellipse cx="110" cy="20" rx="100" ry="14" fill="#2C3E36"/>
+<path d="M10 20 Q 10 100, 60 105 L 160 105 Q 210 100, 210 20 Z" fill="#0A1F18" stroke="#2C3E36" stroke-width="2"/>
+<ellipse cx="110" cy="20" rx="95" ry="11" fill="#0A1F18"/>
+<!-- handles -->
+<rect x="-10" y="40" width="14" height="6" rx="3" fill="#2C3E36"/>
+<rect x="216" y="40" width="14" height="6" rx="3" fill="#2C3E36"/>
+</g>
+<!-- 855 big number -->
+<text x="930" y="280" font-family="Fraunces,serif" font-size="180" font-weight="500" font-style="italic" fill="#D9A55B" text-anchor="middle">855</text>
+<text x="930" y="320" font-family="Inter,sans-serif" font-size="16" fill="#FAF8F2" text-anchor="middle" letter-spacing="0.16em">DEATHS PER DAY</text>
+<line x1="830" y1="345" x2="1030" y2="345" stroke="#D9A55B" stroke-width="1" opacity=".6"/>
+<text x="930" y="380" font-family="Inter,sans-serif" font-size="13" fill="#A8E0BD" text-anchor="middle">From indoor air pollution</text>
+<text x="930" y="402" font-family="Inter,sans-serif" font-size="13" fill="#A8E0BD" text-anchor="middle">in Nigerian homes</text>
+<!-- Caption strip -->
+<rect x="0" y="610" width="1200" height="65" fill="#0A1F18"/>
+<text x="60" y="650" font-family="Fraunces, serif" font-size="18" fill="#FAF8F2" font-style="italic">FahmanEnergy</text>
+<text x="60" y="668" font-family="Inter, sans-serif" font-size="11" fill="#6FCF97" letter-spacing="0.18em">CLEAN COOKING · KWARA STATE · NIGERIA</text>
 </svg></div>
 
   <div class="body-grid">
@@ -268,7 +320,7 @@ html, body { overflow-x: hidden; max-width:100%; width:100%; }
 </ul>
 <p>It also has a credible upgrade path. The same household that switches to LPG in 2026 can layer in solar cooking, induction stoves, or biogas as those technologies become affordable and accessible. A household stuck on firewood has no such glide-path; it&#39;s locked into the smoke for as long as the wood is cheaper than the alternative.</p>
 <h2>What we&#39;re seeing on the ground</h2>
-<p>In our Ilorin and Ilesha Baruba catchment, the households that switch to LPG do so for a hierarchy of reasons that surprised us:</p>
+<p>In our <strong>Ilesha Baruba</strong> catchment in Kwara State, the households that switch to LPG do so for a hierarchy of reasons that surprised us:</p>
 <ol>
 <li><strong>The smell.</strong> Customers cite smoke odour in their hair, on their clothes, in their homes more often than they cite health.</li>
 <li><strong>Cooking speed.</strong> A pot of jollof in 25 minutes instead of 75 minutes is a tangible weekly gain.</li>
@@ -282,7 +334,7 @@ html, body { overflow-x: hidden; max-width:100%; width:100%; }
 <p><strong>Affordability of the entry cost.</strong> The cylinder itself is the cliff. Government programmes, NGO partnerships, and private financing models that defray that first ₦20,000–₦30,000 outlay are the single most important policy lever — more important than fuel subsidies, in our experience.</p>
 <p><strong>Honesty in the public narrative.</strong> A passenger plane crashing every day with women and children aboard would be a national emergency. The fact that 855 quiet deaths a day don&#39;t generate the same response is a story we, as Nigerians, should change.</p>
 <hr>
-<p><strong>FahmanEnergy</strong> distributes solar-powered LPG to rural households in Kwara State, Nigeria. If you operate a rural plant, finance one, or live in a household still cooking on firewood, we&#39;d like to hear from you. <a href="/contact">Contact us</a>.</p>
+<p><strong>FahmanEnergy</strong> distributes solar-powered LPG to rural households in Kwara State, Nigeria — plant in Ilesha Baruba, head office in Ilorin. If you operate a rural plant, finance one, or live in a household still cooking on firewood, we&#39;d like to hear from you. <a href="/contact">Contact us</a>.</p>
 <hr>
 <p><em>Sources: daily-deaths and daily-disease-case estimates synthesise published data from the World Health Organization, the Federal Ministry of Health, the Global Burden of Disease study, and the Nigerian Clean Cooking Alliance. The ~98% PM2.5 reduction figure for LPG-vs-biomass cooking is from intervention studies summarised in the WHO Indoor Air Quality Guidelines for Household Fuel Combustion.</em></p>
 
