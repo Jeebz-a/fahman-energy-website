@@ -183,9 +183,11 @@ img,svg{max-width:100%;display:block}
 
 html, body { overflow-x: hidden; max-width:100%; width:100%; }
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;background:#0F4C3A;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:.9rem;z-index:9999}.skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;outline:2px solid #D9A55B;outline-offset:2px}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ===== Header ===== -->
 <header class="header">
@@ -214,6 +216,8 @@ html, body { overflow-x: hidden; max-width:100%; width:100%; }
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <!-- ===== Article hero ===== -->
 <article>
@@ -383,6 +387,8 @@ html, body { overflow-x: hidden; max-width:100%; width:100%; }
 </section>
 
 <!-- ===== Footer ===== -->
+</main>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
