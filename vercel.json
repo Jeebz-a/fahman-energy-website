@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "crons": [
+    { "path": "/api/cron/gas-reminders", "schedule": "0 7 * * *" }
+  ],
   "headers": [
     {
       "source": "/admin",

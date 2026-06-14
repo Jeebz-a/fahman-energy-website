@@ -64,6 +64,23 @@ export async function ensureSchema() {
     await sql`CREATE INDEX IF NOT EXISTS replies_message_idx
               ON replies (message_id, sent_at DESC)`;
 
+    await sql`CREATE TABLE IF NOT EXISTS gas_alerts (
+      id           BIGSERIAL PRIMARY KEY,
+      name         TEXT,
+      email        TEXT        NOT NULL,
+      cylinder_kg  NUMERIC,
+      daily_kg     NUMERIC,
+      days_left    INTEGER,
+      run_out      DATE        NOT NULL,
+      remind_on    DATE        NOT NULL,
+      status       TEXT        NOT NULL DEFAULT 'active',
+      reminded_at  TIMESTAMPTZ,
+      ip           INET,
+      created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )`;
+    await sql`CREATE INDEX IF NOT EXISTS gas_alerts_due_idx
+              ON gas_alerts (remind_on, status)`;
+
     return true;
   })().catch((err) => {
     // Reset so a future request retries the schema setup.
@@ -71,6 +88,44 @@ export async function ensureSchema() {
     throw err;
   });
   return _schemaReady;
+}
+
+/** Insert a refill-reminder signup. remindOn defaults to runOut minus 3 days. */
+export async function insertGasAlert({
+  name = null, email, cylinderKg = null, dailyKg = null, daysLeft = null,
+  runOut, remindOn, ip = null,
+}) {
+  await ensureSchema();
+  const sql = getSql();
+  const rows = await sql`
+    INSERT INTO gas_alerts (name, email, cylinder_kg, daily_kg, days_left, run_out, remind_on, ip)
+    VALUES (${name}, ${email}, ${cylinderKg}, ${dailyKg}, ${daysLeft}, ${runOut}, ${remindOn}, ${ip})
+    RETURNING id, remind_on, run_out
+  `;
+  return rows[0];
+}
+
+/** Find active alerts whose remind_on date is today or earlier (and not yet reminded). */
+export async function dueGasAlerts() {
+  await ensureSchema();
+  const sql = getSql();
+  return sql`
+    SELECT id, name, email, cylinder_kg, daily_kg, days_left, run_out, remind_on
+    FROM gas_alerts
+    WHERE status = 'active' AND remind_on <= CURRENT_DATE
+    ORDER BY remind_on ASC
+    LIMIT 200
+  `;
+}
+
+export async function markGasAlertReminded(id) {
+  await ensureSchema();
+  const sql = getSql();
+  const rows = await sql`
+    UPDATE gas_alerts SET status = 'reminded', reminded_at = NOW()
+    WHERE id = ${id} RETURNING id
+  `;
+  return rows[0] || null;
 }
 
 /** Insert a new contact-form submission. */
