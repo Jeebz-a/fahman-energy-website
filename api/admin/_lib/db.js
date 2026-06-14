@@ -105,6 +105,44 @@ export async function insertGasAlert({
   return rows[0];
 }
 
+/** List reminder subscribers (most recent first) for the admin view. */
+export async function listGasAlerts({ status = null, limit = 500 } = {}) {
+  await ensureSchema();
+  const sql = getSql();
+  const lim = Math.min(Math.max(Number(limit) || 500, 1), 1000);
+  if (status && status !== 'all') {
+    return sql`
+      SELECT id, name, email, cylinder_kg, daily_kg, days_left, run_out, remind_on, status, reminded_at, created_at
+      FROM gas_alerts WHERE status = ${status}
+      ORDER BY created_at DESC LIMIT ${lim}`;
+  }
+  return sql`
+    SELECT id, name, email, cylinder_kg, daily_kg, days_left, run_out, remind_on, status, reminded_at, created_at
+    FROM gas_alerts
+    ORDER BY created_at DESC LIMIT ${lim}`;
+}
+
+/** Summary counts for the reminders dashboard. */
+export async function gasAlertStats() {
+  await ensureSchema();
+  const sql = getSql();
+  const rows = await sql`
+    SELECT
+      COUNT(*)::int AS total,
+      COUNT(*) FILTER (WHERE status = 'active')::int AS active,
+      COUNT(*) FILTER (WHERE status = 'reminded')::int AS reminded,
+      COUNT(DISTINCT email)::int AS unique_people
+    FROM gas_alerts`;
+  return rows[0] || { total: 0, active: 0, reminded: 0, unique_people: 0 };
+}
+
+export async function deleteGasAlert(id) {
+  await ensureSchema();
+  const sql = getSql();
+  const rows = await sql`DELETE FROM gas_alerts WHERE id = ${id} RETURNING id`;
+  return rows[0] || null;
+}
+
 /** Find active alerts whose remind_on date is today or earlier (and not yet reminded). */
 export async function dueGasAlerts() {
   await ensureSchema();
