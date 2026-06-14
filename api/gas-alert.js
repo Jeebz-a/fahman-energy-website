@@ -6,6 +6,7 @@
 
 import { Resend } from 'resend';
 import { insertGasAlert } from './admin/_lib/db.js';
+import { renderEmail } from './admin/_lib/email.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -71,28 +72,34 @@ export default async function handler(req, res) {
 
   // Confirmation email
   const greeting = name ? escapeHtml(name.split(/\s+/)[0]) : 'there';
-  const html = `<div style="font-family:Inter,Arial,sans-serif;color:#0A1F18;max-width:560px;line-height:1.6">
-    <div style="background:#0F4C3A;color:#fff;padding:22px 24px;border-radius:12px 12px 0 0">
-      <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#A8E0BD">FahmanEnergy · Refill reminder set</div>
-      <div style="font-family:Georgia,serif;font-size:20px;margin-top:6px">You're all set, ${greeting} 👍</div>
-    </div>
-    <div style="background:#FAF8F2;padding:24px;border:1px solid #E4ECE6;border-top:0;border-radius:0 0 12px 12px">
-      <p style="margin:0 0 14px">We'll email you a reminder around <strong>${fmtDate(remindOn)}</strong> — about ${REMIND_LEAD_DAYS} days before your gas is due to run out on <strong>${fmtDate(runOut)}</strong>.</p>
-      ${cylinderKg ? `<table style="width:100%;font-size:14px;border-collapse:collapse">
-        <tr><td style="padding:5px 0;color:#5A6B62">Cylinder</td><td style="padding:5px 0;text-align:right"><strong>${escapeHtml(String(cylinderKg))} kg</strong></td></tr>
-        ${dailyKg ? `<tr><td style="padding:5px 0;color:#5A6B62">Estimated daily use</td><td style="padding:5px 0;text-align:right"><strong>${escapeHtml(String(dailyKg))} kg/day</strong></td></tr>` : ''}
-        ${daysLeft != null ? `<tr><td style="padding:5px 0;color:#5A6B62">Estimated to last</td><td style="padding:5px 0;text-align:right"><strong>${daysLeft} days</strong></td></tr>` : ''}
-      </table>` : ''}
-      <p style="margin:16px 0 0;font-size:13px;color:#5A6B62">Need a refill or want to switch to clean cooking gas? Reply to this email or call <a href="tel:+2347060868580" style="color:#14624A">+234 706 086 8580</a>.</p>
-      <p style="margin:14px 0 0;font-size:12px;color:#98A39C">FahmanEnergy · Ilesha Baruba & Ilorin, Kwara State, Nigeria</p>
-    </div>
-  </div>`;
+  const infoRows = [];
+  if (cylinderKg) infoRows.push(['Your cylinder', `${cylinderKg} kg`]);
+  if (dailyKg) infoRows.push(['Estimated daily use', `${dailyKg} kg/day`]);
+  if (daysLeft != null) infoRows.push(['Estimated to last', `${daysLeft} days`]);
+  infoRows.push(['Reminder date', fmtDate(remindOn)]);
+  infoRows.push(['Gas runs out', fmtDate(runOut)]);
+
+  const html = renderEmail({
+    preheader: `We'll remind you around ${fmtDate(remindOn)} — before your gas runs out.`,
+    eyebrow: 'Reminder set',
+    heading: `You're all set, ${greeting} 👍`,
+    intro: [
+      `We'll send you a reminder around <strong style="color:${'#0F4C3A'}">${fmtDate(remindOn)}</strong> — about ${REMIND_LEAD_DAYS} days before your cooking gas is due to run out — so you can refill on your schedule, not in the middle of dinner.`,
+    ],
+    infoRows,
+    showRefill: true,
+  });
+
   const text = `You're all set, ${name || 'there'}.
 
 We'll email you a reminder around ${fmtDate(remindOn)} — about ${REMIND_LEAD_DAYS} days before your gas is due to run out on ${fmtDate(runOut)}.
 
 ${cylinderKg ? `Cylinder: ${cylinderKg} kg\n` : ''}${dailyKg ? `Daily use: ${dailyKg} kg/day\n` : ''}${daysLeft != null ? `Estimated to last: ${daysLeft} days\n` : ''}
-Need a refill? Call +234 706 086 8580.
+To refill your gas:
+- Find the nearest refill station near you: https://www.google.com/maps/search/cooking+gas+refill+near+me
+- FahmanEnergy distributors near you — coming soon. Tell us where you are: https://www.fahmanenergy.com/contact
+
+Need help? Call +234 706 086 8580.
 — FahmanEnergy, Kwara State, Nigeria`;
 
   try {
