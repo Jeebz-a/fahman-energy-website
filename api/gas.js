@@ -32,7 +32,8 @@ async function getPrices(res) {
   try {
     const { prices, updatedAt } = await getGasPrices();
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600, stale-while-revalidate=86400');
+    // Short edge cache so admin price changes reflect quickly (was 10min).
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=20, stale-while-revalidate=60');
     return res.status(200).json({
       ok: true, currency: 'NGN', region: 'Kwara State, Nigeria', updatedAt,
       prices: prices.map((p) => ({ key: p.item_key, label: p.label, amount: p.amount, unit: p.unit })),

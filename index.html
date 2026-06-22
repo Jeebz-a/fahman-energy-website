@@ -743,7 +743,7 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
 (function(){
   var items=document.getElementById('ptItems');var asof=document.getElementById('ptAsOf');
   function fmt(n){return Math.round(n).toLocaleString('en-NG');}
-  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
+  fetch('/api/gas?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j||!j.ok||!j.prices||!j.prices.length){items.innerHTML='<span class="pt-item"><span class="k">Prices update shortly</span></span>';return;}
     items.innerHTML=j.prices.map(function(p){
       var feat=p.key==='per_kg';
@@ -1130,7 +1130,7 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   calc();
 
   // Pull live per-kg price to keep the modal comparison current (graceful fallback).
-  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
+  fetch('/api/gas?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j||!j.ok||!j.prices)return;
     var pk=j.prices.find(function(p){return p.key==='per_kg';});
     if(pk&&pk.amount>0){P_LPG=pk.amount;calc();}
