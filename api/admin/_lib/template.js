@@ -89,7 +89,7 @@ export function renderPostPage(p) {
   const minutes = readMinutes(bodyHtml);
   const section = categorySection(category);
   const tagLabel = categoryLabel(category);
-  const ogImage = heroPath ? `${SITE_ORIGIN}${heroPath}` : `${SITE_ORIGIN}/og-image.svg`;
+  const ogImage = heroPath ? `${SITE_ORIGIN}${heroPath}` : `${SITE_ORIGIN}/og-image.jpg`;
 
   let heroBlock;
   if (heroSvgInline) {
