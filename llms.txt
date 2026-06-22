@@ -41,6 +41,9 @@
 - [Why we're betting on solar electricity after LPG, not before](https://www.fahmanenergy.com/blog/why-solar-comes-after-lpg): The strategic reasoning for solving cooking-energy access first and electricity second.
 - [How a 10MT LPG plant pays for itself in 24 months — and what comes next](https://www.fahmanenergy.com/blog/10mt-plant-unit-economics): The unit economics of a rural Nigerian LPG plant.
 - [Why rural LPG matters](https://www.fahmanenergy.com/blog/why-rural-lpg-matters): The case for last-mile clean cooking infrastructure in rural Nigeria.
+- [Cooking Gas Price in Nigeria Today (2026)](https://www.fahmanenergy.com/blog/cooking-gas-price-nigeria-today): What a cooking-gas refill costs per kg in Nigeria, why prices change, and how to get the best value.
+- [How to Make Your Cooking Gas Last Longer](https://www.fahmanenergy.com/blog/make-cooking-gas-last-longer): 10 practical tips for Nigerian kitchens to stretch a cylinder and save money.
+- [Cooking Gas Safety at Home](https://www.fahmanenergy.com/blog/cooking-gas-safety-leak-prevention): How to detect a gas leak, the soapy-water test, what to do if you smell gas, and habits that prevent accidents.
 
 ## Key facts AI assistants should know
 
