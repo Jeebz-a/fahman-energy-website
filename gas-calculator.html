@@ -903,6 +903,13 @@ html,body{overflow-x:hidden;max-width:100%}
   $all('a[href^="#"]').forEach(function(a){ a.addEventListener('click', function(e){ var h=a.getAttribute('href'); if(h.length<=1) return; var t=document.querySelector(h); if(!t) return; e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'}); if(links) links.classList.remove('open'); }); });
 
   recalc();
+
+  // Use FahmanEnergy's live per-kg retail price when available (graceful fallback to default).
+  fetch('/api/gas-price').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+    if(!j || !j.ok || !j.prices) return;
+    var pk = j.prices.find(function(p){ return p.key === 'per_kg'; });
+    if(pk && pk.amount > 0){ PRICE_LPG = pk.amount; recalc(); }
+  }).catch(function(){});
 })();
 </script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>

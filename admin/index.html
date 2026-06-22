@@ -51,6 +51,11 @@
         <span>Gas reminders</span>
         <span class="count is-zero" id="remCount">0</span>
       </a>
+
+      <a class="nav-link" data-route="prices" role="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Gas prices</span>
+      </a>
     </nav>
 
     <div class="sidebar-foot">
@@ -104,6 +109,7 @@
     edit:  { title: 'Edit post', crumbs: 'Workspace · Blog · Editor', render: (p) => renderEditor(p) },
     inbox: { title: 'Inbox',    crumbs: 'Workspace · Inbox',        render: renderInbox   },
     reminders: { title: 'Gas reminders', crumbs: 'Workspace · Gas reminders', render: renderReminders },
+    prices: { title: 'Gas prices', crumbs: 'Workspace · Gas prices', render: renderPrices },
   };
 
   let state = {
@@ -1145,6 +1151,79 @@ A few sentences here.
         </button>
       </td>
     </tr>`;
+  }
+
+  // ---- GAS PRICES ---------------------------------------------------------
+  async function renderPrices() {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <div class="section-head">
+        <div>
+          <h1>Today's gas prices</h1>
+          <div class="meta">These show live on the homepage "Today's gas prices" section and feed the gas calculator. Update them whenever your retail price changes.</div>
+        </div>
+      </div>
+      <div class="alert is-info is-visible" id="priceMeta" style="margin-bottom:18px"></div>
+      <div class="pane card" style="padding:24px;max-width:560px">
+        <div id="priceFields"></div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:8px">
+          <button class="btn btn-primary" id="savePrices"><span class="btn-label">Save prices</span></button>
+          <span class="status" id="priceStatus" style="font-size:.88rem;color:var(--ink-500)"></span>
+        </div>
+      </div>
+    `;
+    $('#content').appendChild(wrap);
+
+    const fields = $('#priceFields');
+    fields.innerHTML = `<div class="empty"><p>Loading prices…</p></div>`;
+
+    try {
+      const res = await fetch('/api/admin/gas-prices', { credentials:'same-origin', cache:'no-store' });
+      if (res.status === 401) { location.replace('/admin/login'); return; }
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Failed to load');
+
+      const prices = json.prices || [];
+      $('#priceMeta').innerHTML = json.updatedAt
+        ? `Last updated <strong>${new Date(json.updatedAt).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' })}</strong>.`
+        : 'Not set yet — enter your current prices below.';
+
+      fields.innerHTML = prices.map(p => `
+        <div class="field" style="margin-bottom:14px">
+          <label for="pr-${p.item_key}">${escapeHtml(p.label)} <span style="color:var(--ink-300);font-weight:400;text-transform:none;letter-spacing:0">(${escapeHtml(p.unit)})</span></label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.1rem;color:var(--ink-500)">₦</span>
+            <input id="pr-${p.item_key}" data-key="${p.item_key}" type="number" min="0" step="1" value="${Math.round(p.amount)}" inputmode="numeric" />
+          </div>
+        </div>`).join('');
+    } catch (err) {
+      fields.innerHTML = `<div class="empty"><h3>Couldn't load prices</h3><p>${escapeHtml(err.message)}</p></div>`;
+    }
+
+    $('#savePrices').addEventListener('click', async () => {
+      const btn = $('#savePrices'); const lbl = btn.querySelector('.btn-label'); const st = $('#priceStatus');
+      const items = $$('#priceFields input[data-key]').map(i => ({ item_key: i.dataset.key, amount: Number(i.value) }));
+      const bad = items.find(i => !Number.isFinite(i.amount) || i.amount < 0);
+      if (bad) { st.style.color = 'var(--danger)'; st.textContent = 'Check the amounts — they must be valid numbers.'; return; }
+      btn.disabled = true; lbl.textContent = 'Saving…'; st.textContent = '';
+      try {
+        const res = await fetch('/api/admin/gas-prices', {
+          method:'POST', credentials:'same-origin',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ items }),
+        });
+        const json = await res.json();
+        if (!json.ok) throw new Error(json.error || 'Save failed');
+        lbl.textContent = 'Saved ✓';
+        st.style.color = 'var(--mint-700)';
+        st.textContent = `Updated ${json.updated} price${json.updated === 1 ? '' : 's'} — now live on the site.`;
+        if (json.updatedAt) $('#priceMeta').innerHTML = `Last updated <strong>${new Date(json.updatedAt).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' })}</strong>.`;
+        setTimeout(() => { lbl.textContent = 'Save prices'; btn.disabled = false; }, 2500);
+      } catch (err) {
+        lbl.textContent = 'Save prices'; btn.disabled = false;
+        st.style.color = 'var(--danger)'; st.textContent = err.message;
+      }
+    });
   }
 
   // ---- helpers ------------------------------------------------------------

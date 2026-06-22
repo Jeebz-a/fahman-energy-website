@@ -7,8 +7,11 @@
 // `Authorization: Bearer ${CRON_SECRET}` when the env var is set.
 
 import { Resend } from 'resend';
-import { dueGasAlerts, markGasAlertReminded } from '../admin/_lib/db.js';
+import { dueGasAlerts, markGasAlertReminded, gasPriceAgeDays } from '../admin/_lib/db.js';
 import { renderEmail } from '../admin/_lib/email.js';
+
+const PRICE_STALE_DAYS = 7;
+const ADMIN_EMAIL = 'Fahmanltd@gmail.com';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = 'FahmanEnergy <contact@fahmanenergy.com>';
@@ -82,5 +85,35 @@ Or call +234 706 086 8580.
     }
   }
 
-  return res.status(200).json({ ok: true, due: due.length, sent, failed });
+  // Price-freshness nudge: since there's no live national price feed, prices are
+  // admin-managed. If the displayed prices haven't been touched in a week, remind
+  // the team to refresh them so the homepage stays accurate. Sent at most once a week.
+  let priceNudge = false;
+  try {
+    const age = await gasPriceAgeDays();
+    if (age != null && age >= PRICE_STALE_DAYS && new Date().getUTCDay() === 1) { // Mondays only
+      const html = renderEmail({
+        preheader: `Your homepage gas prices are ${age} days old — a quick update keeps them accurate.`,
+        eyebrow: 'Price check',
+        heading: 'Time to refresh your gas prices',
+        intro: [
+          `Your published cooking-gas prices were last updated <strong style="color:#0F4C3A">${age} days ago</strong>. They show live on your homepage and feed the gas calculator, so keeping them current builds trust with customers.`,
+          `It takes under a minute: open the admin, go to <strong>Gas prices</strong>, adjust the amounts, and save.`,
+        ],
+        cta: { label: 'Update prices now', url: 'https://www.fahmanenergy.com/admin' },
+        showRefill: false,
+      });
+      const { error } = await resend.emails.send({
+        from: FROM_EMAIL, to: [ADMIN_EMAIL], replyTo: ADMIN_EMAIL,
+        subject: `Your gas prices are ${age} days old — quick refresh?`,
+        html,
+        text: `Your published gas prices were last updated ${age} days ago. They show on your homepage and feed the calculator. Update them in under a minute: https://www.fahmanenergy.com/admin (Gas prices tab).`,
+      });
+      if (!error) priceNudge = true;
+    }
+  } catch (err) {
+    console.error('[cron/gas-reminders] price nudge failed', err);
+  }
+
+  return res.status(200).json({ ok: true, due: due.length, sent, failed, priceNudge });
 }

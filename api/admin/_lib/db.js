@@ -81,6 +81,31 @@ export async function ensureSchema() {
     await sql`CREATE INDEX IF NOT EXISTS gas_alerts_due_idx
               ON gas_alerts (remind_on, status)`;
 
+    await sql`CREATE TABLE IF NOT EXISTS gas_prices (
+      item_key    TEXT        PRIMARY KEY,
+      label       TEXT        NOT NULL,
+      amount      NUMERIC     NOT NULL,
+      unit        TEXT        NOT NULL DEFAULT 'NGN',
+      sort_order  INTEGER     NOT NULL DEFAULT 0,
+      updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_by  TEXT
+    )`;
+
+    // First-run seed (mid-2026 Kwara retail estimates; admin-editable).
+    const seed = [
+      ['per_kg',   'Per kilogram',     1150,  '₦/kg',    1],
+      ['cyl_3',    '3 kg refill',      3500,  '₦',       2],
+      ['cyl_6',    '6 kg refill',      6900,  '₦',       3],
+      ['cyl_12_5', '12.5 kg refill',   14400, '₦',       4],
+      ['cyl_25',   '25 kg refill',     28500, '₦',       5],
+      ['cyl_50',   '50 kg refill',     56500, '₦',       6],
+    ];
+    for (const [k, label, amount, unit, sort] of seed) {
+      await sql`INSERT INTO gas_prices (item_key, label, amount, unit, sort_order)
+                VALUES (${k}, ${label}, ${amount}, ${unit}, ${sort})
+                ON CONFLICT (item_key) DO NOTHING`;
+    }
+
     return true;
   })().catch((err) => {
     // Reset so a future request retries the schema setup.
@@ -141,6 +166,47 @@ export async function deleteGasAlert(id) {
   const sql = getSql();
   const rows = await sql`DELETE FROM gas_alerts WHERE id = ${id} RETURNING id`;
   return rows[0] || null;
+}
+
+/* ---- Gas prices ---- */
+
+/** Return current price rows ordered for display, plus the latest update time. */
+export async function getGasPrices() {
+  await ensureSchema();
+  const sql = getSql();
+  const rows = await sql`
+    SELECT item_key, label, amount::float8 AS amount, unit, sort_order, updated_at
+    FROM gas_prices ORDER BY sort_order ASC`;
+  let updatedAt = null;
+  for (const r of rows) {
+    if (!updatedAt || new Date(r.updated_at) > new Date(updatedAt)) updatedAt = r.updated_at;
+  }
+  return { prices: rows, updatedAt };
+}
+
+/** Batch-update amounts. items = [{ item_key, amount }]. Returns count updated. */
+export async function saveGasPrices(items, user = null) {
+  await ensureSchema();
+  const sql = getSql();
+  let n = 0;
+  for (const it of items) {
+    const key = String(it.item_key || '');
+    const amount = Number(it.amount);
+    if (!key || !Number.isFinite(amount) || amount < 0) continue;
+    const r = await sql`
+      UPDATE gas_prices
+      SET amount = ${amount}, updated_at = NOW(), updated_by = ${user}
+      WHERE item_key = ${key} RETURNING item_key`;
+    if (r[0]) n++;
+  }
+  return n;
+}
+
+/** Days since the prices were last updated (or null if never). */
+export async function gasPriceAgeDays() {
+  const { updatedAt } = await getGasPrices();
+  if (!updatedAt) return null;
+  return Math.floor((Date.now() - new Date(updatedAt).getTime()) / 86400000);
 }
 
 /** Find active alerts whose remind_on date is today or earlier (and not yet reminded). */
