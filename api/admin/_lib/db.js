@@ -168,38 +168,50 @@ export async function deleteGasAlert(id) {
   return rows[0] || null;
 }
 
-/* ---- Gas prices ---- */
+/* ---- Gas prices ----
+   Single source of truth: the per-kg price. Cylinder refill prices are
+   derived automatically as per_kg × cylinder weight. The admin only edits
+   the per-kg rate. */
 
-/** Return current price rows ordered for display, plus the latest update time. */
-export async function getGasPrices() {
+export const GAS_CYLINDERS = [
+  { key: 'cyl_3',    kg: 3,    label: '3 kg refill' },
+  { key: 'cyl_6',    kg: 6,    label: '6 kg refill' },
+  { key: 'cyl_12_5', kg: 12.5, label: '12.5 kg refill' },
+  { key: 'cyl_25',   kg: 25,   label: '25 kg refill' },
+  { key: 'cyl_50',   kg: 50,   label: '50 kg refill' },
+];
+
+/** Read the stored per-kg price + when it was last updated. */
+export async function getPerKgPrice() {
   await ensureSchema();
   const sql = getSql();
-  const rows = await sql`
-    SELECT item_key, label, amount::float8 AS amount, unit, sort_order, updated_at
-    FROM gas_prices ORDER BY sort_order ASC`;
-  let updatedAt = null;
-  for (const r of rows) {
-    if (!updatedAt || new Date(r.updated_at) > new Date(updatedAt)) updatedAt = r.updated_at;
-  }
-  return { prices: rows, updatedAt };
+  const rows = await sql`SELECT amount::float8 AS amount, updated_at FROM gas_prices WHERE item_key = 'per_kg'`;
+  return { perKg: rows[0]?.amount ?? null, updatedAt: rows[0]?.updated_at ?? null };
 }
 
-/** Batch-update amounts. items = [{ item_key, amount }]. Returns count updated. */
-export async function saveGasPrices(items, user = null) {
+/** Return the full price list (per-kg + derived cylinders) for display. */
+export async function getGasPrices() {
+  const { perKg, updatedAt } = await getPerKgPrice();
+  const base = perKg ?? 1150;
+  const prices = [
+    { item_key: 'per_kg', label: 'Per kilogram', amount: base, unit: '₦/kg', sort_order: 1 },
+  ];
+  GAS_CYLINDERS.forEach((c, i) => {
+    prices.push({ item_key: c.key, label: c.label, amount: Math.round(base * c.kg), unit: '₦', sort_order: i + 2 });
+  });
+  return { prices, perKg: base, updatedAt };
+}
+
+/** Update only the per-kg price; cylinders derive from it automatically. */
+export async function setPerKgPrice(amount, user = null) {
   await ensureSchema();
   const sql = getSql();
-  let n = 0;
-  for (const it of items) {
-    const key = String(it.item_key || '');
-    const amount = Number(it.amount);
-    if (!key || !Number.isFinite(amount) || amount < 0) continue;
-    const r = await sql`
-      UPDATE gas_prices
-      SET amount = ${amount}, updated_at = NOW(), updated_by = ${user}
-      WHERE item_key = ${key} RETURNING item_key`;
-    if (r[0]) n++;
-  }
-  return n;
+  const a = Number(amount);
+  if (!Number.isFinite(a) || a < 0) throw new Error('Invalid per-kg amount');
+  const rows = await sql`
+    UPDATE gas_prices SET amount = ${a}, updated_at = NOW(), updated_by = ${user}
+    WHERE item_key = 'per_kg' RETURNING amount::float8 AS amount, updated_at`;
+  return rows[0] || null;
 }
 
 /** Days since the prices were last updated (or null if never). */

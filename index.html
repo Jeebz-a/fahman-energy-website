@@ -714,6 +714,47 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   </div>
 </section>
 
+<!-- PRICE TICKER (compact, right under the hero) -->
+<style>
+.price-ticker{background:linear-gradient(90deg,#0F4C3A,#0B3D2E);color:#fff;border-top:1px solid rgba(255,255,255,.06)}
+.price-ticker-inner{display:flex;align-items:center;gap:18px;padding:14px 0;flex-wrap:wrap}
+.price-ticker .pt-label{display:inline-flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mint-300);white-space:nowrap}
+.price-ticker .pt-label .dot{width:8px;height:8px;border-radius:50%;background:var(--mint-400);animation:ptpulse 2.4s ease-in-out infinite}
+@keyframes ptpulse{0%,100%{box-shadow:0 0 0 3px rgba(111,207,151,.28)}50%{box-shadow:0 0 0 6px rgba(111,207,151,.08)}}
+.price-ticker .pt-items{display:flex;align-items:center;gap:8px 22px;flex-wrap:wrap;flex:1;min-width:0}
+.price-ticker .pt-item{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap}
+.price-ticker .pt-item .k{font-size:.82rem;color:rgba(255,255,255,.6)}
+.price-ticker .pt-item .v{font-family:'Fraunces',serif;font-size:1.08rem;font-weight:500;color:#fff}
+.price-ticker .pt-item.feat .v{color:var(--mint-300)}
+.price-ticker .pt-asof{font-size:.74rem;color:rgba(255,255,255,.45);white-space:nowrap}
+.price-ticker a.pt-cta{font-size:.8rem;font-weight:600;color:var(--mint-300);white-space:nowrap;border-bottom:1px solid rgba(168,224,189,.4)}
+.price-ticker a.pt-cta:hover{color:#fff}
+@media(max-width:760px){.price-ticker .pt-items{gap:6px 16px}.price-ticker .pt-asof{display:none}}
+</style>
+<div class="price-ticker" aria-label="Today's cooking gas prices">
+  <div class="container price-ticker-inner">
+    <span class="pt-label"><span class="dot"></span> Gas price today</span>
+    <div class="pt-items" id="ptItems"><span class="pt-item"><span class="k">Loading…</span></span></div>
+    <span class="pt-asof" id="ptAsOf"></span>
+    <a href="gas-calculator.html" class="pt-cta">How long will mine last? →</a>
+  </div>
+</div>
+<script>
+(function(){
+  var items=document.getElementById('ptItems');var asof=document.getElementById('ptAsOf');
+  function fmt(n){return Math.round(n).toLocaleString('en-NG');}
+  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.ok||!j.prices||!j.prices.length){items.innerHTML='<span class="pt-item"><span class="k">Prices update shortly</span></span>';return;}
+    items.innerHTML=j.prices.map(function(p){
+      var feat=p.key==='per_kg';
+      var lab=p.label.replace(' refill','').replace('Per kilogram','Per kg');
+      return '<span class="pt-item'+(feat?' feat':'')+'"><span class="k">'+lab+'</span><span class="v">₦'+fmt(p.amount)+'</span></span>';
+    }).join('');
+    if(j.updatedAt){asof.textContent='as of '+new Date(j.updatedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+  }).catch(function(){items.innerHTML='<span class="pt-item"><span class="k">Couldn\'t load prices</span></span>';});
+})();
+</script>
+
 <!-- TRUST -->
 <section class="trust" style="padding:32px 0;">
   <div class="container trust-inner">
@@ -1094,69 +1135,6 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
     var pk=j.prices.find(function(p){return p.key==='per_kg';});
     if(pk&&pk.amount>0){P_LPG=pk.amount;calc();}
   }).catch(function(){});
-})();
-</script>
-
-<!-- TODAY'S GAS PRICES -->
-<style>
-.gprice-sec{background:#fff}
-.gprice-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
-.gprice-head .asof{font-size:.84rem;color:var(--ink-500);background:var(--mint-50);border:1px solid var(--mint-100);border-radius:999px;padding:6px 14px;display:inline-flex;align-items:center;gap:8px}
-.gprice-head .asof .dot{width:7px;height:7px;border-radius:50%;background:var(--mint-500);box-shadow:0 0 0 3px rgba(111,207,151,.25)}
-.gprice-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.gprice-card{background:var(--cream);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 16px;text-align:center;transition:var(--t)}
-.gprice-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:var(--mint-300)}
-.gprice-card.feat{background:linear-gradient(160deg,#0F4C3A,#0B3D2E);border-color:#0F4C3A}
-.gprice-card .lab{font-size:.8rem;color:var(--ink-500);margin-bottom:8px;font-weight:500}
-.gprice-card.feat .lab{color:var(--mint-300)}
-.gprice-card .amt{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;color:var(--ink-900);line-height:1}
-.gprice-card.feat .amt{color:#fff}
-.gprice-card .amt small{font-size:.7rem;color:var(--ink-500);font-family:'Inter',sans-serif;font-weight:500;display:block;margin-top:4px}
-.gprice-card.feat .amt small{color:var(--mint-300)}
-.gprice-note{font-size:.82rem;color:var(--ink-300);margin-top:16px}
-@media(max-width:880px){.gprice-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:520px){.gprice-grid{grid-template-columns:repeat(2,1fr)}}
-</style>
-<section class="gprice-sec">
-  <div class="container">
-    <div class="gprice-head reveal">
-      <div>
-        <span class="eyebrow">Price transparency</span>
-        <h2 style="margin-top:12px">Today's cooking gas prices</h2>
-        <p style="color:var(--ink-500);max-width:50ch;margin-top:8px">FahmanEnergy retail prices in Kwara State — so you always know what a refill should cost before you set out.</p>
-      </div>
-      <div class="asof" id="gpriceAsOf"><span class="dot"></span> Loading…</div>
-    </div>
-    <div class="gprice-grid reveal" id="gpriceGrid">
-      <div class="gprice-card"><div class="lab">Loading prices…</div><div class="amt">—</div></div>
-    </div>
-    <p class="gprice-note">Prices are FahmanEnergy retail rates and may vary with the market. For a bulk or branch quote, <a href="contact.html" style="color:var(--mint-700);font-weight:600">contact us</a>. Want to know how long a cylinder lasts you? <a href="gas-calculator.html" style="color:var(--mint-700);font-weight:600">Use the gas calculator</a>.</p>
-  </div>
-</section>
-<script>
-(function(){
-  var grid=document.getElementById('gpriceGrid');
-  var asof=document.getElementById('gpriceAsOf');
-  function fmt(n){return Math.round(n).toLocaleString('en-NG');}
-  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
-    if(!j||!j.ok||!j.prices||!j.prices.length){
-      grid.innerHTML='<div class="gprice-card" style="grid-column:1/-1"><div class="lab">Prices update shortly</div><div class="amt">—</div></div>';
-      asof.innerHTML='<span class="dot"></span> Updating';
-      return;
-    }
-    grid.innerHTML=j.prices.map(function(p){
-      var feat=p.key==='per_kg';
-      var unit=feat?'per kg':'per refill';
-      return '<div class="gprice-card'+(feat?' feat':'')+'"><div class="lab">'+p.label.replace(' refill','').replace('Per kilogram','Per kg')+'</div>'
-        +'<div class="amt">₦'+fmt(p.amount)+'<small>'+unit+'</small></div></div>';
-    }).join('');
-    if(j.updatedAt){
-      var d=new Date(j.updatedAt);
-      asof.innerHTML='<span class="dot"></span> As of '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-    } else { asof.innerHTML='<span class="dot"></span> Current rates'; }
-  }).catch(function(){
-    grid.innerHTML='<div class="gprice-card" style="grid-column:1/-1"><div class="lab">Couldn\'t load prices</div><div class="amt">—</div></div>';
-  });
 })();
 </script>
 

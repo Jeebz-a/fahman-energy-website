@@ -1160,67 +1160,78 @@ A few sentences here.
       <div class="section-head">
         <div>
           <h1>Today's gas prices</h1>
-          <div class="meta">These show live on the homepage "Today's gas prices" section and feed the gas calculator. Update them whenever your retail price changes.</div>
+          <div class="meta">Just set your price per kilogram — every cylinder size is calculated automatically and shown live on the homepage.</div>
         </div>
       </div>
-      <div class="alert is-info is-visible" id="priceMeta" style="margin-bottom:18px"></div>
-      <div class="pane card" style="padding:24px;max-width:560px">
-        <div id="priceFields"></div>
-        <div style="display:flex;align-items:center;gap:14px;margin-top:8px">
-          <button class="btn btn-primary" id="savePrices"><span class="btn-label">Save prices</span></button>
+      <div class="alert is-info is-visible" id="priceMeta" style="margin-bottom:18px">Loading…</div>
+      <div class="pane card" style="padding:24px;max-width:520px">
+        <div class="field" style="margin-bottom:6px">
+          <label for="perKg">Price per kilogram (₦/kg)</label>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:1.4rem;color:var(--ink-500)">₦</span>
+            <input id="perKg" type="number" min="0" step="1" inputmode="numeric" style="font-size:1.2rem;font-weight:600" />
+            <span style="color:var(--ink-500)">/kg</span>
+          </div>
+        </div>
+        <div style="font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-500);margin:22px 0 10px">Cylinder prices (auto-calculated)</div>
+        <div id="derived" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
+          <button class="btn btn-primary" id="savePrices"><span class="btn-label">Save price</span></button>
           <span class="status" id="priceStatus" style="font-size:.88rem;color:var(--ink-500)"></span>
         </div>
       </div>
     `;
     $('#content').appendChild(wrap);
 
-    const fields = $('#priceFields');
-    fields.innerHTML = `<div class="empty"><p>Loading prices…</p></div>`;
+    const CYL = [['3 kg',3],['6 kg',6],['12.5 kg',12.5],['25 kg',25],['50 kg',50]];
+    const input = $('#perKg');
+    const derived = $('#derived');
+
+    function renderDerived() {
+      const v = Number(input.value) || 0;
+      derived.innerHTML = CYL.map(([lab,kg]) => `
+        <div style="background:var(--cream);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline">
+          <span style="color:var(--ink-500);font-size:.86rem">${lab}</span>
+          <strong style="font-family:'Fraunces',serif;color:var(--mint-800)">₦${Math.round(v*kg).toLocaleString('en-GB')}</strong>
+        </div>`).join('');
+    }
+    input.addEventListener('input', renderDerived);
 
     try {
       const res = await fetch('/api/admin/gas-prices', { credentials:'same-origin', cache:'no-store' });
       if (res.status === 401) { location.replace('/admin/login'); return; }
       const json = await res.json();
       if (!json.ok) throw new Error(json.error || 'Failed to load');
-
-      const prices = json.prices || [];
+      input.value = Math.round(json.perKg || 0);
       $('#priceMeta').innerHTML = json.updatedAt
         ? `Last updated <strong>${new Date(json.updatedAt).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' })}</strong>.`
-        : 'Not set yet — enter your current prices below.';
-
-      fields.innerHTML = prices.map(p => `
-        <div class="field" style="margin-bottom:14px">
-          <label for="pr-${p.item_key}">${escapeHtml(p.label)} <span style="color:var(--ink-300);font-weight:400;text-transform:none;letter-spacing:0">(${escapeHtml(p.unit)})</span></label>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:1.1rem;color:var(--ink-500)">₦</span>
-            <input id="pr-${p.item_key}" data-key="${p.item_key}" type="number" min="0" step="1" value="${Math.round(p.amount)}" inputmode="numeric" />
-          </div>
-        </div>`).join('');
+        : 'Not set yet — enter your current price per kg below.';
+      renderDerived();
     } catch (err) {
-      fields.innerHTML = `<div class="empty"><h3>Couldn't load prices</h3><p>${escapeHtml(err.message)}</p></div>`;
+      $('#priceMeta').innerHTML = `<span style="color:var(--danger)">Couldn't load: ${escapeHtml(err.message)}</span>`;
     }
 
     $('#savePrices').addEventListener('click', async () => {
       const btn = $('#savePrices'); const lbl = btn.querySelector('.btn-label'); const st = $('#priceStatus');
-      const items = $$('#priceFields input[data-key]').map(i => ({ item_key: i.dataset.key, amount: Number(i.value) }));
-      const bad = items.find(i => !Number.isFinite(i.amount) || i.amount < 0);
-      if (bad) { st.style.color = 'var(--danger)'; st.textContent = 'Check the amounts — they must be valid numbers.'; return; }
+      const perKg = Number(input.value);
+      if (!Number.isFinite(perKg) || perKg <= 0) { st.style.color = 'var(--danger)'; st.textContent = 'Enter a valid price per kg.'; return; }
       btn.disabled = true; lbl.textContent = 'Saving…'; st.textContent = '';
       try {
         const res = await fetch('/api/admin/gas-prices', {
           method:'POST', credentials:'same-origin',
           headers:{ 'Content-Type':'application/json' },
-          body: JSON.stringify({ items }),
+          body: JSON.stringify({ perKg }),
         });
         const json = await res.json();
         if (!json.ok) throw new Error(json.error || 'Save failed');
         lbl.textContent = 'Saved ✓';
         st.style.color = 'var(--mint-700)';
-        st.textContent = `Updated ${json.updated} price${json.updated === 1 ? '' : 's'} — now live on the site.`;
+        st.textContent = 'Updated — now live on the homepage.';
         if (json.updatedAt) $('#priceMeta').innerHTML = `Last updated <strong>${new Date(json.updatedAt).toLocaleString('en-GB', { dateStyle:'medium', timeStyle:'short' })}</strong>.`;
-        setTimeout(() => { lbl.textContent = 'Save prices'; btn.disabled = false; }, 2500);
+        renderDerived();
+        setTimeout(() => { lbl.textContent = 'Save price'; btn.disabled = false; }, 2500);
       } catch (err) {
-        lbl.textContent = 'Save prices'; btn.disabled = false;
+        lbl.textContent = 'Save price'; btn.disabled = false;
         st.style.color = 'var(--danger)'; st.textContent = err.message;
       }
     });
