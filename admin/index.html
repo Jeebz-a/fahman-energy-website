@@ -161,7 +161,7 @@
   }
   function bindLogout() {
     $('#logoutBtn').addEventListener('click', async () => {
-      try { await fetch('/api/admin/logout', { method:'POST', credentials:'same-origin' }); } catch {}
+      try { await fetch('/api/admin/me', { method:'POST', credentials:'same-origin' }); } catch {}
       location.replace('/admin/login');
     });
   }

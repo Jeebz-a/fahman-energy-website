@@ -1089,7 +1089,7 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   calc();
 
   // Pull live per-kg price to keep the modal comparison current (graceful fallback).
-  fetch('/api/gas-price').then(function(r){return r.ok?r.json():null;}).then(function(j){
+  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j||!j.ok||!j.prices)return;
     var pk=j.prices.find(function(p){return p.key==='per_kg';});
     if(pk&&pk.amount>0){P_LPG=pk.amount;calc();}
@@ -1138,7 +1138,7 @@ a, p, span, li, address, h1, h2, h3, h4, h5, h6, .footer * { overflow-wrap: anyw
   var grid=document.getElementById('gpriceGrid');
   var asof=document.getElementById('gpriceAsOf');
   function fmt(n){return Math.round(n).toLocaleString('en-NG');}
-  fetch('/api/gas-price').then(function(r){return r.ok?r.json():null;}).then(function(j){
+  fetch('/api/gas').then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j||!j.ok||!j.prices||!j.prices.length){
       grid.innerHTML='<div class="gprice-card" style="grid-column:1/-1"><div class="lab">Prices update shortly</div><div class="amt">—</div></div>';
       asof.innerHTML='<span class="dot"></span> Updating';

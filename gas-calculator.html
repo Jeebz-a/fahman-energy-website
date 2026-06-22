@@ -871,7 +871,7 @@ html,body{overflow-x:hidden;max-width:100%}
       if(!email){ $('#alertEmail').focus(); return; }
       var r = last || compute();
       btn.disabled=true; lbl.textContent='Setting reminder…';
-      fetch('/api/gas-alert',{
+      fetch('/api/gas',{
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({
           name:name, email:email, website:hp,
@@ -905,7 +905,7 @@ html,body{overflow-x:hidden;max-width:100%}
   recalc();
 
   // Use FahmanEnergy's live per-kg retail price when available (graceful fallback to default).
-  fetch('/api/gas-price').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+  fetch('/api/gas').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
     if(!j || !j.ok || !j.prices) return;
     var pk = j.prices.find(function(p){ return p.key === 'per_kg'; });
     if(pk && pk.amount > 0){ PRICE_LPG = pk.amount; recalc(); }
