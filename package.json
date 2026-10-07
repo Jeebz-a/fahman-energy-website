@@ -5,7 +5,7 @@
   "type": "module",
   "description": "FahmanEnergy — solar-powered LPG plants for rural Nigeria. Static site + serverless contact form.",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
